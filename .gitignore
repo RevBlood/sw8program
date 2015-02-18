@@ -1,0 +1,43 @@
+#Ignore the build directory
+/sw8program/.idea
+*.iml
+
+# Built application files
+*.apk
+*.ap_
+
+# Generated files
+bin/
+gen/
+
+# Gradle files
+.gradle/
+build/
+/*/build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log Files
+*.log
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
