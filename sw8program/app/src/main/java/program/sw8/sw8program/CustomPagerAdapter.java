@@ -3,15 +3,19 @@ package program.sw8.sw8program;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 /**
  * Created by Johan 'Jizztærsker' on 16-02-2015.
  */
 public class CustomPagerAdapter extends FragmentStatePagerAdapter {
     private final int PageCount = 5;
+    private GridViewAdapter TabAdapter;
 
-    public CustomPagerAdapter(FragmentManager fragmentManager) {
+    public CustomPagerAdapter(FragmentManager fragmentManager, GridViewAdapter tabAdapter) {
         super(fragmentManager);
+        TabAdapter = tabAdapter;
     }
 
     @Override
@@ -29,5 +33,10 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount(){
         return PageCount;
+    }
+
+    public void choosePage(ViewPager pager, int position) {
+        TabAdapter.requestActive(position);
+        pager.setCurrentItem(position);
     }
 }

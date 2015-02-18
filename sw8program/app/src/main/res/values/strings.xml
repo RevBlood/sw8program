@@ -5,6 +5,9 @@
     <string name="hello_world">Fuck dig Johan</string>
     <string name="action_settings">Settings</string>
 
+    <string name="recommend_button">Find min mad!</string>
+    <string name="recommend_tip">Dårlige forslag? Skift dine præferencer</string>
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
