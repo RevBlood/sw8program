@@ -105,26 +105,83 @@ namespace whatsfordinner {
             }
         }
 
-        public int AddIngredient(Ingredient ingredientToInsert) {
-            string sql = "INSERT INTO whatsfordinner.ingredient(name, measure_type) VALUES (@name, @measure_type)";
-
-            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-            command.Parameters.AddWithValue("@name", ingredientToInsert.GetOrSetName);
-            command.Parameters.AddWithValue("@measure_type", ingredientToInsert.GetOrSetMeasurementType);
-
-            return NonQuery(command, "whatsfordinner.ingredient");
+        public List<Retailer> GetAllRetailers() {
+            string sql = String.Format("SELECT * FROM retailers");
+            DataRowCollection res = Query(sql);
+            List<Retailer> allRetailers = new List<Retailer>();
+            if (res.Count >= 1) {
+                foreach (DataRow datarow in res) {
+                    Retailer retailer = new Retailer(datarow);
+                    allRetailers.Add(retailer);
+                }
+                return allRetailers;
+            } else {
+                return allRetailers;
+            }
         }
 
         public int AddAccount(Account accountToInsert) {
-            string sql = "INSERT INTO whatsfordinner.account(name, password, email, creation_date) VALUES (@name, @password, @email, @creation_date)";
+            string sql = "INSERT INTO accounts(username, password, email, settings, preferences) VALUES (@username, @password, @email, @settings, @preferences)";
 
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-            command.Parameters.AddWithValue("@name", accountToInsert.GetOrSetUsername);
+            command.Parameters.AddWithValue("@username", accountToInsert.GetOrSetUsername);
             command.Parameters.AddWithValue("@password", accountToInsert.GetOrSetPassword);
             command.Parameters.AddWithValue("@email", accountToInsert.GetOrSetEmail);
+            command.Parameters.AddWithValue("@settings", accountToInsert.GetOrSetSettings);
+            command.Parameters.AddWithValue("@preferences", accountToInsert.GetOrSetPreferences);
 
-
-            return NonQuery(command, "whatsfordinner.account");
+            return NonQuery(command, "accounts");
         }
+
+        public int AddComment(Comment commentToInsert) {
+            string sql = "INSERT INTO comments(accountid, recipeid, text) VALUES (@accountid, @recipeid, @text)";
+
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@accountid", commentToInsert.GetOrSetAccountId);
+            command.Parameters.AddWithValue("@recipeid", commentToInsert.GetOrSetRecipeId);
+            command.Parameters.AddWithValue("@text", commentToInsert.GetOrSetText);
+
+            return NonQuery(command, "comments");
+        }
+
+        public int AddIngredient(Ingredient ingredientToInsert) {
+            string sql = "INSERT INTO ingredients(name, measurementtype, price, tags) VALUES (@name, @measurementtype, @price, @tags)";
+
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@name", ingredientToInsert.GetOrSetName);
+            command.Parameters.AddWithValue("@measurementtype", ingredientToInsert.GetOrSetMeasurementType);
+            command.Parameters.AddWithValue("@price", ingredientToInsert.GetOrSetPrice);
+            command.Parameters.AddWithValue("@tags", ingredientToInsert.GetOrSetTags);
+
+            return NonQuery(command, "ingredients");
+        }
+
+        public int AddRecipe(Recipe recipeToInsert) {
+            string sql = "INSERT INTO recipes(accountid, name, description, numberofservings, tags, rating) VALUES (@accountid, @name, @description, @numberofservings, @tags, @rating)";
+
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@accountid", recipeToInsert.GetOrSetAccountId);
+            command.Parameters.AddWithValue("@name", recipeToInsert.GetOrSetName);
+            command.Parameters.AddWithValue("@description", recipeToInsert.GetOrSetDescription);
+            command.Parameters.AddWithValue("@numberofservings", recipeToInsert.GetOrSetNumberOfServings);
+            command.Parameters.AddWithValue("@tags", recipeToInsert.GetOrSetTags);
+            command.Parameters.AddWithValue("@rating", recipeToInsert.GetOrSetRating);
+
+            return NonQuery(command, "recipes");
+        }
+
+        public int AddRetailer(Retailer retailerToInsert) {
+            string sql = "INSERT INTO retailers(latitude, longitude, companyname, description, openinghours) VALUES (@latitude, @longitude, @companyname, @description, @openinghours)";
+
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@latitude", retailerToInsert.GetOrSetLatitude);
+            command.Parameters.AddWithValue("@longitude", retailerToInsert.GetOrSetLongitude);
+            command.Parameters.AddWithValue("@companyname", retailerToInsert.GetOrSetCompanyName);
+            command.Parameters.AddWithValue("@description", retailerToInsert.GetOrSetDescription);
+            command.Parameters.AddWithValue("@openinghours", retailerToInsert.GetOrSetOpeningHours);
+
+            return NonQuery(command, "retailers");
+        }
+
     }
 }

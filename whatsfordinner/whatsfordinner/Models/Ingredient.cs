@@ -12,6 +12,7 @@ namespace whatsfordinner {
     [DataContract]
     class Ingredient {
         // Contains:
+        // Ingredient Id
         // Ingredient Name
         // Ingredient Measurementtype
         // Ingredient Price
@@ -21,18 +22,30 @@ namespace whatsfordinner {
         public Ingredient() { }
 
         public Ingredient(DataRow row) {
+            this.GetOrSetId = row.Field<int>("ingredientid");
             this.GetOrSetName = row.Field<string>("name");
             this.GetOrSetMeasurementType = row.Field<string>("measurementtype");
-            this.GetOrSetPrice = row.Field<double>("price");
+            this.GetOrSetPrice = row.Field<Decimal>("price");
             this.GetOrSetTags = row.Field<string>("tags");
         }
 
-        public Ingredient(string ingredientName, string ingredientMeasureType, double ingredientPrice, string ingredientTags) {
+        public Ingredient(string ingredientName, string ingredientMeasureType, decimal ingredientPrice, string ingredientTags) {
             this.GetOrSetMeasurementType = ingredientMeasureType;
             this.GetOrSetName = ingredientName;
             this.GetOrSetPrice = ingredientPrice;
             this.GetOrSetTags = ingredientTags;
         }
+
+        [DataMember(Name = "id")]
+        public int GetOrSetId {
+            get {
+                return _ingredientId;
+            }
+            set {
+                _ingredientId = value;
+            }
+        }
+        private int _ingredientId;
 
         [DataMember(Name = "name")] 
         public string GetOrSetName {
@@ -57,7 +70,7 @@ namespace whatsfordinner {
         private string _ingredientMeasurementType;
 
         [DataMember(Name = "price")]
-        public double GetOrSetPrice {
+        public decimal GetOrSetPrice {
             get {
                 return _ingredientPrice;
             }
@@ -65,7 +78,7 @@ namespace whatsfordinner {
                 _ingredientPrice = value;
             }
         }
-        private double _ingredientPrice;
+        private decimal _ingredientPrice;
 
         [DataMember(Name = "tags")]
         public string GetOrSetTags {

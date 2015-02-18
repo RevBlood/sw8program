@@ -14,23 +14,23 @@ namespace whatsfordinner {
 
         public static Comment GetTestComment() {
             DateTime dt = DateTime.Now;
-            Comment com = new Comment(dt, "noget med comment text");
+            Comment com = new Comment(1, 1, dt, "noget med comment text");
             return com;
         }
 
         public static Ingredient GetTestIngredient() {
-            Ingredient ing = new Ingredient("pasta", "gram", 5.95, "mel, gluten, billig, nem");
+            Ingredient ing = new Ingredient("pasta", "gram", 5.95m, "mel, gluten, billig, nem");
             return ing;
         }
 
         public static Recipe GetTestRecipe() {
             DateTime dt = DateTime.Now;
-            Recipe rec = new Recipe("hakkebøf", "steg en hakkebøf", dt, 4, "bøf, kød, kvalitet", 4.5);
+            Recipe rec = new Recipe(1, "hakkebøf", "steg en hakkebøf", dt, 4, "bøf, kød, kvalitet", 4.5m);
             return rec;
         }
 
         public static Retailer GetTestRetailer() {
-            Retailer ret = new Retailer("SuperBrugsen", "Description af superbrugsen");
+            Retailer ret = new Retailer("57.052648", "9.917516", "SuperBrugsen", "Description af superbrugsen", "noget med openinghours");
             return ret;
         }
 

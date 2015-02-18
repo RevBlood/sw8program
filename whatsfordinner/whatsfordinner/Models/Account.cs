@@ -11,6 +11,7 @@ namespace whatsfordinner {
     [DataContract]
     class Account {
         // Contains:
+        // Account Id
         // Account Username
         // Account Password
         // Account Email
@@ -22,6 +23,7 @@ namespace whatsfordinner {
         public Account() { }
 
         public Account(DataRow row) {
+            this.GetOrSetId = row.Field<int>("accountid");
             this.GetOrSetUsername = row.Field<string>("username");
             this.GetOrSetPassword = row.Field<string>("password");
             this.GetOrSetEmail = row.Field<string>("email");
@@ -38,6 +40,17 @@ namespace whatsfordinner {
             this.GetOrSetSettings = accountSettings;
             this.GetOrSetPreferences = accountPreferences;
         }
+
+        [DataMember(Name = "id")]
+        public int GetOrSetId {
+            get {
+                return _accountId;
+            }
+            set {
+                _accountId = value;
+            }
+        }
+        private int _accountId;
 
         [DataMember (Name = "username")]
         public string GetOrSetUsername {

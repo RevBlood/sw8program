@@ -14,7 +14,7 @@ namespace whatsfordinner {
         private NpgsqlConnection conn;
 
         private static string dbHost = "localhost";
-        private static string dbName = "whatsfordinner";
+        private static string dbName = "testDB";
         //		private static string dbName = "CornfieldDB";
         private static string dbUser = "casper";
         private static string dbPass = "1234";

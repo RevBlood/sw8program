@@ -18,14 +18,54 @@ namespace whatsfordinner {
         public Retailer() { }
 
         public Retailer(DataRow row) {
+            this.GetOrSetId = row.Field<int>("retailerid");
+            this.GetOrSetLatitude = row.Field<string>("latitude");
+            this.GetOrSetLongitude = row.Field<string>("longitude");
             this.GetOrSetCompanyName = row.Field<string>("companyname");
             this.GetOrSetDescription = row.Field<string>("description");
+            this.GetOrSetOpeningHours = row.Field<string>("openinghours");
         }
 
-        public Retailer(string retailerCompanyName, string retailerDescription) {
+        public Retailer(string retailerLatitude, string retailerLongitude, string retailerCompanyName, string retailerDescription, string retailerOpeningHours) {
+            this.GetOrSetLatitude = retailerLatitude;
+            this.GetOrSetLongitude = retailerLongitude;
             this.GetOrSetCompanyName = retailerCompanyName;
             this.GetOrSetDescription = retailerDescription;
+            this.GetOrSetOpeningHours = retailerOpeningHours;
         }
+
+        [DataMember(Name = "id")]
+        public int GetOrSetId {
+            get {
+                return _retailerId;
+            }
+            set {
+                _retailerId = value;
+            }
+        }
+        private int _retailerId;
+
+        [DataMember(Name = "latitude")]
+        public string GetOrSetLatitude {
+            get {
+                return _retailerLatitude;
+            }
+            set {
+                _retailerLatitude = value;
+            }
+        }
+        private string _retailerLatitude;
+
+        [DataMember(Name = "longitude")]
+        public string GetOrSetLongitude {
+            get {
+                return _retailerLongitude;
+            }
+            set {
+                _retailerLongitude = value;
+            }
+        }
+        private string _retailerLongitude;
 
         [DataMember(Name = "companyname")]
         public string GetOrSetCompanyName {
@@ -49,9 +89,23 @@ namespace whatsfordinner {
         }
         private string _retailerDescription;
 
+        [DataMember(Name = "openinghours")]
+        public string GetOrSetOpeningHours {
+            get {
+                return _retailerOpeningHours;
+            }
+            set {
+                _retailerOpeningHours = value;
+            }
+        }
+        private string _retailerOpeningHours;
+
         public override string ToString() {
-            return this.GetOrSetCompanyName
-            + " " + this.GetOrSetDescription;
+            return this.GetOrSetLatitude
+            + " " + this.GetOrSetLongitude
+            + " " + this.GetOrSetCompanyName
+            + " " + this.GetOrSetDescription
+            + " " + this.GetOrSetOpeningHours;
         }
     }
 }
