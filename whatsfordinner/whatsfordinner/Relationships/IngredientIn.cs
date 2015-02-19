@@ -19,9 +19,9 @@ namespace whatsfordinner {
         public IngredientIn() { }
 
         public IngredientIn(DataRow row) {
-            this.GetOrSetRecipeId = row.Field<int>("ingredientid");
+            this.GetOrSetIngredientId = row.Field<int>("ingredientid");
             this.GetOrSetRecipeId = row.Field<int>("recipeid");
-            this.GetOrSetRecipeId = row.Field<int>("amount");
+            this.GetOrSetAmount = row.Field<int>("amount");
         }
 
         public IngredientIn(int ingredientInIngredientId, int ingredientInRecipeId, int ingredientInAmount) {

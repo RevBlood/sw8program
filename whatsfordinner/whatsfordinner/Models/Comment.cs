@@ -91,7 +91,8 @@ namespace whatsfordinner {
         private string _commentText;
 
         public override string ToString() {
-            return this.GetOrSetAccountId
+            return this.GetOrSetId
+            + " " + this.GetOrSetAccountId
             + " " + this.GetOrSetRecipeId
             + " " + this.GetOrSetCreationDate.ToString("dd/MM/yyyy HH:mm")
             + " " + this.GetOrSetText;

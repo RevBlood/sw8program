@@ -34,5 +34,34 @@ namespace whatsfordinner {
             return ret;
         }
 
+        public static Favorises GetTestFavorises() {
+            Favorises fav = new Favorises(1, 1);
+            return fav;
+        }
+
+        public static HasEaten GetTestHasEaten() {
+            DateTime dt = DateTime.Now;  
+            HasEaten has = new HasEaten(1, 1, dt, 4.5m);
+            return has;
+        }
+
+        public static IngredientIn GetTestIngredientIn() {
+            IngredientIn ing = new IngredientIn(1, 1, 300);
+            return ing;
+        }
+
+        public static Offers GetTestOffers() {
+            DateTime dt = DateTime.Now;
+            DateTime dt2 = dt.AddDays(3);
+            Offers off = new Offers(1, 1, dt, dt2, 20, 10, 10, 0.5m, 0.5m);
+            return off;
+        }
+
+        public static Pictures GetTestPictures() {
+            DateTime dt = DateTime.Now;
+            Pictures pic = new Pictures(1, 1, "sti til picture", dt);
+            return pic;
+        }
+
     }
 }

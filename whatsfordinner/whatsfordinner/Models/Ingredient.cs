@@ -25,7 +25,7 @@ namespace whatsfordinner {
             this.GetOrSetId = row.Field<int>("ingredientid");
             this.GetOrSetName = row.Field<string>("name");
             this.GetOrSetMeasurementType = row.Field<string>("measurementtype");
-            this.GetOrSetPrice = row.Field<Decimal>("price");
+            this.GetOrSetPrice = row.Field<decimal>("price");
             this.GetOrSetTags = row.Field<string>("tags");
         }
 

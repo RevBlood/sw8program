@@ -13,7 +13,6 @@ namespace whatsfordinner {
 
         private static string dbHost = "localhost";
         private static string dbName = "testDB";
-        //		private static string dbName = "CornfieldDB";
         private static string dbUser = "casper";
         private static string dbPass = "1234";
 
@@ -46,7 +45,9 @@ namespace whatsfordinner {
                 return affectedRows;
             }
         }
-
+        //
+        // GetAll of the Entities
+        //
         public List<Account> GetAllAccounts() {
             string sql = String.Format("SELECT * FROM accounts");
             DataRowCollection res = Query(sql);
@@ -119,7 +120,86 @@ namespace whatsfordinner {
                 return allRetailers;
             }
         }
+        //
+        // Get all of the Relationships
+        //
+        public List<Favorises> GetAllFavorises() {
+            string sql = String.Format("SELECT * FROM favorises");
+            DataRowCollection res = Query(sql);
+            List<Favorises> allFavorises = new List<Favorises>();
+            if (res.Count >= 1) {
+                foreach (DataRow datarow in res) {
+                    Favorises favorises = new Favorises(datarow);
+                    allFavorises.Add(favorises);
+                }
+                return allFavorises;
+            } else {
+                return allFavorises;
+            }
+        }
 
+        public List<HasEaten> GetAllHasEaten() {
+            string sql = String.Format("SELECT * FROM haseaten");
+            DataRowCollection res = Query(sql);
+            List<HasEaten> allHasEaten = new List<HasEaten>();
+            if (res.Count >= 1) {
+                foreach (DataRow datarow in res) {
+                    HasEaten hasEaten = new HasEaten(datarow);
+                    allHasEaten.Add(hasEaten);
+                }
+                return allHasEaten;
+            } else {
+                return allHasEaten;
+            }
+        }
+
+        public List<IngredientIn> GetAllIngredientIn() {
+            string sql = String.Format("SELECT * FROM ingredientin");
+            DataRowCollection res = Query(sql);
+            List<IngredientIn> allIngredientIn = new List<IngredientIn>();
+            if (res.Count >= 1) {
+                foreach (DataRow datarow in res) {
+                    IngredientIn ingredientIn = new IngredientIn(datarow);
+                    allIngredientIn.Add(ingredientIn);
+                }
+                return allIngredientIn;
+            } else {
+                return allIngredientIn;
+            }
+        }
+
+        public List<Offers> GetAllOffers() {
+            string sql = String.Format("SELECT * FROM offers");
+            DataRowCollection res = Query(sql);
+            List<Offers> allOffers = new List<Offers>();
+            if (res.Count >= 1) {
+                foreach (DataRow datarow in res) {
+                    Offers offers = new Offers(datarow);
+                    allOffers.Add(offers);
+                }
+                return allOffers;
+            } else {
+                return allOffers;
+            }
+        }
+
+        public List<Pictures> GetAllPictures() {
+            string sql = String.Format("SELECT * FROM pictures");
+            DataRowCollection res = Query(sql);
+            List<Pictures> allPictures = new List<Pictures>();
+            if (res.Count >= 1) {
+                foreach (DataRow datarow in res) {
+                    Pictures pictures = new Pictures(datarow);
+                    allPictures.Add(pictures);
+                }
+                return allPictures;
+            } else {
+                return allPictures;
+            }
+        }
+        //
+        // All Entities methods for adding a single instance to the DB
+        //
         public int AddAccount(Account accountToInsert) {
             string sql = "INSERT INTO accounts(username, password, email, settings, preferences) VALUES (@username, @password, @email, @settings, @preferences)";
 
@@ -181,6 +261,71 @@ namespace whatsfordinner {
             command.Parameters.AddWithValue("@openinghours", retailerToInsert.GetOrSetOpeningHours);
 
             return NonQuery(command, "retailers");
+        }
+        //
+        // All Entities methods for adding a single instance to the DB
+        //
+        public int AddFavorises(Favorises favorisesToInsert) {
+            string sql = "INSERT INTO favorises(accountid, recipeid) VALUES (@accountid, @recipeid)";
+
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@accountid", favorisesToInsert.GetOrSetAccountId);
+            command.Parameters.AddWithValue("@recipeid", favorisesToInsert.GetOrSetRecipeId);
+
+            return NonQuery(command, "favorises");
+        }
+
+        public int AddHasEaten(HasEaten hasEatenToInsert) {
+            string sql = "INSERT INTO haseaten(accountid, recipeid, eatenat, rating) VALUES (@accountid, @recipeid, @eatenat, @rating)";
+
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@accountid", hasEatenToInsert.GetOrSetAccountId);
+            command.Parameters.AddWithValue("@recipeid", hasEatenToInsert.GetOrSetRecipeId);
+            command.Parameters.AddWithValue("@eatenat", hasEatenToInsert.GetOrSetEatenAt);
+            command.Parameters.AddWithValue("@rating", hasEatenToInsert.GetOrSetRating);
+
+            return NonQuery(command, "haseaten");
+        }
+
+        public int AddIngredientIn(IngredientIn ingredientInToInsert) {
+            string sql = "INSERT INTO ingredientin(ingredientid, recipeid, amount) VALUES (@ingredientid, @recipeid, @amount)";
+
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@ingredientid", ingredientInToInsert.GetOrSetIngredientId);
+            command.Parameters.AddWithValue("@recipeid", ingredientInToInsert.GetOrSetRecipeId);
+            command.Parameters.AddWithValue("@amount", ingredientInToInsert.GetOrSetAmount);
+
+            return NonQuery(command, "ingredientin");
+        }
+
+        public int AddOffers(Offers offersToInsert) {
+            string sql = "INSERT INTO offers(retailerid, ingredientid, offerfrom, offerto, normalprice, onsaleprice, krsaving, percentagesavingretailer, percentagesavinggeneral) "
+                            + "VALUES (@retailerid, @ingredientid, @offerfrom, @offerto, @normalprice, @onsaleprice, @krsaving, @percentagesavingretailer, @percentagesavinggeneral)";
+
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@retailerid", offersToInsert.GetOrSetRetailerId);
+            command.Parameters.AddWithValue("@ingredientid", offersToInsert.GetOrSetIngredientId);
+            command.Parameters.AddWithValue("@offerfrom", offersToInsert.GetOrSetOfferFrom);
+            command.Parameters.AddWithValue("@offerto", offersToInsert.GetOrSetOfferTo);
+            command.Parameters.AddWithValue("@normalprice", offersToInsert.GetOrSetNormalPrice);
+            command.Parameters.AddWithValue("@onsaleprice", offersToInsert.GetOrSetOnSalePrice);
+            command.Parameters.AddWithValue("@krsaving", offersToInsert.GetOrSetKrSaving);
+            command.Parameters.AddWithValue("@percentagesavingretailer", offersToInsert.GetOrSetPercentageSavingRetailer);
+            command.Parameters.AddWithValue("@percentagesavinggeneral", offersToInsert.GetOrSetPercentageSavingGeneral);
+
+            return NonQuery(command, "offers");
+        }
+
+        public int AddPictures(Pictures picturesToInsert) {
+            string sql = "INSERT INTO pictures(accountid, recipeid, picturepath, creationdate) VALUES (@accountid, @recipeid, @picturepath, @creationdate)";
+
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            command.Parameters.AddWithValue("@accountid", picturesToInsert.GetOrSetAccountId);
+            command.Parameters.AddWithValue("@recipeid", picturesToInsert.GetOrSetRecipeId);
+            command.Parameters.AddWithValue("@picturepath", picturesToInsert.GetOrSetPicturePath);
+            command.Parameters.AddWithValue("@creationdate", picturesToInsert.GetOrSetCreationDate);
+
+            return NonQuery(command, "pictures");
         }
 
     }

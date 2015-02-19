@@ -6,49 +6,9 @@ using Microsoft.Win32.SafeHandles;
 using System.Configuration;
 
 
-
 namespace whatsfordinner {
-    class DBDebug {
-        private DataSet ds = new DataSet();
-        private DataTable dt = new DataTable();
-        private NpgsqlConnection conn;
-
-        private static string dbHost = "localhost";
-        private static string dbName = "testDB";
-        //		private static string dbName = "CornfieldDB";
-        private static string dbUser = "casper";
-        private static string dbPass = "1234";
-
-        public DBDebug() {
-            string connstring = String.Format(
-                "Server={0};User Id={1};Password={2};Database={3};",
-                dbHost, dbUser, dbPass, dbName);
-            conn = new NpgsqlConnection(connstring);
-            conn.Open();
-        }
-
-        public void Close() {
-            conn.Close();
-        }
-
-        private DataRowCollection Query(string sql) {
-            NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
-            ds.Reset();
-            da.Fill(ds);
-            dt = ds.Tables[0];
-
-            return dt.Rows;
-        }
-
-        private int NonQuery(NpgsqlCommand command, string table) {
-            int affectedRows = command.ExecuteNonQuery();
-            if (affectedRows == 0) {
-                return -1;
-            } else {
-                return affectedRows;
-            }
-        }
-
+        static class DBDebug {
+        /*
         public int AddIngredient() {
             string sql = "INSERT INTO whatsfordinner.ingredient(name, measure_type) VALUES (@name, @measure_type)";
 
@@ -83,6 +43,53 @@ namespace whatsfordinner {
             command.Parameters.AddWithValue("@preferences", "noget med preferences");
 
             return NonQuery(command, "accounts");
+        }
+        */
+        public static void dbMassEntityInsert() {
+            DBController dbc = new DBController();
+
+            dbc.AddAccount(ModelDebug.GetTestAccount());
+            dbc.AddIngredient(ModelDebug.GetTestIngredient());
+            dbc.AddRetailer(ModelDebug.GetTestRetailer());
+            dbc.AddRecipe(ModelDebug.GetTestRecipe());
+            dbc.AddComment(ModelDebug.GetTestComment());
+
+            dbc.Close();
+        }
+
+        public static void dbMassInsert() {
+            DBController dbc = new DBController();
+
+            dbc.AddAccount(ModelDebug.GetTestAccount());
+            dbc.AddIngredient(ModelDebug.GetTestIngredient());
+            dbc.AddRetailer(ModelDebug.GetTestRetailer());
+            dbc.AddRecipe(ModelDebug.GetTestRecipe());
+            dbc.AddComment(ModelDebug.GetTestComment());
+
+            dbc.AddFavorises(ModelDebug.GetTestFavorises());
+            dbc.AddHasEaten(ModelDebug.GetTestHasEaten());
+            dbc.AddIngredientIn(ModelDebug.GetTestIngredientIn());
+            dbc.AddOffers(ModelDebug.GetTestOffers());
+            dbc.AddPictures(ModelDebug.GetTestPictures());
+
+            dbc.Close();
+
+        }
+
+        public static void dbCountAllTables() {
+            DBController dbc = new DBController();
+            Console.WriteLine("Accounts: " + dbc.GetAllAccounts().Count);
+            Console.WriteLine("Comments: " + dbc.GetAllComments().Count);
+            Console.WriteLine("Ingredients: " + dbc.GetAllIngredients().Count);
+            Console.WriteLine("Recipes: " + dbc.GetAllRecipes().Count);
+            Console.WriteLine("Retailers: " + dbc.GetAllRetailers().Count);
+
+            Console.WriteLine("Favorises: " + dbc.GetAllFavorises().Count);
+            Console.WriteLine("HasEaten: " + dbc.GetAllHasEaten().Count);
+            Console.WriteLine("IngredientIn: " + dbc.GetAllIngredientIn().Count);
+            Console.WriteLine("Offers: " + dbc.GetAllOffers().Count);
+            Console.WriteLine("Pictures: " + dbc.GetAllPictures().Count);
+            dbc.Close();
         }
     }
 }
