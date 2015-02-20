@@ -8,4 +8,11 @@
         android:layout_height="wrap_content"
         android:text="favourites" />
 
+    <ListView
+        android:id="@+id/list_favourites"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        </ListView>
+
 </LinearLayout>

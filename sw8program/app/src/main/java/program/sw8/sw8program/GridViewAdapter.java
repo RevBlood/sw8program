@@ -16,8 +16,10 @@ import android.widget.ImageView;
  */
 public class GridViewAdapter extends BaseAdapter {
     private Context PagerActivityContext;
+
+    //Variable used when the highlight should change
     private Boolean RequestActive = false;
-    private int PreviousActivePosition = 2;
+    private int PreviousActivePosition = 2; //GET THIS FROM MAINACTIVITY
     private final int[] TabImages = {R.drawable.profile,
                                      R.drawable.favourites,
                                      R.drawable.recommend,
@@ -45,9 +47,11 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
+        //Find the drawable to show from TabImages based on position given from getView.
         Resources r = PagerActivityContext.getResources();
         Drawable d = r.getDrawable(TabImages[position]);
 
+        //If the tab has been requested as active, add highlighting and remove it from the previous highighted view.
         if (RequestActive) {
             RequestActive = false;
 
@@ -58,15 +62,18 @@ public class GridViewAdapter extends BaseAdapter {
             d.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_ATOP);
         }
 
+        //If the view is not an existing one, initialize it
         if (view == null) {
             view = new ImageView(PagerActivityContext);
             view.setLayoutParams(new GridView.LayoutParams(100, 100));
         }
 
+        //Set the image for the view, with or without highlighting.
         view.setBackground(d);
         return view;
     }
 
+    //Used to request a tab as highlighted before running getView on a position (tab)
     public void requestActive(int position){
         RequestActive = true;
         getView(position, null, null);

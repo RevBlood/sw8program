@@ -11,6 +11,7 @@ import android.util.Log;
  */
 public class CustomPagerAdapter extends FragmentStatePagerAdapter {
     private final int PageCount = 5;
+
     private GridViewAdapter TabAdapter;
 
     public CustomPagerAdapter(FragmentManager fragmentManager, GridViewAdapter tabAdapter) {
@@ -19,6 +20,7 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
+    //Returns the needed fragment. 0->4 is the pages left->right
     public Fragment getItem(int position) {
         switch (position) {
             case 0: return new UserFragment();
@@ -35,8 +37,9 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
         return PageCount;
     }
 
-    public void choosePage(ViewPager pager, int position) {
-        TabAdapter.requestActive(position);
+    //Changes current page and requests the GridViewAdapter to update highlights. Called when tabs are used rather than touch gestures
+    public void changePage(ViewPager pager, int position) {
         pager.setCurrentItem(position);
+        TabAdapter.requestActive(position);
     }
 }

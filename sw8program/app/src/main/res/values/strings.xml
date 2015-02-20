@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Android generated -->
     <string name="app_name">sw8program</string>
     <string name="hello_world">Fuck dig Johan</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Recommend fragment -->
     <string name="recommend_button">Find min mad!</string>
     <string name="recommend_tip">Dårlige forslag? Skift dine præferencer</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <!-- Other -->
+    <string name="loading">Øjeblik...</string>
 </resources>
