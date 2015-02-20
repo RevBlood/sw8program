@@ -11,7 +11,6 @@ import android.util.Log;
  */
 public class CustomPagerAdapter extends FragmentStatePagerAdapter {
     private final int PageCount = 5;
-
     private GridViewAdapter TabAdapter;
 
     public CustomPagerAdapter(FragmentManager fragmentManager, GridViewAdapter tabAdapter) {

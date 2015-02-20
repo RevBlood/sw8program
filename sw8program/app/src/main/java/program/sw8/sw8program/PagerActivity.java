@@ -62,4 +62,9 @@ public class PagerActivity extends FragmentActivity {
 
         }
     };
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 }

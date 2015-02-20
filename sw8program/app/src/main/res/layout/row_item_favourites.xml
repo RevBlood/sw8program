@@ -3,13 +3,6 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="50dp">
 
-    <ImageView
-        android:id="@+id/row_item_image"
-        android:layout_width="50dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/ic_launcher"/>
-
     <ImageButton
         android:id="@+id/row_item_toggle_favourite"
         android:layout_width="40dp"
@@ -18,16 +11,30 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/favourites"/>
 
-    <TextView
-        android:id="@+id/row_item_name"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/row_recipe_layout"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/loading"
-        android:textSize="25dp"
-        android:gravity="left|bottom"
-        android:layout_toRightOf="@id/row_item_image"
-        android:layout_toLeftOf="@id/row_item_toggle_favourite"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:singleLine="true"/>
+        android:layout_toLeftOf="@id/row_item_toggle_favourite">
+
+        <ImageView
+            android:id="@+id/row_item_image"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/row_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/loading"
+            android:textSize="25dp"
+            android:gravity="left|bottom"
+            android:layout_toRightOf="@id/row_item_image"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:singleLine="true"/>
+
+    </RelativeLayout>
 </RelativeLayout>

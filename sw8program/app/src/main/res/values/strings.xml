@@ -10,6 +10,9 @@
     <string name="recommend_button">Find min mad!</string>
     <string name="recommend_tip">Dårlige forslag? Skift dine præferencer</string>
 
+    <!-- Favourites context menu -->
+    <string name="favourite_remove">Fjern favorit</string>
+
     <!-- Other -->
     <string name="loading">Øjeblik...</string>
 </resources>
