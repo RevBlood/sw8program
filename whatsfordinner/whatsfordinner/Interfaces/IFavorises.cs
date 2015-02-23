@@ -7,16 +7,14 @@ using System.ServiceModel;
 
 namespace whatsfordinner {
     [ServiceContract]
-    public interface IComment {
+    public interface IFavorises {
         [OperationContract]
-        void AddComment(Comment com);
+        void AddFavorises(Favorises fav);
         [OperationContract]
-        Comment GetCommentById(int comId);
+        List<Favorises> GetFavorisesByAccountId(int accountId);
         [OperationContract]
-        List<Comment> GetCommentsByRecipeId(int recipeId);
+        List<Favorises> GetFavorisesByRecipeId(int recipeId);
         [OperationContract]
-        List<Comment> GetAllComments();
-        [OperationContract]
-        void DeleteComById(int comId);
+        void DeleteFavByAccountIdAndRecipeId(int accountId, int recipeId);
     }
 }

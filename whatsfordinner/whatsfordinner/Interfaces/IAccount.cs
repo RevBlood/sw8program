@@ -11,9 +11,11 @@ namespace whatsfordinner {
         [OperationContract]
         void AddAccount(Account acc);
         [OperationContract]
+        Account GetAccountById(int accId);
+        [OperationContract]
         Account GetAccountByUsername(string username);
         [OperationContract]
-        void GetAllAccounts();
+        List<Account> GetAllAccounts();
         [OperationContract]
         void DeleteAccById(int accId);
     }

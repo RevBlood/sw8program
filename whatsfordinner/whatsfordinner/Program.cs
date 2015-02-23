@@ -10,9 +10,23 @@ using System.ServiceModel.Description;
 namespace whatsfordinner {
     public class Program {
         static void Main(string[] args) {
+            DBController dbc = new DBController();
+            /*
+            Account testAcc = ModelDebug.GetTestAccount();
+            testAcc.GetOrSetUsername = "Peter";
+            dbc.AddAccount(testAcc);
+
+
+            List<Account> allAccs = dbc.GetAllAccounts();
+            foreach (Account acc in allAccs) {
+                Console.WriteLine(acc.ToString());
+            }
+            */
+
+            //dbc.DeleteAccountById(3);
+            dbc.Close();
             Console.WriteLine("Starting Service...");
             startRestService();
-            Console.WriteLine("Service Started...");
             Console.WriteLine("Program Ended");
             Console.ReadLine();
         }
@@ -23,8 +37,10 @@ namespace whatsfordinner {
                 new Uri("http://localhost:8000/RestService")
                 );
             host.AddServiceEndpoint(typeof(IAccount), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Account"));
-            //host.AddServiceEndpoint(typeof(IEmployee), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Employee"));
-
+            host.AddServiceEndpoint(typeof(IComment), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Comment"));
+            host.AddServiceEndpoint(typeof(IIngredient), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Ingredient"));
+            host.AddServiceEndpoint(typeof(IRecipe), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Recipe"));
+            host.AddServiceEndpoint(typeof(IRetailer), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Retailer"));
             host.Open();
 
 

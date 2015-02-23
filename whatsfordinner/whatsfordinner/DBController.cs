@@ -328,6 +328,187 @@ namespace whatsfordinner {
 
             return NonQuery(command, "pictures");
         }
+        //
+        // All Entities GetById
+        //
+        public Account GetAccountById(int accountId) {
+            string sql = String.Format("SELECT * FROM accounts WHERE accountid = '{0}'", accountId);
+            DataRowCollection res = Query(sql);
+            if (res.Count == 1) {
+                return new Account(res[0]);
+            } else {
+                return new Account();
+            }
+        }
+
+        public Comment GetCommentById(int commentId) {
+            string sql = String.Format("SELECT * FROM comments WHERE commentid = '{0}'", commentId);
+            DataRowCollection res = Query(sql);
+            if (res.Count == 1) {
+                return new Comment(res[0]);
+            } else {
+                return new Comment();
+            }
+        }
+
+        public Ingredient GetIngredientById(int ingredientId) {
+            string sql = String.Format("SELECT * FROM ingredients WHERE ingredientid = '{0}'", ingredientId);
+            DataRowCollection res = Query(sql);
+            if (res.Count == 1) {
+                return new Ingredient(res[0]);
+            } else {
+                return new Ingredient();
+            }
+        }
+
+        public Recipe GetRecipeById(int recipeId) {
+            string sql = String.Format("SELECT * FROM recipes WHERE recipeid = '{0}'", recipeId);
+            DataRowCollection res = Query(sql);
+            if (res.Count == 1) {
+                return new Recipe(res[0]);
+            } else {
+                return new Recipe();
+            }
+        }
+
+        public Retailer GetRetailerById(int retailerId) {
+            string sql = String.Format("SELECT * FROM retailers WHERE retailerid = '{0}'", retailerId);
+            DataRowCollection res = Query(sql);
+            if (res.Count == 1) {
+                return new Retailer(res[0]);
+            } else {
+                return new Retailer();
+            }
+        }
+
+        //
+        // Relationship queries, get by ids
+        //
+
+        public List<Favorises> GetFavorisesByAccountId(int accountId) {
+            string sql = String.Format("SELECT * FROM favorises WHERE accountid = '{0}'", accountId);
+            DataRowCollection res = Query(sql);
+            List<Favorises> allFavorisesFromAccountId = new List<Favorises>();
+            if (res.Count >= 1) {
+                foreach (DataRow favorises in res) {
+                    allFavorisesFromAccountId.Add(new Favorises(favorises));
+                }
+                return allFavorisesFromAccountId;
+            } else {
+                return allFavorisesFromAccountId;
+            }
+        }
+
+        public List<Favorises> GetFavorisesByRecipeId(int recipeId) {
+            string sql = String.Format("SELECT * FROM favorises WHERE recipeid = '{0}'", recipeId);
+            DataRowCollection res = Query(sql);
+            List<Favorises> allFavorisesFromRecipeId = new List<Favorises>();
+            if (res.Count >= 1) {
+                foreach (DataRow favorises in res) {
+                    allFavorisesFromRecipeId.Add(new Favorises(favorises));
+                }
+                return allFavorisesFromRecipeId;
+            } else {
+                return allFavorisesFromRecipeId;
+            }
+        }
+
+        //
+        // Delete entities by id
+        //
+
+        public void DeleteAccountById(int accountId) {
+            string sql = String.Format("DELETE FROM accounts WHERE accountid = '{0}'", accountId);
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            NonQuery(command, "accounts");
+        }
+
+        public void DeleteCommentById(int commentId) {
+            string sql = String.Format("DELETE FROM comments WHERE commentid = '{0}'", commentId);
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            NonQuery(command, "comments");
+        }
+
+        public void DeleteIngredientById(int ingredientId) {
+            string sql = String.Format("DELETE FROM ingredients WHERE ingredientid = '{0}'", ingredientId);
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            NonQuery(command, "ingredients");
+        }
+
+        public void DeleteRecipeById(int recipeId) {
+            string sql = String.Format("DELETE FROM recipes WHERE recipeid = '{0}'", recipeId);
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            NonQuery(command, "recipes");
+        }
+
+        public void DeleteRetailerById(int retailerId) {
+            string sql = String.Format("DELETE FROM retailers WHERE retailerid = '{0}'", retailerId);
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            NonQuery(command, "retailers");
+        }
+
+        //
+        // Delete relationships from ids
+        //
+
+        public void DeleteFavorisesByAccountIdAndRecipeId(int accountId, int recipeId) {
+            string sql = String.Format("DELETE FROM favorises WHERE accountid = '{0}' AND recipeid = '{1}'", accountId, recipeId);
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            NonQuery(command, "favorises");
+        }
+
+
+        //
+        // Special queries / entity specific queries
+        //
+
+        public Account GetAccountByUsername(string accountUsername) {
+            string sql = String.Format("SELECT * FROM accounts WHERE username = '{0}'", accountUsername);
+            DataRowCollection res = Query(sql);
+            if (res.Count == 1) {
+                return new Account(res[0]);
+            } else {
+                return new Account();
+            }
+        }
+
+        public List<Comment> GetCommentsByRecipeId(int recipeId) {
+            string sql = String.Format("SELECT * FROM comments WHERE recipeid = '{0}'", recipeId);
+            DataRowCollection res = Query(sql);
+            List<Comment> allCommentsFromRecipeId = new List<Comment>();
+            if (res.Count >= 1) {
+                foreach (DataRow comment in res) {
+                    allCommentsFromRecipeId.Add(new Comment(comment));
+                }
+                return allCommentsFromRecipeId;
+            } else {
+                return allCommentsFromRecipeId;
+            }
+        }
+
+        public Ingredient GetIngredientByName(string ingredientName) {
+            string sql = String.Format("SELECT * FROM ingredients WHERE name = '{0}'", ingredientName);
+            DataRowCollection res = Query(sql);
+            if (res.Count == 1) {
+                return new Ingredient(res[0]);
+            } else {
+                return new Ingredient();
+            }
+        }
+
+        public List<Recipe> GetRecipesByAccountId(int accountId) {
+            string sql = String.Format("SELECT * FROM recipes WHERE accountid = '{0}'", accountId);
+            DataRowCollection res = Query(sql);
+            List<Recipe> allRecipesFromAccountId = new List<Recipe>();
+            if (res.Count >= 1) {
+                foreach (DataRow recipe in res) {
+                    allRecipesFromAccountId.Add(new Recipe(recipe));
+                }
+                return allRecipesFromAccountId;
+            } else {
+                return allRecipesFromAccountId;
+            }
+        }
 
     }
 }

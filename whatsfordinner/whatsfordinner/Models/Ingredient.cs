@@ -107,6 +107,7 @@ namespace whatsfordinner {
         public override string ToString() {
             return this.GetOrSetName
             + " " + this.GetOrSetMeasurementType
+            + " " + this.GetOrSetMeasure
             + " " + this.GetOrSetPrice
             + " " + this.GetOrSetTags;
         }

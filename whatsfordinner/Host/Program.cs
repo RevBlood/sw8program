@@ -23,7 +23,7 @@ namespace Host {
             */
             
             WebServiceHost host = new WebServiceHost(
-                typeof(RestService),
+                typeof(WebService.RestService),
                 new Uri("http://localhost:8000/RestService")
                 );
             host.AddServiceEndpoint(typeof(IAccount), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Account"));

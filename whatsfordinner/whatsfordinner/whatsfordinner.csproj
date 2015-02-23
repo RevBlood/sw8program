@@ -50,6 +50,14 @@
   <ItemGroup>
     <Compile Include="DBController.cs" />
     <Compile Include="DBDebug.cs" />
+    <Compile Include="Interfaces\IPictures.cs" />
+    <Compile Include="Interfaces\IOffers.cs" />
+    <Compile Include="Interfaces\IIngredientIn.cs" />
+    <Compile Include="Interfaces\IHasEaten.cs" />
+    <Compile Include="Interfaces\IFavorises.cs" />
+    <Compile Include="Interfaces\IRetailer.cs" />
+    <Compile Include="Interfaces\IRecipe.cs" />
+    <Compile Include="Interfaces\IIngredient.cs" />
     <Compile Include="Interfaces\IComment.cs" />
     <Compile Include="Interfaces\IAccount.cs" />
     <Compile Include="JSONDebug.cs" />
@@ -59,7 +67,6 @@
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\Retailer.cs" />
-    <Compile Include="Models\Test.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Recipe.cs" />
@@ -68,7 +75,13 @@
     <Compile Include="Relationships\IngredientIn.cs" />
     <Compile Include="Relationships\Offers.cs" />
     <Compile Include="Relationships\Pictures.cs" />
-    <Compile Include="RestService.cs" />
+    <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\CommentService.cs" />
+    <Compile Include="Services\FavorisesService.cs" />
+    <Compile Include="Services\RetailerService.cs" />
+    <Compile Include="Services\RecipeService.cs" />
+    <Compile Include="Services\IngredientService.cs" />
+    <Compile Include="Services\RestService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
