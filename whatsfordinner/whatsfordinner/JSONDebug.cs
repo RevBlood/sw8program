@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace whatsfordinner {
-    static class JSONDebug {
+    public static class JSONDebug {
         //
         // Entities
         //

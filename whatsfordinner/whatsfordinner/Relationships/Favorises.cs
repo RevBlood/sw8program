@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Json;
 
 namespace whatsfordinner {
     [DataContract]
-    class Favorises {
+    public class Favorises {
         // Contains:
         // Favorises accountid
         // Favorises recipeid

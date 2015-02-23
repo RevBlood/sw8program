@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Json;
 
 namespace whatsfordinner {
     [DataContract]
-    class Recipe {
+    public class Recipe {
         // Contains:
         // Recipe Id
         // Recipe AccountId

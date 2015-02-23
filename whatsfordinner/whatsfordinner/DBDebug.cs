@@ -7,7 +7,7 @@ using System.Configuration;
 
 
 namespace whatsfordinner {
-        static class DBDebug {
+        public static class DBDebug {
         /*
         public int AddIngredient() {
             string sql = "INSERT INTO whatsfordinner.ingredient(name, measure_type) VALUES (@name, @measure_type)";

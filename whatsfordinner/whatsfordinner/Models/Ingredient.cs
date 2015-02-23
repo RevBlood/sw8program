@@ -10,7 +10,7 @@ using System.Runtime.Serialization.Json;
 
 namespace whatsfordinner {
     [DataContract]
-    class Ingredient {
+    public class Ingredient {
         // Contains:
         // Ingredient Id
         // Ingredient Name
@@ -25,13 +25,15 @@ namespace whatsfordinner {
             this.GetOrSetId = row.Field<int>("ingredientid");
             this.GetOrSetName = row.Field<string>("name");
             this.GetOrSetMeasurementType = row.Field<string>("measurementtype");
+            this.GetOrSetMeasure = row.Field<int>("measure");
             this.GetOrSetPrice = row.Field<decimal>("price");
             this.GetOrSetTags = row.Field<string>("tags");
         }
 
-        public Ingredient(string ingredientName, string ingredientMeasureType, decimal ingredientPrice, string ingredientTags) {
-            this.GetOrSetMeasurementType = ingredientMeasureType;
+        public Ingredient(string ingredientName, string ingredientMeasureType, int ingredientMeasure, decimal ingredientPrice, string ingredientTags) {
             this.GetOrSetName = ingredientName;
+            this.GetOrSetMeasurementType = ingredientMeasureType;
+            this.GetOrSetMeasure = ingredientMeasure;
             this.GetOrSetPrice = ingredientPrice;
             this.GetOrSetTags = ingredientTags;
         }
@@ -68,6 +70,17 @@ namespace whatsfordinner {
             }
         }
         private string _ingredientMeasurementType;
+
+        [DataMember(Name = "measure")]
+        public int GetOrSetMeasure {
+            get {
+                return _ingredientMeasure;
+            }
+            set {
+                _ingredientMeasure = value;
+            }
+        }
+        private int _ingredientMeasure;
 
         [DataMember(Name = "price")]
         public decimal GetOrSetPrice {

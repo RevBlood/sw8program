@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Json;
 
 namespace whatsfordinner {
     [DataContract]
-    class Account {
+    public class Account {
         // Contains:
         // Account Id
         // Account Username
@@ -30,6 +30,15 @@ namespace whatsfordinner {
             this.GetOrSetCreationDate = row.Field<DateTime>("creationdate");
             this.GetOrSetSettings = row.Field<string>("settings");
             this.GetOrSetPreferences = row.Field<string>("preferences");
+        }
+
+        // Test account
+        public Account(string accountUsername, string accountPassword, string accountEmail, string accountSettings, string accountPreferences) {
+            this.GetOrSetUsername = accountUsername;
+            this.GetOrSetPassword = accountPassword;
+            this.GetOrSetEmail = accountEmail;
+            this.GetOrSetSettings = accountSettings;
+            this.GetOrSetPreferences = accountPreferences;
         }
 
         public Account(string accountUsername, string accountPassword, string accountEmail, DateTime creationdate, string accountSettings, string accountPreferences) {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace whatsfordinner {
-    static class ModelDebug {
+    public static class ModelDebug {
         public static Account GetTestAccount() {
             DateTime dt = DateTime.Now;        
             Account acc = new Account("andrejs", "andrejspw", "andrejs@andrejs.com", dt, "noget med setting", "noget med preferences");
@@ -19,7 +19,7 @@ namespace whatsfordinner {
         }
 
         public static Ingredient GetTestIngredient() {
-            Ingredient ing = new Ingredient("pasta", "gram", 5.95m, "mel, gluten, billig, nem");
+            Ingredient ing = new Ingredient("pasta", "gram", 500, 5.95m, "mel, gluten, billig, nem");
             return ing;
         }
 

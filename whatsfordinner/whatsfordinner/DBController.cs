@@ -6,7 +6,7 @@ using Microsoft.Win32.SafeHandles;
 using System.Configuration;
 
 namespace whatsfordinner {
-    class DBController {
+    public class DBController {
         private DataSet ds = new DataSet();
         private DataTable dt = new DataTable();
         private NpgsqlConnection conn;
@@ -225,11 +225,12 @@ namespace whatsfordinner {
         }
 
         public int AddIngredient(Ingredient ingredientToInsert) {
-            string sql = "INSERT INTO ingredients(name, measurementtype, price, tags) VALUES (@name, @measurementtype, @price, @tags)";
+            string sql = "INSERT INTO ingredients(name, measurementtype, measure, price, tags) VALUES (@name, @measurementtype, @measure, @price, @tags)";
 
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
             command.Parameters.AddWithValue("@name", ingredientToInsert.GetOrSetName);
             command.Parameters.AddWithValue("@measurementtype", ingredientToInsert.GetOrSetMeasurementType);
+            command.Parameters.AddWithValue("@measure", ingredientToInsert.GetOrSetMeasure);
             command.Parameters.AddWithValue("@price", ingredientToInsert.GetOrSetPrice);
             command.Parameters.AddWithValue("@tags", ingredientToInsert.GetOrSetTags);
 

@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Json;
 
 namespace whatsfordinner {
     [DataContract]
-    class Comment {
+    public class Comment {
         // Contains:
         // Comment Id
         // Comment AccountId

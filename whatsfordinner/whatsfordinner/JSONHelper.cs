@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Web;
 
 namespace whatsfordinner {
     public static class JSONHelper {
 
         public static string Serialize<T>(T obj) {
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
             MemoryStream ms = new MemoryStream();
             serializer.WriteObject(ms, obj);
             string retVal = Encoding.Default.GetString(ms.ToArray());
@@ -21,8 +22,9 @@ namespace whatsfordinner {
 
         public static T Deserialize<T>(string json) {
             T obj = Activator.CreateInstance<T>();
-            MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(json));
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+            MemoryStream ms = new MemoryStream(Encoding.Default.GetBytes(json));
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
+            ms.Position = 0;
             obj = (T)serializer.ReadObject(ms);
             ms.Close();
             ms.Dispose();

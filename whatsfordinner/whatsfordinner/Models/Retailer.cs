@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Json;
 
 namespace whatsfordinner {
     [DataContract]
-    class Retailer {
+    public class Retailer {
         // Contains:
         // Retailer CompanyName
         // Retailer Description
