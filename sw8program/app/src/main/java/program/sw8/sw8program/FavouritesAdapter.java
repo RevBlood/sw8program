@@ -44,7 +44,7 @@ public class FavouritesAdapter extends ArrayAdapter<ListItem> implements View.On
         recipeNameView.setText(Favourites.get(position).getName());
 
         //Override stock image, only if recipe has an image. 0 indicates no image
-        if (!(Favourites.get(position).getDrawableId() == 0)) {
+        if ((Favourites.get(position).getDrawableId() != 0)) {
             recipeImageView.setImageResource(Favourites.get(position).getDrawableId());
         }
 

@@ -13,6 +13,11 @@
     <!-- Favourites context menu -->
     <string name="favourite_remove">Fjern favorit</string>
 
+    <!-- User context menu -->
+    <string name="user_image_remove">Slet billede</string>
+    <string name="user_image_change">Skift billede...</string>
+    <string name="user_image_choose">Vælg billede</string>
+
     <!-- Other -->
     <string name="loading">Øjeblik...</string>
 </resources>

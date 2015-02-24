@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
 
 /**
  * Created by Johan 'Jizztærsker' on 16-02-2015.
@@ -12,10 +13,12 @@ import android.util.Log;
 public class CustomPagerAdapter extends FragmentStatePagerAdapter {
     private final int PageCount = 5;
     private GridViewAdapter TabAdapter;
+    private FragmentManager Manager;
 
     public CustomPagerAdapter(FragmentManager fragmentManager, GridViewAdapter tabAdapter) {
         super(fragmentManager);
         TabAdapter = tabAdapter;
+        Manager = fragmentManager;
     }
 
     @Override

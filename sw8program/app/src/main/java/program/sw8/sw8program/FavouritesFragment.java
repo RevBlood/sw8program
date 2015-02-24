@@ -1,9 +1,7 @@
 package program.sw8.sw8program;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,16 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class FavouritesFragment extends Fragment implements View.OnCreateContextMenuListener{
 
     private FavouritesAdapter FavAdapter;
-    private final int ContextOptionDelete = 1;
+    private final int ContextFavouriteRemove = 11;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,20 +47,21 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
         menu.setHeaderTitle(title);
 
         //Create menu entry for deleting the recipe
-        menu.add(Menu.NONE, ContextOptionDelete, Menu.NONE, getString(R.string.favourite_remove));
+        menu.add(Menu.NONE, ContextFavouriteRemove, Menu.NONE, getString(R.string.favourite_remove));
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+
         //Figure what menu entry was pressed
         switch (item.getItemId()) {
-            case ContextOptionDelete:
+            case ContextFavouriteRemove:
                 //Find the item that was pressed and delete it
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
                 FavAdapter.getItem(info.position);
                 FavAdapter.remove(FavAdapter.getItem(info.position));
                 return true;
-            default: throw new IllegalArgumentException("Error in Context Menu handling");
+            default: return false;
         }
     }
 }
