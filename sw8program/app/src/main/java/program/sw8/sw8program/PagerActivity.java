@@ -63,8 +63,7 @@ public class PagerActivity extends FragmentActivity {
         }
     };
 
-    @Override
-    public void onPause() {
-        super.onPause();
+    public void requestPageChange(int position) {
+        PagerAdapter.changePage(Pager, position);
     }
 }

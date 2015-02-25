@@ -8,7 +8,10 @@
 
     <!-- Recommend fragment -->
     <string name="recommend_button">Find min mad!</string>
-    <string name="recommend_tip">Dårlige forslag? Skift dine præferencer</string>
+    <string name="recommend_tip"><u>Dårlige forslag? Skift dine præferencer</u></string>
+
+    <!-- Favourites fragment -->
+    <string name="favourite_list_empty">Ingen favoritter at vise</string>
 
     <!-- Favourites context menu -->
     <string name="favourite_remove">Fjern favorit</string>

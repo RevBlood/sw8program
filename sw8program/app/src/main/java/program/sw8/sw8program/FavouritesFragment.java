@@ -28,6 +28,7 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
         favourites.add(new ListItem(R.drawable.placeholder_recipe_1, "Din mors sauce"));
 
         ListView list = (ListView) rootView.findViewById(R.id.list_favourites);
+        list.setEmptyView(rootView.findViewById(R.id.empty));
 
         //Set the adapter to control the list
         FavAdapter = new FavouritesAdapter(getActivity(), R.layout.row_item_favourites, favourites);
