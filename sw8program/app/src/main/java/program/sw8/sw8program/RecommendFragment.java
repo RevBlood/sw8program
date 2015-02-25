@@ -8,14 +8,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class RecommendFragment extends Fragment {
-    TextView LinkToPreferences;
+    private TextView LinkToPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_recommend, container, false);
 
         LinkToPreferences = (TextView) rootView.findViewById(R.id.link_preferences);
-
         LinkToPreferences.setOnClickListener(onLinkClickListener);
 
 
@@ -25,6 +24,7 @@ public class RecommendFragment extends Fragment {
     View.OnClickListener onLinkClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            //Change the active page to the profile page
             ((PagerActivity)getActivity()).requestPageChange(0);
         }
     };

@@ -4,7 +4,6 @@ package program.sw8.sw8program;
  * Created by Morten on 23-02-2015.
  */
 public class User {
-
     private int UserId;
     private int UserImageId = 0;
     private String Username;

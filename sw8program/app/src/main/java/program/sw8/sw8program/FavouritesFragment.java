@@ -14,7 +14,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class FavouritesFragment extends Fragment implements View.OnCreateContextMenuListener{
-
     private FavouritesAdapter FavAdapter;
     private final int ContextFavouriteRemove = 11;
 
@@ -53,7 +52,6 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-
         //Figure what menu entry was pressed
         switch (item.getItemId()) {
             case ContextFavouriteRemove:
@@ -62,6 +60,7 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
                 FavAdapter.getItem(info.position);
                 FavAdapter.remove(FavAdapter.getItem(info.position));
                 return true;
+            //If case was not found, return false. This causes Android to look in other overrides for a case that matches
             default: return false;
         }
     }

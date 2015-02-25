@@ -16,18 +16,17 @@ import android.widget.ImageView;
  */
 public class GridViewAdapter extends BaseAdapter {
     private Context PagerActivityContext;
-
-    //Variable used when the highlight should change
     private Boolean RequestActive = false;
-    private int PreviousActivePosition = 2; //GET THIS FROM MAINACTIVITY
+    private int PreviousActivePosition;
     private final int[] TabImages = {R.drawable.profile,
                                      R.drawable.favourites,
                                      R.drawable.recommend,
                                      R.drawable.discover,
                                      R.drawable.settings};
 
-    public GridViewAdapter(Context pagerActivityContext) {
+    public GridViewAdapter(Context pagerActivityContext, int DefaultPage) {
         PagerActivityContext = pagerActivityContext;
+        PreviousActivePosition = DefaultPage;
     }
 
     @Override

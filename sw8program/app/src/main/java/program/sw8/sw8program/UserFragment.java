@@ -19,10 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class UserFragment extends Fragment {
-
     private final int ContextUserImageRemove = 1;
     private final int ContextUserImageChange = 2;
-
     private final int SelectImage = 1;
     private User Profile;
     private ImageView UserImage;
@@ -35,6 +33,7 @@ public class UserFragment extends Fragment {
         TextView userName = (TextView) rootView.findViewById(R.id.user_name);
         registerForContextMenu(UserImage);
 
+        //TODO: Remove testdata
         Profile = new User(0, "Carsten Holst");
 
         if (Profile.getUserImageId() != 0) {
@@ -83,7 +82,7 @@ public class UserFragment extends Fragment {
         //Perform actions based on result from whatever activity returned
         switch (requestCode) {
             case SelectImage:
-                //If we selected an image from gallery, get the (unfinished) URI and then do some MAGIC because that's what needs to be done on KitKat.
+                //If we selected an image from gallery, get the) URI and do some string manipulation because fuck KitKat.
                 //TODO: Test on pre-KitKat phone
                 Uri uri = data.getData();
                 String pathsegment[] = uri.getLastPathSegment().split(":");
@@ -101,7 +100,7 @@ public class UserFragment extends Fragment {
         }
     }
 
-    //Figure out where to look for images
+    //Figure out where to look for images (Internal/External storage)
     private Uri getUri() {
         String state = Environment.getExternalStorageState();
         if (state.equalsIgnoreCase(Environment.MEDIA_MOUNTED)) {

@@ -8,10 +8,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 public class PagerActivity extends FragmentActivity {
-
-    //Index of the page where the app should load up
-    private final int StartPage = 2;
-
+    private final int DefaultPage = 2;
     private ViewPager Pager;
     private CustomPagerAdapter PagerAdapter;
     private GridView Tabs;
@@ -26,7 +23,7 @@ public class PagerActivity extends FragmentActivity {
         Tabs = (GridView) findViewById(R.id.header);
 
         //Setup tabs with an adapter and a listener
-        TabAdapter = new GridViewAdapter(this);
+        TabAdapter = new GridViewAdapter(this, DefaultPage);
         Tabs.setAdapter(TabAdapter);
         Tabs.setOnItemClickListener(onTabClickListener);
 
@@ -34,7 +31,7 @@ public class PagerActivity extends FragmentActivity {
         Pager.setOnPageChangeListener(pagerChangeListener);
         PagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), TabAdapter);
         Pager.setAdapter(PagerAdapter);
-        PagerAdapter.changePage(Pager, StartPage);
+        PagerAdapter.changePage(Pager, DefaultPage);
     }
 
     //ClickListener for the tabs will highlight a tab, remove highlight from previous tab and prompt the Pager to change page

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,9 +17,9 @@ import java.util.List;
  * Created by Morten on 20-02-2015.
  */
 public class FavouritesAdapter extends ArrayAdapter<ListItem> implements View.OnCreateContextMenuListener {
-    List<ListItem> Favourites;
-    Context FavouritesFragmentContext;
-    int LayoutId;
+    private List<ListItem> Favourites;
+    private Context FavouritesFragmentContext;
+    private int LayoutId;
 
     public FavouritesAdapter(Context favouritesFragmentContext, int layoutId, List<ListItem> favourites) {
         super(favouritesFragmentContext, layoutId, favourites);
