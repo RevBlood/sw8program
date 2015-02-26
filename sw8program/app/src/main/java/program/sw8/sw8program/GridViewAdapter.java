@@ -18,6 +18,7 @@ public class GridViewAdapter extends BaseAdapter {
     private Context PagerActivityContext;
     private Boolean RequestActive = false;
     private int PreviousActivePosition;
+    private final int PageCount = 5;
     private final int[] TabImages = {R.drawable.profile,
                                      R.drawable.favourites,
                                      R.drawable.recommend,
@@ -31,7 +32,7 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return PageCount;
     }
 
     @Override
@@ -77,6 +78,15 @@ public class GridViewAdapter extends BaseAdapter {
         RequestActive = true;
         getView(position, null, null);
 
+    }
+
+    //Goes through all the tabs and clears any highlight that might be
+    public void requestNoHighlight() {
+        Resources r = PagerActivityContext.getResources();
+        for(int i = 0; i < PageCount; i++) {
+            Drawable d = r.getDrawable(TabImages[i]);
+            d.clearColorFilter();
+        }
     }
 }
 

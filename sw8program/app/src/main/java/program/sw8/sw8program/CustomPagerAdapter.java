@@ -42,4 +42,9 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
         pager.setCurrentItem(position);
         TabAdapter.requestActive(position);
     }
+
+    //Removes highlight from all tabs
+    public void removeHighlights() {
+        TabAdapter.requestNoHighlight();
+    }
 }

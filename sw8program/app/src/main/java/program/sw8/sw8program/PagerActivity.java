@@ -27,10 +27,15 @@ public class PagerActivity extends FragmentActivity {
         Tabs.setAdapter(TabAdapter);
         Tabs.setOnItemClickListener(onTabClickListener);
 
-        //Setup the pages with an adapter and a listener. Switch the display to show the recommender page
+        //Setup the pages with an adapter and a listener.
         Pager.setOnPageChangeListener(pagerChangeListener);
         PagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), TabAdapter);
         Pager.setAdapter(PagerAdapter);
+
+        //Needed because Android fucking always keeps shit for too long
+        PagerAdapter.removeHighlights();
+
+        //Switch the display to show the recommender page
         PagerAdapter.changePage(Pager, DefaultPage);
     }
 
