@@ -6,6 +6,17 @@
     <string name="hello_world">Fuck dig Johan</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Login activity-->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Log ind eller opret bruger</string>
+    <string name="action_sign_in_short">Log ind</string>
+
+    <string name="error_invalid_email">Ugyldig email</string>
+    <string name="error_invalid_password">Password skal være minimum 6 tegn</string>
+    <string name="error_incorrect_password">Forkert password</string>
+    <string name="error_field_required">Feltet kan ikke være tomt</string>
+
     <!-- Recommend fragment -->
     <string name="recommend_button">Find min mad!</string>
     <string name="recommend_tip"><u>Dårlige forslag? Skift dine præferencer</u></string>
