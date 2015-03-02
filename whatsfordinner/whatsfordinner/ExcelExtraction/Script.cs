@@ -1,12 +1,16 @@
 ﻿using System;
-using whatsfordinner;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace whatsfordinner
 {
-	public class Script
+	public static class Script
 	{
 
-		static void Main() {
+		public static void ExcelExtractionScript() {
 
 			List<string> Groceries = new List<string> ();
 			List<string> MeasurementType = new List<string> ();
@@ -63,11 +67,11 @@ namespace whatsfordinner
 
 			for (i = 1; i < Groceries.Count; i++) {
 
-				Ingredient k = Ingredient (Groceries [i], MeasurementType [i], Measure [i], Price [i], null);
 
-				DBController.AddIngredient (k);
+				DBController dbc = new DBController ();
+				dbc.AddIngredient (new Ingredient (Groceries [i], MeasurementType [i], (int)Measure [i], Price [i], null));
+				dbc.Close ();
 			}
 		}
 	}
 }
-
