@@ -1,0 +1,4 @@
+C:\Users\Johan\Documents\Projects\ExcelExtractionScript\ExcelExtractionScript\bin\Debug\ExcelExtractionScript.exe
+C:\Users\Johan\Documents\Projects\ExcelExtractionScript\ExcelExtractionScript\bin\Debug\ExcelExtractionScript.pdb
+C:\Users\Johan\Documents\Projects\ExcelExtractionScript\ExcelExtractionScript\obj\x86\Debug\ExcelExtractionScript.exe
+C:\Users\Johan\Documents\Projects\ExcelExtractionScript\ExcelExtractionScript\obj\x86\Debug\ExcelExtractionScript.pdb
