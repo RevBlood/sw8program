@@ -23,9 +23,9 @@ namespace whatsfordinner
 			decimal tempValueOne;
 			decimal tempValuetwo;
 
-			using (var src = File.OpenText ("C:/Users/Johan/Dropbox/P8/gnmsnit.csv")) {
+			using (StreamReader reader = new StreamReader(@"C:/Users/Casper/Dropbox/P8/gnmsnit.csv", Encoding.Default)) {
 				string line;
-				while ((line = src.ReadLine ()) != null) {
+                while ((line = reader.ReadLine()) != null) {
 					string[] fields = line.Split (';');
 
 
@@ -67,7 +67,7 @@ namespace whatsfordinner
 
 			for (i = 1; i < Groceries.Count; i++) {
 
-
+                Console.WriteLine(Groceries[i].ToString());
 				DBController dbc = new DBController ();
 				dbc.AddIngredient (new Ingredient (Groceries [i], MeasurementType [i], (int)Measure [i], Price [i], null));
 				dbc.Close ();
