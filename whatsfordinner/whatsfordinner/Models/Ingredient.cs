@@ -105,7 +105,8 @@ namespace whatsfordinner {
         private string _ingredientTags;
 
         public override string ToString() {
-            return this.GetOrSetName
+            return this.GetOrSetId
+            + " " + this.GetOrSetName
             + " " + this.GetOrSetMeasurementType
             + " " + this.GetOrSetMeasure
             + " " + this.GetOrSetPrice

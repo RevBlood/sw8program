@@ -17,6 +17,8 @@ namespace whatsfordinner {
         [OperationContract]
         List<Ingredient> GetAllIngredients();
         [OperationContract]
+        List<Ingredient> GetIngredientsByRecipeId(int recipeId);
+        [OperationContract]
         void DeleteIngById(int ingId);
     }
 }

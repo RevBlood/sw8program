@@ -41,11 +41,16 @@ namespace whatsfordinner {
             host.AddServiceEndpoint(typeof(IIngredient), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Ingredient"));
             host.AddServiceEndpoint(typeof(IRecipe), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Recipe"));
             host.AddServiceEndpoint(typeof(IRetailer), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Retailer"));
+            host.AddServiceEndpoint(typeof(IFavorises), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Favorises"));
+            host.AddServiceEndpoint(typeof(IHasEaten), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/HasEaten"));
+            host.AddServiceEndpoint(typeof(IIngredientIn), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/IngredientIn"));
+            host.AddServiceEndpoint(typeof(IOffers), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Offers"));
+            host.AddServiceEndpoint(typeof(IPictures), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Pictures"));
             host.Open();
 
 
             foreach (ServiceEndpoint se in host.Description.Endpoints) {
-                Console.WriteLine(string.Format("Binding name:{0}, Address:{1},Contract:{2}", se.Binding.Name, se.Address.ToString(), se.Contract.Name));
+                Console.WriteLine(string.Format("Binding name:{0}, Address:{1}, Contract:{2}", se.Binding.Name, se.Address.ToString(), se.Contract.Name));
             }
             Console.ReadLine();
             host.Close();

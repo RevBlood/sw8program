@@ -41,11 +41,22 @@ namespace whatsfordinner {
             return tempList;
         }
 
+        [WebInvoke(Method = "GET", UriTemplate = "GetIngredientsByRecipeId?recipeId={recipeId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public List<Ingredient> GetIngredientsByRecipeId(int recipeId) {
+            DBController dbc = new DBController();
+            List<Ingredient> tempList = dbc.GetIngredientsByRecipeId(recipeId);
+            dbc.Close();
+            return tempList;
+        }
+
         [WebInvoke(Method = "DELETE", UriTemplate = "DeleteIngredientById?ingId={ingId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public void DeleteIngById(int ingId) {
             DBController dbc = new DBController();
             dbc.DeleteIngredientById(ingId);
             dbc.Close();
         }
+
+
+
     }
 }

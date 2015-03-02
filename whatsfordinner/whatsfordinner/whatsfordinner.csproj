@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommunicationModels\RecipeWithIngredients.cs" />
     <Compile Include="DBController.cs" />
     <Compile Include="DBDebug.cs" />
     <Compile Include="Interfaces\IPictures.cs" />
@@ -77,6 +78,10 @@
     <Compile Include="Relationships\Pictures.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\CommentService.cs" />
+    <Compile Include="Services\OffersService.cs" />
+    <Compile Include="Services\PicturesService.cs" />
+    <Compile Include="Services\IngredientInService.cs" />
+    <Compile Include="Services\HasEatenService.cs" />
     <Compile Include="Services\FavorisesService.cs" />
     <Compile Include="Services\RetailerService.cs" />
     <Compile Include="Services\RecipeService.cs" />

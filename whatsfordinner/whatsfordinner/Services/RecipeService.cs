@@ -33,6 +33,22 @@ namespace whatsfordinner {
             return tempList;
         }
 
+        [WebInvoke(Method = "GET", UriTemplate = "GetRecipesByIngredientId?ingredientId={ingredientId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public List<Recipe> GetRecipesByIngredientId(int ingredientId) {
+            DBController dbc = new DBController();
+            List<Recipe> tempList = dbc.GetRecipesByIngredientId(ingredientId);
+            dbc.Close();
+            return tempList;
+        }
+
+        [WebInvoke(Method = "GET", UriTemplate = "GetRecipesByIdWithIngredients?recId={recId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public RecipeWithIngredients GetRecipesByIdWithIngredients(int recId) {
+            DBController dbc = new DBController();
+            RecipeWithIngredients tempRec = dbc.GetRecipeByIdWithIngredients(recId);
+            dbc.Close();
+            return tempRec;
+        }
+
         [WebInvoke(Method = "GET", UriTemplate = "GetAllRecipes", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public List<Recipe> GetAllRecipes() {
             DBController dbc = new DBController();
@@ -47,5 +63,8 @@ namespace whatsfordinner {
             dbc.DeleteRecipeById(recId);
             dbc.Close();
         }
+
+
+
     }
 }

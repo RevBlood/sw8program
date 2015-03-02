@@ -94,7 +94,7 @@ namespace whatsfordinner {
         }
         private string _accountEmail;
 
-        [DataMember(Name = "creationdate")]
+        //  [DataMember(Name = "creationdate")]
         public DateTime GetOrSetCreationDate {
             get {
                 return _accountCreationDate;
@@ -126,9 +126,10 @@ namespace whatsfordinner {
             }
         }
         private string _accountPreferences;
-
+        
         public override string ToString() {
-            return  this.GetOrSetUsername 
+            return this.GetOrSetId 
+            + " " + this.GetOrSetUsername 
             + " " + this.GetOrSetPassword 
             + " " + this.GetOrSetEmail 
             + " " + this.GetOrSetCreationDate.ToString("dd/MM/yyyy HH:mm")

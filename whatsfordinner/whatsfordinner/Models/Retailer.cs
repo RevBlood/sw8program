@@ -99,9 +99,10 @@ namespace whatsfordinner {
             }
         }
         private string _retailerOpeningHours;
-
+        
         public override string ToString() {
-            return this.GetOrSetLatitude
+            return this.GetOrSetId
+            + " " + this.GetOrSetLatitude
             + " " + this.GetOrSetLongitude
             + " " + this.GetOrSetCompanyName
             + " " + this.GetOrSetDescription

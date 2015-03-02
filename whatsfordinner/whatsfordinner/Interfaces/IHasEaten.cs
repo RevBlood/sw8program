@@ -8,6 +8,8 @@ using System.ServiceModel;
 namespace whatsfordinner {
     [ServiceContract]
     public interface IHasEaten {
+        [OperationContract]
+        void AddHasEaten(HasEaten has);
 
     }
 }

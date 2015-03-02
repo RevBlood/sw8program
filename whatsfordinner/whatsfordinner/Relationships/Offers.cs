@@ -11,8 +11,8 @@ namespace whatsfordinner {
     [DataContract]
     public class Offers {
         // Contains:
-        // Offers AccountId
-        // Offers RecipeId
+        // Offers RetailerId
+        // Offers IngredientId
         // Offers OfferFrom
         // Offers OfferTo
         // Offers NormalPrice

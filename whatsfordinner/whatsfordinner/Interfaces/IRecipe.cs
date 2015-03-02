@@ -15,6 +15,10 @@ namespace whatsfordinner {
         [OperationContract]
         List<Recipe> GetRecipesByAccountId(int accountId);
         [OperationContract]
+        List<Recipe> GetRecipesByIngredientId(int ingredientId);
+        [OperationContract]
+        RecipeWithIngredients GetRecipesByIdWithIngredients(int recId);
+        [OperationContract]
         List<Recipe> GetAllRecipes();
         [OperationContract]
         void DeleteRecById(int recId);

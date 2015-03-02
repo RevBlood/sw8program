@@ -33,11 +33,13 @@ namespace whatsfordinner {
             return tempList;
         }
 
-        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteFavByAccountIdAndRecipeId?accountId={accountId}/recipeId={recipeId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public void DeleteFavByAccountIdAndRecipeId(int accountId, int recipeId) {
+        
+        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteFavorisesByAccountIdAndRecipeId?accountId={accountId}&recipeId={recipeId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public void DeleteFavorisesByAccountIdAndRecipeId(int accountId, int recipeId) {
             DBController dbc = new DBController();
             dbc.DeleteFavorisesByAccountIdAndRecipeId(accountId, recipeId);
             dbc.Close();
         }
+
     }
 }

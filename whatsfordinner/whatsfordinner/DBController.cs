@@ -21,6 +21,7 @@ namespace whatsfordinner {
                 "Server={0};User Id={1};Password={2};Database={3};",
                 dbHost, dbUser, dbPass, dbName);
             conn = new NpgsqlConnection(connstring);
+            
             conn.Open();
         }
 
@@ -413,6 +414,76 @@ namespace whatsfordinner {
             }
         }
 
+        public List<IngredientIn> GetIngredientInsByIngredientId(int ingredientId) {
+            string sql = String.Format("SELECT * FROM ingredientin WHERE ingredientid = '{0}'", ingredientId);
+            DataRowCollection res = Query(sql);
+            List<IngredientIn> allIngredientsInsFromIngredientId = new List<IngredientIn>();
+            if (res.Count >= 1) {
+                foreach (DataRow ingredientIn in res) {
+                    allIngredientsInsFromIngredientId.Add(new IngredientIn(ingredientIn));
+                }
+                return allIngredientsInsFromIngredientId;
+            } else {
+                return allIngredientsInsFromIngredientId;
+            }
+        }
+
+        public List<IngredientIn> GetIngredientInsByRecipeId(int recipeId) {
+            string sql = String.Format("SELECT * FROM ingredientin WHERE recipeid = '{0}'", recipeId);
+            DataRowCollection res = Query(sql);
+            List<IngredientIn> allIngredientsInsFromRecipeId = new List<IngredientIn>();
+            if (res.Count >= 1) {
+                foreach (DataRow ingredientIn in res) {
+                    allIngredientsInsFromRecipeId.Add(new IngredientIn(ingredientIn));
+                }
+                return allIngredientsInsFromRecipeId;
+            } else {
+                return allIngredientsInsFromRecipeId;
+            }
+        }
+
+        public List<Pictures> GetPicturesByRecipeId(int recipeId) {
+            string sql = String.Format("SELECT * FROM pictures WHERE recipeid = '{0}'", recipeId);
+            DataRowCollection res = Query(sql);
+            List<Pictures> allPicturesFromRecipeId = new List<Pictures>();
+            if (res.Count >= 1) {
+                foreach (DataRow pictures in res) {
+                    allPicturesFromRecipeId.Add(new Pictures(pictures));
+                }
+                return allPicturesFromRecipeId;
+            } else {
+                return allPicturesFromRecipeId;
+            }
+        }
+        
+        public List<Offers> GetOfferByRetailerId(int retailerId) {
+            string sql = String.Format("SELECT * FROM offers WHERE retailerid = '{0}'", retailerId);
+            DataRowCollection res = Query(sql);
+            List<Offers> allOffersFromRetailerId = new List<Offers>();
+            if (res.Count >= 1) {
+                foreach (DataRow offers in res) {
+                    allOffersFromRetailerId.Add(new Offers(offers));
+                }
+                return allOffersFromRetailerId;
+            } else {
+                return allOffersFromRetailerId;
+            }
+        }
+
+        public List<Offers> GetOfferByIngredientId(int ingredientId) {
+            string sql = String.Format("SELECT * FROM offers WHERE ingredientid = '{0}'", ingredientId);
+            DataRowCollection res = Query(sql);
+            List<Offers> allOffersFromIngredientId = new List<Offers>();
+            if (res.Count >= 1) {
+                foreach (DataRow offers in res) {
+                    allOffersFromIngredientId.Add(new Offers(offers));
+                }
+                return allOffersFromIngredientId;
+            } else {
+                return allOffersFromIngredientId;
+            }
+        }
+
         //
         // Delete entities by id
         //
@@ -457,6 +528,23 @@ namespace whatsfordinner {
             NonQuery(command, "favorises");
         }
 
+        public void DeleteIngredientInByIngredientIdAndRecipeId(int ingredientId, int recipeId) {
+            string sql = String.Format("DELETE FROM ingredientin WHERE ingredientid = '{0}' AND recipeid = '{1}'", ingredientId, recipeId);
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            NonQuery(command, "ingredientin");
+        }
+
+        public void DeletePictursByAccountIdAndRecipeId(int accountId, int recipeId) {
+            string sql = String.Format("DELETE FROM pictures WHERE accountid = '{0}' AND recipeid = '{1}'", accountId, recipeId);
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            NonQuery(command, "pictures");
+        }
+
+        public void DeleteOffersByRetailerIdAndIngredientId(int retailerId, int ingredientId) {
+            string sql = String.Format("DELETE FROM offers WHERE retailerid = '{0}' AND ingredientid = '{1}'", retailerId, ingredientId);
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            NonQuery(command, "offers");
+        }
 
         //
         // Special queries / entity specific queries
@@ -510,5 +598,44 @@ namespace whatsfordinner {
             }
         }
 
+        public List<Ingredient> GetIngredientsByRecipeId(int recipeId) {
+            string sql = String.Format("SELECT ingredients.ingredientid, ingredients.name, ingredients.measurementtype, ingredients.measure, ingredients.price, ingredients.tags "
+                                        + "FROM ingredients, ingredientin WHERE recipeid = '{0}'", recipeId);
+            DataRowCollection res = Query(sql);
+            List<Ingredient> allIngredientsFromRecipeId = new List<Ingredient>();
+            if (res.Count >= 1) {
+                foreach (DataRow ingredient in res) {
+                    allIngredientsFromRecipeId.Add(new Ingredient(ingredient));
+                }
+                return allIngredientsFromRecipeId;
+            } else {
+                return allIngredientsFromRecipeId;
+            }
+        }
+        
+        public List<Recipe> GetRecipesByIngredientId(int ingredientId) {
+            string sql = String.Format("SELECT recipes.recipeid, recipes.accountid, recipes.name, recipes.description, "
+                + "recipes.creationdate, recipes.numberofservings, recipes.tags, recipes.rating "
+                + "FROM recipes, ingredientin WHERE ingredientid = '{0}'", ingredientId);
+            DataRowCollection res = Query(sql);
+            List<Recipe> allRecipesFromIngredientId = new List<Recipe>();
+            if (res.Count >= 1) {
+                foreach (DataRow recipe in res) {
+                    allRecipesFromIngredientId.Add(new Recipe(recipe));
+                }
+                return allRecipesFromIngredientId;
+            } else {
+                return allRecipesFromIngredientId;
+            }
+        }
+
+        public RecipeWithIngredients GetRecipeByIdWithIngredients(int recipeId) {
+            RecipeWithIngredients rec = new RecipeWithIngredients();
+            rec.GetOrSetRecipe = GetRecipeById(recipeId);
+            rec.GetOrSetIngredients = GetIngredientsByRecipeId(recipeId);
+            rec.GetOrSetIngredientIns = GetIngredientInsByRecipeId(recipeId);
+            return rec;
+        }
+        
     }
 }

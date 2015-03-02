@@ -140,7 +140,8 @@ namespace whatsfordinner {
         private decimal _recipeRating;
 
         public override string ToString() {
-            return this.GetOrSetName
+            return this.GetOrSetId
+            + " " + this.GetOrSetName
             + " " + this.GetOrSetDescription
             + " " + this.GetOrSetCreationDate.ToString("dd/MM/yyyy HH:mm")
             + " " + this.GetOrSetNumberOfServings
