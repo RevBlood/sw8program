@@ -34,4 +34,5 @@
 
     <!-- Other -->
     <string name="loading">Øjeblik...</string>
+    <string name="title_activity_recipe">RecipeActivity</string>
 </resources>

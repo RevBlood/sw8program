@@ -1,6 +1,7 @@
 package program.sw8.sw8program;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -59,7 +60,8 @@ public class FavouritesAdapter extends ArrayAdapter<ListItem> implements View.On
     View.OnClickListener onRecipeClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.w("fuck", "2");
+            Intent intent = new Intent(FavouritesFragmentContext, RecipeActivity.class);
+            FavouritesFragmentContext.startActivity(intent);
         }
     };
 
