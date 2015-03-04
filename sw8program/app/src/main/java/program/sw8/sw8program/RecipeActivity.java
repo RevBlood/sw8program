@@ -5,13 +5,16 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,7 @@ public class RecipeActivity extends Activity {
     List<Drawable> RecipeImages = new ArrayList<>();
     String RecipeName;
     List<Ingredient> RecipeIngredients = new ArrayList<>();
+    String RecipePreparationText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,11 @@ public class RecipeActivity extends Activity {
         RecipeIngredients.add(new Ingredient("15 minutes", "love"));
         RecipeIngredients.add(new Ingredient("3g", "salt"));
 
-        //Populate views
+        RecipePreparationText = "Bland det hele undtaget smørret. Lad sovsen stå at simre indtil den er reduceret til det halve. 5 dl. Tag sovsen af varmen og kom smørret i, i små stykker, imens du pisker rundt. Det hedder at montere den. En metode der kan bruges til mange saucer.";
+
+
+
+        //Populate views and set adapters
         recipeNameView.setText(RecipeName);
 
         RecipeImageAdapter recipeImageAdapter = new RecipeImageAdapter(this, RecipeImages);
@@ -60,28 +68,23 @@ public class RecipeActivity extends Activity {
             recipeIngredientLayout.addView(row);
         }
 
+        recipePreparationView.setText(RecipePreparationText);
 
-        //recipeIngredientList.setAdapter(recipeIngredientAdapter);
-        //setListViewHeightBasedOnChildren(recipeIngredientList);
-
-
+        recipeCommentBox.setOnEditorActionListener(OnSubmitCommentListener);
+        recipeCommentBox.setImeActionLabel(getString(R.string.comment_submit), EditorInfo.IME_ACTION_DONE);
     }
 
-    private void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
 
-        int totalHeight = listView.getPaddingTop() + listView.getPaddingBottom();
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            if (listItem instanceof ViewGroup) {
-                listItem.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+    TextView.OnEditorActionListener OnSubmitCommentListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            boolean handled = false;
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                Toast toast = Toast.makeText(getParent(), "Ok.", Toast.LENGTH_SHORT);
+                toast.show();
+                handled = true;
             }
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
+            return handled;
         }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-    }
+    };
 }

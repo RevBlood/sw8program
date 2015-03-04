@@ -3,6 +3,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
+              android:descendantFocusability="beforeDescendants"
+              android:focusableInTouchMode="true"
               tools:context="program.sw8.sw8program.RecipeActivity">
 
     <ScrollView
@@ -46,32 +48,25 @@
 
             </LinearLayout>
 
-        <!-- <RelativeLayout
-            android:id="@+id/ingredient_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/viewpager_container">
-
-            <ListView
-                android:id="@+id/ingredient_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                </ListView>
-            </RelativeLayout> -->
-
         <TextView
             android:id="@+id/preparation_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:layout_below="@id/ingredient_layout"
             android:text="@string/loading"/>
 
-        <TextView
+        <EditText
             android:id="@+id/comment_box"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_below="@id/preparation_text"/>
+            android:layout_below="@id/preparation_text"
+            android:hint="@string/comment_hint"
+            android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
+            android:maxLines="4"
+            android:maxLength="300"
+            android:scrollHorizontally="false"
+            android:imeOptions="actionSend"/>
 
         <ListView
             android:id="@+id/comments"

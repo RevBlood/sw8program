@@ -17,6 +17,10 @@
     <string name="error_incorrect_password">Forkert password</string>
     <string name="error_field_required">Feltet kan ikke være tomt</string>
 
+    <!-- Recipe activity -->
+    <string name="comment_hint">Skriv kommentar</string>
+    <string name="comment_submit">Post</string>
+
     <!-- Recommend fragment -->
     <string name="recommend_button">Find min mad!</string>
     <string name="recommend_tip"><u>Dårlige forslag? Skift dine præferencer</u></string>
