@@ -37,19 +37,34 @@
 
         </RelativeLayout>
 
-        <ListView
-            android:id="@+id/ingredient_list"
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/ingredient_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/viewpager_container">
 
-            </ListView>
+            </LinearLayout>
+
+        <!-- <RelativeLayout
+            android:id="@+id/ingredient_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewpager_container">
+
+            <ListView
+                android:id="@+id/ingredient_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                </ListView>
+            </RelativeLayout> -->
 
         <TextView
             android:id="@+id/preparation_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ingredient_list"
+            android:layout_below="@id/ingredient_layout"
             android:text="@string/loading"/>
 
         <TextView
