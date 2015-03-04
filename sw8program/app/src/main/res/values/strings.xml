@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Android generated -->
     <string name="app_name">sw8program</string>
     <string name="hello_world">Fuck dig Johan</string>
     <string name="action_settings">Settings</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Login activity-->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Log ind eller opret bruger</string>
+    <string name="action_sign_in_short">Log ind</string>
 
+    <string name="error_invalid_email">Ugyldig email</string>
+    <string name="error_invalid_password">Password skal være minimum 6 tegn</string>
+    <string name="error_incorrect_password">Forkert password</string>
+    <string name="error_field_required">Feltet kan ikke være tomt</string>
+
+    <!-- Recommend fragment -->
+    <string name="recommend_button">Find min mad!</string>
+    <string name="recommend_tip"><u>Dårlige forslag? Skift dine præferencer</u></string>
+
+    <!-- Favourites fragment -->
+    <string name="favourite_list_empty">Ingen favoritter at vise</string>
+
+    <!-- Favourites context menu -->
+    <string name="favourite_remove">Fjern favorit</string>
+
+    <!-- User context menu -->
+    <string name="user_image_remove">Slet billede</string>
+    <string name="user_image_change">Skift billede...</string>
+    <string name="user_image_choose">Vælg billede</string>
+
+    <!-- Other -->
+    <string name="loading">Øjeblik...</string>
+    <string name="title_activity_recipe">RecipeActivity</string>
 </resources>
