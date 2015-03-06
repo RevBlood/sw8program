@@ -1,6 +1,8 @@
 package program.sw8.sw8program;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,15 +19,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class UserFragment extends Fragment {
     private final int ContextUserImageRemove = 1;
     private final int ContextUserImageChange = 2;
     private final int SelectImage = 1;
+
+
     private User Profile;
     private ImageView UserImage;
+
+    List<String> listDataHeader;
+    List<String> listDataChild;
+    HashMap<String, List<String>> listDataChildHash;
+    ExpandableListView expListView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +64,47 @@ public class UserFragment extends Fragment {
         }
         userName.setText(Profile.getUsername());
 
+        expListView = (ExpandableListView) rootView.findViewById(R.id.expandable_listview);
+
+        listGroupData();
+        listData();
+
+        ExpandableListAdapter expListAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChildHash);
+        expListView.setAdapter(expListAdapter);
+
         return rootView;
+    }
+
+    private void listGroupData() {
+        listDataHeader = new ArrayList<>();
+        listDataHeader.add("Personlig Information");
+        listDataHeader.add("Præferencer");
+    }
+
+    private void listData() {
+
+        String[] personalInformation = {"preferences"};
+        String[] preferences = {"personalInformation"};
+
+        listDataChildHash = new LinkedHashMap<>();
+
+        for (String data : listDataHeader)  {
+            if (data.equals("Personlig Information")) {
+                loadChild(personalInformation);
+            } else {
+                if (data.equals("Præferencer")) {
+                    loadChild(preferences);
+                }
+            }
+            listDataChildHash.put(data,listDataChild);
+        }
+
+    }
+
+    private void loadChild(String[] childRelatives) {
+        listDataChild = new ArrayList<>();
+        for (String model : childRelatives)
+            listDataChild.add(model);
     }
 
     @Override
