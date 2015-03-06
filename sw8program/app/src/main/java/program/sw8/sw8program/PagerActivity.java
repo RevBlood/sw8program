@@ -2,24 +2,17 @@ package program.sw8.sw8program;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 
 public class PagerActivity extends FragmentActivity {
-
+    private final int DefaultPage = 2;
     private ViewPager Pager;
-    private PagerAdapter PageAdapter;
+    private FragmentPagerAdapter PagerAdapter;
     private GridView Tabs;
     private GridViewAdapter TabAdapter;
-    private Button TabUser;
-    private Button TabFavourites;
-    private Button TabRecommend;
-    private Button TabDiscover;
-    private Button TabSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,23 +21,51 @@ public class PagerActivity extends FragmentActivity {
 
         Pager = (ViewPager) findViewById(R.id.pager);
         Tabs = (GridView) findViewById(R.id.header);
-       /* TabUser = (Button) findViewById(R.id.tab_user);
-        TabFavourites = (Button) findViewById(R.id.tab_favourites);
-        TabRecommend = (Button) findViewById(R.id.tab_recommend);
-        TabDiscover = (Button) findViewById(R.id.tab_discover);
-        TabSettings = (Button) findViewById(R.id.tab_settings);*/
 
-        PageAdapter = new CustomPagerAdapter(getSupportFragmentManager());
-        Pager.setAdapter(PageAdapter);
-        Pager.setCurrentItem(2);
+        //Setup tabs with an adapter and a listener
+        TabAdapter = new GridViewAdapter(this, DefaultPage);
+        Tabs.setAdapter(TabAdapter);
+        Tabs.setOnItemClickListener(onTabClickListener);
 
-        Tabs.setAdapter(new GridViewAdapter(this));
+        //Setup the pages with an adapter and a listener.
+        Pager.setOnPageChangeListener(pagerChangeListener);
+        PagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), TabAdapter);
+        Pager.setAdapter(PagerAdapter);
 
-        Tabs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-            }
-        });
+        //Needed because Android fucking always keeps shit for too long
+        PagerAdapter.removeHighlights();
+
+        //Switch the display to show the recommender page
+        PagerAdapter.changePage(Pager, DefaultPage);
     }
 
+    //ClickListener for the tabs will highlight a tab, remove highlight from previous tab and prompt the Pager to change page
+    AdapterView.OnItemClickListener onTabClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            PagerAdapter.changePage(Pager, position);
+        }
+    };
 
+    //The pager handles touch events automatically. onPageSelected sends a request to the GridViewAdapter to highlight the right tab
+    ViewPager.OnPageChangeListener pagerChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int i, float v, int i2) {
+
+        }
+
+        @Override
+        public void onPageSelected(int i) {
+            TabAdapter.requestActive(i);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
+
+        }
+    };
+
+    public void requestPageChange(int position) {
+        PagerAdapter.changePage(Pager, position);
+    }
 }
