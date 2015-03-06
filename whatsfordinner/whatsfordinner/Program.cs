@@ -9,8 +9,9 @@ using System.ServiceModel.Description;
 
 namespace whatsfordinner {
     public class Program {
+        public static bool sqlDebugMessages = true;
+        
         static void Main(string[] args) {
-            DBController dbc = new DBController();
             /*
             Account testAcc = ModelDebug.GetTestAccount();
             testAcc.GetOrSetUsername = "Peter";
@@ -24,9 +25,9 @@ namespace whatsfordinner {
             */
 
             //dbc.DeleteAccountById(3);
-            dbc.Close();
             Console.WriteLine("Starting Service...");
             startRestService();
+            //Script.ExcelExtractionScript();
             Console.WriteLine("Program Ended");
             Console.ReadLine();
         }

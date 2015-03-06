@@ -338,7 +338,7 @@ namespace whatsfordinner {
             if (res.Count == 1) {
                 return new Account(res[0]);
             } else {
-                return new Account();
+                return null;
             }
         }
 
