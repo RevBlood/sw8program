@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 import Models.*;
 
 
@@ -20,7 +18,6 @@ public class Main {
 			System.out.println(response);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Account acc = JSONHelper.Deserialize(response, Account.class);

@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.fasterxml.jackson.core/com.fasterxml.jackson.core.iml" filepath="$PROJECT_DIR$/com.fasterxml.jackson.core/com.fasterxml.jackson.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.fasterxml.jackson.databind/com.fasterxml.jackson.databind.iml" filepath="$PROJECT_DIR$/com.fasterxml.jackson.databind/com.fasterxml.jackson.databind.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jackson-annotations-2.1.2/jackson-annotations-2.1.2.iml" filepath="$PROJECT_DIR$/jackson-annotations-2.1.2/jackson-annotations-2.1.2.iml" />
       <module fileurl="file://$PROJECT_DIR$/sw8program.iml" filepath="$PROJECT_DIR$/sw8program.iml" />
     </modules>
   </component>

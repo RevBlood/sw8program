@@ -1,6 +1,7 @@
 package CommunicationModels;
 
-import java.util.*;
+
+import java.util.List;
 import Models.*;
 import Relationships.*;
 

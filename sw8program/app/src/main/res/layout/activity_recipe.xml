@@ -60,13 +60,15 @@
             android:id="@+id/comment_box"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:minHeight="100dp"
             android:layout_below="@id/preparation_text"
             android:hint="@string/comment_hint"
-            android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
-            android:maxLines="4"
-            android:maxLength="300"
             android:scrollHorizontally="false"
-            android:imeOptions="actionSend"/>
+            android:maxLength="400"
+            android:imeOptions="actionSend"
+
+            android:inputType="textShortMessage|textMultiLine|textCapSentences"
+            android:singleLine="false"/>
 
         <ListView
             android:id="@+id/comments"

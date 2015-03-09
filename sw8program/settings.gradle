@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':com.fasterxml.jackson.core', ':com.fasterxml.jackson.databind', ':jackson-annotations-2.1.2'

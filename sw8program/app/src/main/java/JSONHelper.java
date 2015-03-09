@@ -26,7 +26,6 @@ public class JSONHelper<T> {
 		try {
 			resultString = mapper.writeValueAsString(obj);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resultString;

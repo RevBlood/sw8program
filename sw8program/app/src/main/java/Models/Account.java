@@ -1,7 +1,6 @@
 package Models;
 
 import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Account {
@@ -9,8 +8,7 @@ public class Account {
 
 	}
 	// Test for dbInsertion
-	public Account(String accountUsername, String accountPassword, String accountEmail, String accountSettings, 
-			String accountPreferences) {
+	public Account(String accountUsername, String accountPassword, String accountEmail, String accountSettings, String accountPreferences) {
 		setUsername(accountUsername);
 		setPassword(accountPassword);
 		setEmail(accountEmail);
@@ -19,8 +17,7 @@ public class Account {
 	}
 	
 	// Test without creationDate
-	public Account(int accountId, String accountUsername, String accountPassword, String accountEmail, 
-			String accountSettings, String accountPreferences) {
+	public Account(int accountId, String accountUsername, String accountPassword, String accountEmail, String accountSettings, String accountPreferences) {
 		setId(accountId);
 		setUsername(accountUsername);
 		setPassword(accountPassword);
@@ -29,8 +26,7 @@ public class Account {
 		setPreferences(accountPreferences);
 	}
 	
-	public Account(int accountId, String accountUsername, String accountPassword, String accountEmail, Date accountCreationDate, 
-			String accountSettings, String accountPreferences) {
+	public Account(int accountId, String accountUsername, String accountPassword, String accountEmail, Date accountCreationDate, String accountSettings, String accountPreferences) {
 		setId(accountId);
 		setUsername(accountUsername);
 		setPassword(accountPassword);
@@ -104,4 +100,17 @@ public class Account {
 		this._accountPreferences = preferences;
 	}
 	private String _accountPreferences;
+
+    //TODO: Finish these two
+    public boolean hasImage() {
+        return false;
+    }
+
+    public Integer getImageId() {
+        return 0;
+    }
+
+    public void setImageId(Integer id) {
+
+    }
 }

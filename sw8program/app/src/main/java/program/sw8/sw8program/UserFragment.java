@@ -1,16 +1,11 @@
 package program.sw8.sw8program;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -21,17 +16,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import Models.Account;
 
 public class UserFragment extends Fragment {
     private final int ContextUserImageRemove = 1;
@@ -39,7 +31,7 @@ public class UserFragment extends Fragment {
     private final int SelectImage = 1;
 
 
-    private User Profile;
+    private Account Profile;
     private ImageView UserImage;
 
     List<String> listDataHeader;
@@ -57,10 +49,10 @@ public class UserFragment extends Fragment {
         registerForContextMenu(UserImage);
 
         //TODO: Remove testdata
-        Profile = new User(0, "Carsten Holst");
+        Profile = new Account("CarstenHolstBaby", "123456", "@", "settings", "preferences");
 
-        if (Profile.getUserImageId() != 0) {
-            UserImage.setImageResource(Profile.getUserImageId());
+        if (Profile.hasImage()) {
+            UserImage.setImageResource(Profile.getImageId());
         }
         userName.setText(Profile.getUsername());
 
@@ -128,7 +120,7 @@ public class UserFragment extends Fragment {
                 startActivityForResult(Intent.createChooser(intent, getString(R.string.user_image_choose)), SelectImage);
                 return true;
             case ContextUserImageRemove:
-                Profile.setUserImageId(0);
+                Profile.setImageId(0);
                 UserImage.setImageResource(R.drawable.profile);
                 return true;
             default:

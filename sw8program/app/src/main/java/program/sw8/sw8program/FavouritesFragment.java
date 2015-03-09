@@ -13,6 +13,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import Models.Recipe;
+
 public class FavouritesFragment extends Fragment implements View.OnCreateContextMenuListener{
     private FavouritesAdapter FavAdapter;
     private final int ContextFavouriteRemove = 11;
