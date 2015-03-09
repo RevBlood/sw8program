@@ -33,20 +33,19 @@ namespace whatsfordinner {
         }
 
         static void startRestService() {
-            WebServiceHost host = new WebServiceHost(
-                typeof(RestService),
-                new Uri("http://localhost:8000/RestService")
-                );
-            host.AddServiceEndpoint(typeof(IAccount), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Account"));
-            host.AddServiceEndpoint(typeof(IComment), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Comment"));
-            host.AddServiceEndpoint(typeof(IIngredient), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Ingredient"));
-            host.AddServiceEndpoint(typeof(IRecipe), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Recipe"));
-            host.AddServiceEndpoint(typeof(IRetailer), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Retailer"));
-            host.AddServiceEndpoint(typeof(IFavorises), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Favorises"));
-            host.AddServiceEndpoint(typeof(IHasEaten), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/HasEaten"));
-            host.AddServiceEndpoint(typeof(IIngredientIn), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/IngredientIn"));
-            host.AddServiceEndpoint(typeof(IOffers), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Offers"));
-            host.AddServiceEndpoint(typeof(IPictures), new WebHttpBinding(), new Uri("http://localhost:8000/RestService/Pictures"));
+            Uri uri = new Uri("http://192.168.1.206:8000/RestService");
+            //new Uri("http://localhost:8000/RestService")
+            WebServiceHost host = new WebServiceHost(typeof(RestService), uri);
+            host.AddServiceEndpoint(typeof(IAccount), new WebHttpBinding(), new Uri(uri + "/Account"));
+            host.AddServiceEndpoint(typeof(IComment), new WebHttpBinding(), new Uri(uri + "/Comment"));
+            host.AddServiceEndpoint(typeof(IIngredient), new WebHttpBinding(), new Uri(uri + "/Ingredient"));
+            host.AddServiceEndpoint(typeof(IRecipe), new WebHttpBinding(), new Uri(uri + "/Recipe"));
+            host.AddServiceEndpoint(typeof(IRetailer), new WebHttpBinding(), new Uri(uri + "/Retailer"));
+            host.AddServiceEndpoint(typeof(IFavorises), new WebHttpBinding(), new Uri(uri + "/Favorises"));
+            host.AddServiceEndpoint(typeof(IHasEaten), new WebHttpBinding(), new Uri(uri + "/HasEaten"));
+            host.AddServiceEndpoint(typeof(IIngredientIn), new WebHttpBinding(), new Uri(uri + "/IngredientIn"));
+            host.AddServiceEndpoint(typeof(IOffers), new WebHttpBinding(), new Uri(uri + "/Offers"));
+            host.AddServiceEndpoint(typeof(IPictures), new WebHttpBinding(), new Uri(uri + "/Pictures"));
             host.Open();
 
 

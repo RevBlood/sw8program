@@ -21,7 +21,7 @@ namespace whatsfordinner {
                 "Server={0};User Id={1};Password={2};Database={3};Encoding=Unicode;",
                 dbHost, dbUser, dbPass, dbName);
             conn = new NpgsqlConnection(connstring);
-            
+            //
             conn.Open();
         }
 
