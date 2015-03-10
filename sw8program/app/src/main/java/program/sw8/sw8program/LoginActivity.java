@@ -29,9 +29,6 @@ import java.util.List;
 
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
-    //TODO: Remove testdata
-    private final String[] DUMMY_CREDENTIALS = new String[]{"foo@example.com:hello", "bar@example.com:world"};
-
     //Keep track of the login task to ensure we can cancel it if requested.
     private UserLoginTask AuthTask = null;
     private AutoCompleteTextView EmailView;
@@ -52,7 +49,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         Button EmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
 
         //Auto-complete email if possible
-        populateAutoComplete();
+        getLoaderManager().initLoader(0, null, this);
 
         PasswordView.setOnEditorActionListener(onKeyboardActionListener);
 
@@ -60,26 +57,22 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     }
 
-    private void populateAutoComplete() {
-        getLoaderManager().initLoader(0, null, this);
-    }
-
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
     public void attemptLogin() {
+        // If login in progress, don't try on top of that
         if (AuthTask != null) {
             return;
         }
 
-        // Reset errors.
+        // Reset errors from earlier attempts
         EmailView.setError(null);
         PasswordView.setError(null);
 
-        // Store values at the time of the login attempt.
+        // Store values at the time of the login attempt
         String email = EmailView.getText().toString();
         String password = PasswordView.getText().toString();
 
@@ -181,8 +174,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     private interface ProfileQuery {
-        String[] PROJECTION = {ContactsContract.CommonDataKinds.Email.ADDRESS, ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
+        String[] PROJECTION = {ContactsContract.CommonDataKinds.Email.ADDRESS, ContactsContract.CommonDataKinds.Email.IS_PRIMARY,};
 
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
@@ -206,23 +198,24 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             Activity = activity;
         }
 
+        //Returns true when login is handled, and false if not possible to handle, fx wrong password
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            // TODO: attempt authentication against a network service.
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(Email)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(Password);
+            // TODO: Remove Debug
+            if(getString(R.string.debug).equals("on")) {
+                try {
+                    // Simulate network access.
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    return false;
                 }
+            } else {
+                // TODO: Attempt authentication against database - return value should be handled for onPostExecute
+                // TODO: Case 1: Username and password correct - Return true
+                // TODO: Case 2: Password incorrect - Return false
+                // TODO: Case 3: Username not recognized - Fall through to register account and return true
+
             }
 
             // TODO: register the new account here.
@@ -235,9 +228,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
-                Intent intent = new Intent(Activity, PagerActivity.class);
-                intent.putExtra("UserId", -1);
-                startActivity(intent);
+                //TODO: Remove Debug
+                if(getString(R.string.debug).equals(("on"))) {
+                    Intent intent = new Intent(Activity, PagerActivity.class);
+                    intent.putExtra("UserId", -1);
+                    startActivity(intent);
+                }
+                else {
+                    //TODO: Retrieve user Account from Database and store information locally somehow
+                }
             } else {
                 PasswordView.setError(getString(R.string.error_incorrect_password));
                 PasswordView.requestFocus();

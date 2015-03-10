@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Debug Mode on/off -->
+    <string name="debug">on</string>
 
     <!-- Android generated -->
     <string name="app_name">sw8program</string>
