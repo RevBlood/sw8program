@@ -56,25 +56,39 @@
             android:layout_below="@id/ingredient_layout"
             android:text="@string/loading"/>
 
-        <EditText
-            android:id="@+id/comment_box"
+
+        <RelativeLayout
+            android:id="@+id/comment_layout"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:minHeight="100dp"
-            android:layout_below="@id/preparation_text"
-            android:hint="@string/comment_hint"
-            android:scrollHorizontally="false"
-            android:maxLength="400"
-            android:imeOptions="actionSend"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/preparation_text">
 
-            android:inputType="textShortMessage|textMultiLine|textCapSentences"
-            android:singleLine="false"/>
+            <Button
+                android:id="@+id/comment_submit"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentRight="true"
+                android:text="@string/comment_submit"/>
 
+            <EditText
+                android:id="@+id/comment_box"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_toLeftOf="@id/comment_submit"
+                android:minHeight="100dp"
+                android:hint="@string/comment_hint"
+                android:scrollHorizontally="false"
+                android:maxLength="400"
+                android:imeOptions="actionSend"
+                android:inputType="textShortMessage|textMultiLine|textCapSentences"
+                android:singleLine="false"/>
+
+        </RelativeLayout>
         <ListView
             android:id="@+id/comments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/comment_box">
+            android:layout_below="@id/comment_layout">
 
             </ListView>
         </RelativeLayout>

@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +23,7 @@ public class RecipeActivity extends Activity {
     String RecipeName;
     List<Ingredient> RecipeIngredients = new ArrayList<>();
     String RecipePreparationText;
+    TextView recipeCommentBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,8 @@ public class RecipeActivity extends Activity {
         ViewPager recipeImagePager = (ViewPager) findViewById(R.id.paged_image_layout);
         LinearLayout recipeIngredientLayout = (LinearLayout) findViewById(R.id.ingredient_layout);
         TextView recipePreparationView = (TextView) findViewById(R.id.preparation_text);
-        TextView recipeCommentBox = (TextView) findViewById(R.id.comment_box);
+        recipeCommentBox = (TextView) findViewById(R.id.comment_box);
+        Button recipeCommentSubmitButton = (Button) findViewById(R.id.comment_submit);
         ListView recipeCommentList = (ListView) findViewById(R.id.comments);
 
         //Testdata
@@ -69,22 +69,14 @@ public class RecipeActivity extends Activity {
         }
 
         recipePreparationView.setText(RecipePreparationText);
+        recipeCommentSubmitButton.setOnClickListener(onSubmitCommentListener);
 
-        recipeCommentBox.setOnEditorActionListener(OnSubmitCommentListener);
-        recipeCommentBox.setImeActionLabel(getString(R.string.comment_submit), EditorInfo.IME_ACTION_DONE);
     }
 
-
-    TextView.OnEditorActionListener OnSubmitCommentListener = new TextView.OnEditorActionListener() {
+    Button.OnClickListener onSubmitCommentListener = (new Button.OnClickListener() {
         @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            boolean handled = false;
-            if (actionId == EditorInfo.IME_ACTION_SEND) {
-                Toast toast = Toast.makeText(getParent(), "Ok.", Toast.LENGTH_SHORT);
-                toast.show();
-                handled = true;
-            }
-            return handled;
+        public void onClick(View v) {
+            //TODO: Post comment
         }
-    };
+    });
 }
