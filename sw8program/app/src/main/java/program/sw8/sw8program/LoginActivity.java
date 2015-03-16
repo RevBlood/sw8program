@@ -24,8 +24,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +31,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     //Keep track of the login task to ensure we can cancel it if requested.
     private UserLoginTask AuthTask = null;
-    private AutoCompleteTextView EmailView;
+    private AutoCompleteTextView UsernameView;
     private EditText PasswordView;
     private View ProgressView;
     private View LoginFormView;
@@ -44,11 +42,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         setContentView(R.layout.activity_login);
 
         // Set up the login form.
-        EmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        UsernameView = (AutoCompleteTextView) findViewById(R.id.email);
         PasswordView = (EditText) findViewById(R.id.password);
         LoginFormView = findViewById(R.id.login_form);
         ProgressView = findViewById(R.id.login_progress);
-        Button EmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button SignInButton = (Button) findViewById(R.id.email_sign_in_button);
         TextView SignUpLinkView = (TextView) findViewById(R.id.link_sign_up);
 
         //Auto-complete email if possible
@@ -56,7 +54,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         PasswordView.setOnEditorActionListener(onKeyboardActionListener);
 
-        EmailSignInButton.setOnClickListener(signInListener);
+        SignInButton.setOnClickListener(signInListener);
         SignUpLinkView.setOnClickListener(signUpListener);
 
     }
@@ -73,11 +71,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
 
         // Reset errors from earlier attempts
-        EmailView.setError(null);
+        UsernameView.setError(null);
         PasswordView.setError(null);
 
         // Store values at the time of the login attempt
-        String email = EmailView.getText().toString();
+        String username = UsernameView.getText().toString();
         String password = PasswordView.getText().toString();
 
         boolean cancel = false;
@@ -95,13 +93,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            EmailView.setError(getString(R.string.error_field_required));
-            focusView = EmailView;
+        if (TextUtils.isEmpty(username)) {
+            UsernameView.setError(getString(R.string.error_field_required));
+            focusView = UsernameView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            EmailView.setError(getString(R.string.error_invalid_email));
-            focusView = EmailView;
+        } else if (!isUsernameValid(username)) {
+            UsernameView.setError(getString(R.string.error_invalid_email));
+            focusView = UsernameView;
             cancel = true;
         }
 
@@ -111,13 +109,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to perform the user login attempt.
             showProgress(true);
-            AuthTask = new UserLoginTask(this, email, password);
+            AuthTask = new UserLoginTask(this, username, password);
             AuthTask.execute((Void) null);
         }
     }
 
-    private boolean isEmailValid(String email) {
-        return email.contains("@");
+    private boolean isUsernameValid(String username) {
+        return username.length() >= 3;
     }
 
     private boolean isPasswordValid(String password) {
@@ -187,17 +185,17 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(LoginActivity.this, android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-        EmailView.setAdapter(adapter);
+        UsernameView.setAdapter(adapter);
     }
 
     //Represents an asynchronous login/registration task used to authenticate the user
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-        private final String Email;
+        private final String Username;
         private final String Password;
         private final Activity Activity;
 
-        UserLoginTask(Activity activity, String email, String password) {
-            Email = email;
+        UserLoginTask(Activity activity, String username, String password) {
+            Username = username;
             Password = password;
             Activity = activity;
         }
