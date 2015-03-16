@@ -1,8 +1,8 @@
+package Helpers;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import Models.*;
-import Relationships.*;
 
 
 public class ServiceHelper {
@@ -81,7 +81,7 @@ public class ServiceHelper {
 	public static Account Login(String email, String password) {
 		String response = null;
 		try {
-			response = HTTPHelper.HTTPGet("http://localhost:8000/RestService/Login/Login?email=" + email + "&password=" + password);
+			response = HTTPHelper.HTTPGet("http://192.168.1.101:8000/RestService/Login/Login?email=" + email + "&password=" + password);
 			Account acc = JSONHelper.Deserialize(response, Account.class);
 			return acc;
 

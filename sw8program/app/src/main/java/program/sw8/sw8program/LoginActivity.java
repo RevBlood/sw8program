@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Models.Account;
+import Helpers.ServiceHelper;
 
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
@@ -217,7 +218,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         protected Boolean doInBackground(Void... params) {
 
             // TODO: Remove Debug
-            if(getString(R.string.debug).equals("on")) {
+            if (getString(R.string.debug).equals("on")) {
                 try {
                     // Simulate network access.
                     Thread.sleep(2000);
@@ -225,14 +226,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 } catch (InterruptedException e) {
                     return false;
                 }
-            } else if (0 == 0) {
+            } else {
+
                 // TODO: Attempt authentication against database
                 //  Username and password correct - Return true
-                return true;
-            } else {
-                // Wrong username/password combination - Return false
-                return false;
 
+                UserAccount = ServiceHelper.Login(Email, Password);
+                if (UserAccount != null) {
+                    return true;
+                } else {
+                    // Wrong username/password combination - Return false
+                    return false;
+
+                }
             }
         }
 
