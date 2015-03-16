@@ -7,6 +7,7 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -31,7 +32,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     //Keep track of the login task to ensure we can cancel it if requested.
     private UserLoginTask AuthTask = null;
-    private AutoCompleteTextView UsernameView;
+    private AutoCompleteTextView EmailView;
     private EditText PasswordView;
     private View ProgressView;
     private View LoginFormView;
@@ -41,12 +42,24 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        if(!getString(R.string.debug).equals("on")) {
+            // Check if a session is available for reload
+            SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
+            SharedPreferences.Editor editor = session.edit();
+            if (session.contains("username")) {
+                Intent intent = new Intent(LoginActivity.this, PagerActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+
         // Set up the login form.
-        UsernameView = (AutoCompleteTextView) findViewById(R.id.email);
+        EmailView = (AutoCompleteTextView) findViewById(R.id.email);
         PasswordView = (EditText) findViewById(R.id.password);
         LoginFormView = findViewById(R.id.login_form);
         ProgressView = findViewById(R.id.login_progress);
-        Button SignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button EmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         TextView SignUpLinkView = (TextView) findViewById(R.id.link_sign_up);
 
         //Auto-complete email if possible
@@ -54,16 +67,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         PasswordView.setOnEditorActionListener(onKeyboardActionListener);
 
-        SignInButton.setOnClickListener(signInListener);
+        EmailSignInButton.setOnClickListener(signInListener);
         SignUpLinkView.setOnClickListener(signUpListener);
 
     }
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
+    //Check if field contents are valid; Then try to sign in
     public void attemptLogin() {
         // If login in progress, don't try on top of that
         if (AuthTask != null) {
@@ -71,15 +80,26 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
 
         // Reset errors from earlier attempts
-        UsernameView.setError(null);
+        EmailView.setError(null);
         PasswordView.setError(null);
 
         // Store values at the time of the login attempt
-        String username = UsernameView.getText().toString();
+        String email = EmailView.getText().toString();
         String password = PasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            EmailView.setError(getString(R.string.error_field_required));
+            focusView = EmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            EmailView.setError(getString(R.string.error_invalid_email));
+            focusView = EmailView;
+            cancel = true;
+        }
 
         // Check for a valid password
         if (TextUtils.isEmpty(password)) {
@@ -92,30 +112,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             cancel = true;
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(username)) {
-            UsernameView.setError(getString(R.string.error_field_required));
-            focusView = UsernameView;
-            cancel = true;
-        } else if (!isUsernameValid(username)) {
-            UsernameView.setError(getString(R.string.error_invalid_email));
-            focusView = UsernameView;
-            cancel = true;
-        }
-
         if (cancel) {
             // There was an error; don't attempt login and focus the first form field with an error.
             focusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to perform the user login attempt.
             showProgress(true);
-            AuthTask = new UserLoginTask(this, username, password);
+            AuthTask = new UserLoginTask(this, email, password);
             AuthTask.execute((Void) null);
         }
     }
 
-    private boolean isUsernameValid(String username) {
-        return username.length() >= 3;
+    private boolean isEmailValid(String email) {
+        return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
@@ -185,17 +194,17 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(LoginActivity.this, android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-        UsernameView.setAdapter(adapter);
+        EmailView.setAdapter(adapter);
     }
 
     //Represents an asynchronous login/registration task used to authenticate the user
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-        private final String Username;
+        private final String Email;
         private final String Password;
         private final Activity Activity;
 
-        UserLoginTask(Activity activity, String username, String password) {
-            Username = username;
+        UserLoginTask(Activity activity, String email, String password) {
+            Email = email;
             Password = password;
             Activity = activity;
         }
@@ -232,16 +241,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             if (success) {
                 //TODO: Remove Debug
                 if(getString(R.string.debug).equals(("on"))) {
+                    SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
+                    SharedPreferences.Editor editor = session.edit();
+                    editor.putString("username", "Carsten Holst"); // Storing string
+                    editor.commit();
+
                     Intent intent = new Intent(Activity, PagerActivity.class);
-                    intent.putExtra("UserId", -1);
                     startActivity(intent);
-                }
-                else {
-                    //TODO: Store Account from Database locally somehow
+                    finish();
                 }
             } else {
-                PasswordView.setError(getString(R.string.error_incorrect_password));
-                PasswordView.requestFocus();
+                EmailView.setError(getString(R.string.error_bad_account));
+                EmailView.requestFocus();
             }
         }
 
@@ -275,6 +286,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         public void onClick(View v) {
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity(intent);
+            finish();
         }
     };
 }
