@@ -104,8 +104,21 @@ public class Account {
 		this._accountPreferences = preferences;
 	}
 	private String _accountPreferences;
-	
-	@Override
+
+    //TODO: Finish the image stuff
+    public boolean hasImage() {
+        return false;
+    }
+
+    public Integer getImageId() {
+        return 0;
+    }
+
+    public void setImageId(Integer id) {
+
+    }
+
+    @Override
 	public String toString() {
 		Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		StringBuilder result = new StringBuilder();

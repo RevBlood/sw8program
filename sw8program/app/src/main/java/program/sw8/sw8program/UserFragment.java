@@ -54,7 +54,7 @@ public class UserFragment extends Fragment {
         if (Profile.hasImage()) {
             UserImage.setImageResource(Profile.getImageId());
         }
-        userName.setText(Profile.getUsername());
+        userName.setText(Profile.getAlias());
 
         expListView = (ExpandableListView) rootView.findViewById(R.id.expandable_listview);
 
