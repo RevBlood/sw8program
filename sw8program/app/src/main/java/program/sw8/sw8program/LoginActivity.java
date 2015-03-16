@@ -28,6 +28,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import Models.Account;
+
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     //Keep track of the login task to ensure we can cancel it if requested.
@@ -36,6 +38,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private EditText PasswordView;
     private View ProgressView;
     private View LoginFormView;
+    private Account UserAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,8 +226,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     return false;
                 }
             } else if (0 == 0) {
-                // TODO: Attempt authentication against database - return value should be handled for onPostExecute
-                // TODO: Case 1: Username and password correct - Return true
+                // TODO: Attempt authentication against database
+                //  Username and password correct - Return true
                 return true;
             } else {
                 // Wrong username/password combination - Return false
@@ -241,14 +244,23 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             if (success) {
                 //TODO: Remove Debug
                 if(getString(R.string.debug).equals(("on"))) {
+
+                    UserAccount = new Account("alias", "password", "email@", "settings", "preferences");
                     SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
                     SharedPreferences.Editor editor = session.edit();
-                    editor.putString("username", "Carsten Holst"); // Storing string
+                    editor.putString("alias", UserAccount.getUsername());
                     editor.commit();
 
                     Intent intent = new Intent(Activity, PagerActivity.class);
                     startActivity(intent);
                     finish();
+                } else {
+                    //TODO: Handle login properly
+
+                    SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
+                    SharedPreferences.Editor editor = session.edit();
+
+                    editor.commit();
                 }
             } else {
                 EmailView.setError(getString(R.string.error_bad_account));
