@@ -66,4 +66,19 @@ public class Retailer {
 		this._retailerOpeningHours = openingHours;
 	}
 	private String _retailerOpeningHours;
+	
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		String space = " ";
+		
+		result.append(this.getId() + space);
+		result.append(this.getLatitude() + space);
+		result.append(this.getLongitude() + space);
+		result.append(this.getCompanyName() + space);
+		result.append(this.getDescription() + space);
+		result.append(this.getOpeningHours() + space);
+
+		return result.toString();	
+	}
 }

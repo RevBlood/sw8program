@@ -1,43 +1,48 @@
 package Models;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Account {
-	public Account() {
-
-	}
-	// Test for dbInsertion
-	public Account(String accountUsername, String accountPassword, String accountEmail, String accountSettings, String accountPreferences) {
-		setUsername(accountUsername);
-		setPassword(accountPassword);
-		setEmail(accountEmail);
-		setSettings(accountSettings);
-		setPreferences(accountPreferences);
-	}
+	public Account() {}
 	
-	// Test without creationDate
-	public Account(int accountId, String accountUsername, String accountPassword, String accountEmail, String accountSettings, String accountPreferences) {
+	public Account(int accountId, String accountEmail, String accountPassword, String accountAlias, Date accountCreationDate, 
+			String accountSettings, String accountPreferences) {
 		setId(accountId);
-		setUsername(accountUsername);
-		setPassword(accountPassword);
-		setEmail(accountEmail);
-		setSettings(accountSettings);
-		setPreferences(accountPreferences);
-	}
-	
-	public Account(int accountId, String accountUsername, String accountPassword, String accountEmail, Date accountCreationDate, String accountSettings, String accountPreferences) {
-		setId(accountId);
-		setUsername(accountUsername);
+		setAlias(accountAlias);
 		setPassword(accountPassword);
 		setEmail(accountEmail);
 		setCreationDate(accountCreationDate);
 		setSettings(accountSettings);
 		setPreferences(accountPreferences);
 	}
+	/*
+	// Test without creationDate
+	public Account(int accountId, String accountUsername, String accountPassword, String accountEmail, 
+			String accountSettings, String accountPreferences) {
+		setId(accountId);
+		setUsername(accountUsername);
+		setPassword(accountPassword);
+		setEmail(accountEmail);
+		setSettings(accountSettings);
+		setPreferences(accountPreferences);
+	}
+	*/
+	// Test for dbInsertion
+	public Account(String accountEmail, String accountPassword, String accountAlias, String accountSettings, 
+			String accountPreferences) {
+		setAlias(accountAlias);
+		setPassword(accountPassword);
+		setEmail(accountEmail);
+		setSettings(accountSettings);
+		setPreferences(accountPreferences);
+	}
+	
 	
 	//Account Id
-	@JsonIgnore
 	public int getId(){
 		return _accountId;
 	}
@@ -45,24 +50,6 @@ public class Account {
 		this._accountId = id;
 	}
 	private int _accountId;
-	
-	//Account Username
-	public String getUsername() {
-		return _accountUsername;
-	}
-	public void setUsername(String username) {
-		this._accountUsername = username;
-	}
-	private String _accountUsername;
-	
-	//Account Password
-	public String getPassword() {
-		return _accountPassword;
-	}
-	public void setPassword(String password) {
-		this._accountPassword = password;
-	}
-	private String _accountPassword;
 	
 	//Account Email
 	public String getEmail(){
@@ -73,8 +60,25 @@ public class Account {
 	}
 	private String _accountEmail;
 	
+	//Account Password
+	public String getPassword() {
+		return _accountPassword;
+	}
+	public void setPassword(String password) {
+		this._accountPassword = password;
+	}
+	private String _accountPassword;
+	
+	//Account Alias
+	public String getAlias() {
+		return _accountAlias;
+	}
+	public void setAlias(String alias) {
+		this._accountAlias = alias;
+	}
+	private String _accountAlias;
+	
 	//Account CreationDate
-	@JsonIgnore
 	public Date getCreationDate(){
 		return _accountCreationDate;
 	}
@@ -100,17 +104,21 @@ public class Account {
 		this._accountPreferences = preferences;
 	}
 	private String _accountPreferences;
+	
+	@Override
+	public String toString() {
+		Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		StringBuilder result = new StringBuilder();
+		String space = " ";
+		
+		result.append(this.getId() + space);
+		result.append(this.getAlias() + space);
+		result.append(this.getPassword() + space);
+		result.append(this.getEmail() + space);
+		result.append(formatter.format(this.getCreationDate()) + space);
+		result.append(this.getSettings() + space);
+		result.append(this.getPreferences() + space);
 
-    //TODO: Finish these two
-    public boolean hasImage() {
-        return false;
-    }
-
-    public Integer getImageId() {
-        return 0;
-    }
-
-    public void setImageId(Integer id) {
-
-    }
+		return result.toString();		
+	}
 }

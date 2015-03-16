@@ -1,5 +1,7 @@
 package Models;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Comment {
@@ -57,4 +59,19 @@ public class Comment {
 		this._commentText = text;
 	}
 	private String _commentText;
+	
+	@Override
+	public String toString() {
+		Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		StringBuilder result = new StringBuilder();
+		String space = " ";
+		
+		result.append(this.getId() + space);
+		result.append(this.getAccountId() + space);
+		result.append(this.getRecipeId() + space);
+		result.append(formatter.format(this.getCreationDate()) + space);
+		result.append(this.getText() + space);
+		
+		return result.toString();		
+	}
 }

@@ -25,4 +25,15 @@ public class Favorises {
 		this._favorisesRecipeId = id;
 	}
 	private int _favorisesRecipeId;
+	
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		String space = " ";
+		
+		result.append(this.getAccountId() + space);
+		result.append(this.getRecipeId() + space);
+		
+		return result.toString();	
+	}
 }

@@ -1,5 +1,7 @@
 package Relationships;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.math.BigDecimal;
 
@@ -48,4 +50,18 @@ public class HasEaten {
 		this._hasEatenRating = rating;
 	}
 	private BigDecimal _hasEatenRating;
+	
+	@Override
+	public String toString() {
+		Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		StringBuilder result = new StringBuilder();
+		String space = " ";
+		
+		result.append(this.getAccountId() + space);
+		result.append(this.getRecipeId() + space);
+		result.append(formatter.format(this.getEatenAt()) + space);
+		result.append(this.getRating() + space);
+
+		return result.toString();		
+	}
 }

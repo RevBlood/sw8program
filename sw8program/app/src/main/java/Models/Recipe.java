@@ -1,5 +1,7 @@
 package Models;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.math.BigDecimal;
 
@@ -64,7 +66,7 @@ public class Recipe {
 	private Date _recipeCreationDate;
 	
 	//Recipe NumberOfServings
-	public int getNumberOfSercings(){
+	public int getNumberOfServings(){
 		return _recipeNumberOfServings;
 	}
 	public void setNumberOfServings(int numberOfServings){
@@ -89,4 +91,22 @@ public class Recipe {
 		this._recipeRating = rating;
 	}
 	private BigDecimal _recipeRating;
+	
+	@Override
+	public String toString() {
+		Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		StringBuilder result = new StringBuilder();
+		String space = " ";
+		
+		result.append(this.getId() + space);
+		result.append(this.getAccountId() + space);
+		result.append(this.getName() + space);
+		result.append(this.getDescription() + space);
+		result.append(formatter.format(this.getCreationDate()) + space);
+		result.append(this.getNumberOfServings() + space);
+		result.append(this.getTags() + space);
+		result.append(this.getRating() + space);
+
+		return result.toString();
+	}
 }

@@ -1,5 +1,7 @@
 package Relationships;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.math.BigDecimal;
 
@@ -101,4 +103,22 @@ public class Offers {
 	}
 	private BigDecimal _offersPercentageSavingGeneral;
 	
+	@Override
+	public String toString() {
+		Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		StringBuilder result = new StringBuilder();
+		String space = " ";
+		
+		result.append(this.getRetailerId() + space);
+		result.append(this.getIngredientId() + space);
+		result.append(formatter.format(this.getOfferFrom()) + space);
+		result.append(formatter.format(this.getOfferTo()) + space);
+		result.append(this.getNormalPrice() + space);
+		result.append(this.getOnSalePrice() + space);
+		result.append(this.getKrSaving() + space);
+		result.append(this.getPercentageSavingRetailer() + space);
+		result.append(this.getPercentageSavingGeneral() + space);
+
+		return result.toString();		
+	}
 }

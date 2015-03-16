@@ -37,8 +37,8 @@ public class Ingredient {
 	public String getMeasurementType() {
 		return _ingredientMeasurementType;
 	}
-	public void setMeasurementType(String measurementType) {
-		this._ingredientMeasurementType = measurementType;
+	public void setMeasurementType(String measurementtype) {
+		this._ingredientMeasurementType = measurementtype;
 	}
 	private String _ingredientMeasurementType;
 	
@@ -68,4 +68,19 @@ public class Ingredient {
 		this._ingredientTags = tags;
 	}
 	private String _ingredientTags;
+	
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		String space = " ";
+		
+		result.append(this.getId() + space);
+		result.append(this.getName() + space);
+		result.append(this.getMeasurementType() + space);
+		result.append(this.getMeasure() + space);
+		result.append(this.getPrice() + space);
+		result.append(this.getTags() + space);
+		
+		return result.toString();	
+	}
 }

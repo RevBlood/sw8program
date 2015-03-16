@@ -36,4 +36,16 @@ public class IngredientIn {
 		this._ingredientInAmount = amount;
 	}
 	private int _ingredientInAmount;
+	
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		String space = " ";
+		
+		result.append(this.getIngredientId() + space);
+		result.append(this.getRecipeId() + space);
+		result.append(this.getAmount() + space);
+		
+		return result.toString();	
+	}
 }
