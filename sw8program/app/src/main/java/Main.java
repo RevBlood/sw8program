@@ -21,7 +21,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		Account acc = JSONHelper.Deserialize(response, Account.class);
-		System.out.println(acc.getUsername());
+		System.out.println(acc.getAlias());
 	}
 	
 	public static void putAccount(){

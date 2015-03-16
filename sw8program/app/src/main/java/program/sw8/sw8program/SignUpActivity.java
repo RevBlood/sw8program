@@ -263,7 +263,7 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
                     SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
                     SharedPreferences.Editor editor = session.edit();
                     editor.putString("email", UserAccount.getEmail());
-                    editor.putString("alias", UserAccount.getUsername());
+                    editor.putString("alias", UserAccount.getAlias());
                     editor.putString("password", UserAccount.getPassword());
                     editor.commit();
 
