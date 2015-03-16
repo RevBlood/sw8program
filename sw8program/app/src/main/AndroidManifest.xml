@@ -35,6 +35,14 @@
             android:name=".RecipeActivity"
             android:label="@string/title_activity_recipe" >
         </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="@string/title_activity_sign_up"
+            android:parentActivityName=".LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="program.sw8.sw8program.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>

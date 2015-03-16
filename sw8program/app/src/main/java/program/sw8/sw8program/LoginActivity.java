@@ -24,6 +24,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,13 +49,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         LoginFormView = findViewById(R.id.login_form);
         ProgressView = findViewById(R.id.login_progress);
         Button EmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        TextView SignUpLinkView = (TextView) findViewById(R.id.link_sign_up);
 
         //Auto-complete email if possible
         getLoaderManager().initLoader(0, null, this);
 
         PasswordView.setOnEditorActionListener(onKeyboardActionListener);
 
-        EmailSignInButton.setOnClickListener(emailSignInListener);
+        EmailSignInButton.setOnClickListener(signInListener);
+        SignUpLinkView.setOnClickListener(signUpListener);
 
     }
 
@@ -207,19 +211,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 try {
                     // Simulate network access.
                     Thread.sleep(2000);
+                    return true;
                 } catch (InterruptedException e) {
                     return false;
                 }
-            } else {
+            } else if (0 == 0) {
                 // TODO: Attempt authentication against database - return value should be handled for onPostExecute
                 // TODO: Case 1: Username and password correct - Return true
-                // TODO: Case 2: Password incorrect - Return false
-                // TODO: Case 3: Username not recognized - Fall through to register account and return true
+                return true;
+            } else {
+                // Wrong username/password combination - Return false
+                return false;
 
             }
-
-            // TODO: register the new account here.
-            return true;
         }
 
         @Override
@@ -235,7 +239,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     startActivity(intent);
                 }
                 else {
-                    //TODO: Retrieve user Account from Database and store information locally somehow
+                    //TODO: Store Account from Database locally somehow
                 }
             } else {
                 PasswordView.setError(getString(R.string.error_incorrect_password));
@@ -261,10 +265,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
     };
 
-    OnClickListener emailSignInListener = new OnClickListener() {
+    OnClickListener signInListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             attemptLogin();
+        }
+    };
+
+    OnClickListener signUpListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+            startActivity(intent);
         }
     };
 }

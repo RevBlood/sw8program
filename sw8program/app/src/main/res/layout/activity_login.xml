@@ -69,6 +69,16 @@
                 android:text="@string/action_sign_in"
                 android:textStyle="bold"/>
 
+            <TextView
+                android:id="@+id/link_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:paddingTop="10dp"
+                android:textColor="@color/blue"
+                android:text="@string/action_sign_up"
+                android:clickable="true"/>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
