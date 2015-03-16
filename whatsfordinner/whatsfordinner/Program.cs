@@ -12,19 +12,9 @@ namespace whatsfordinner {
         public static bool sqlDebugMessages = true;
         
         static void Main(string[] args) {
-            /*
-            Account testAcc = ModelDebug.GetTestAccount();
-            testAcc.GetOrSetUsername = "Peter";
-            dbc.AddAccount(testAcc);
 
+            //DBDebug.dbMassInsert();
 
-            List<Account> allAccs = dbc.GetAllAccounts();
-            foreach (Account acc in allAccs) {
-                Console.WriteLine(acc.ToString());
-            }
-            */
-
-            //dbc.DeleteAccountById(3);
             Console.WriteLine("Starting Service...");
             startRestService();
             //Script.ExcelExtractionScript();
@@ -33,8 +23,8 @@ namespace whatsfordinner {
         }
 
         static void startRestService() {
-            Uri uri = new Uri("http://192.168.1.206:8000/RestService");
-            //new Uri("http://localhost:8000/RestService")
+            //Uri uri = new Uri("http://192.168.1.206:8000/RestService");
+            Uri uri = new Uri("http://localhost:8000/RestService");
             WebServiceHost host = new WebServiceHost(typeof(RestService), uri);
             host.AddServiceEndpoint(typeof(IAccount), new WebHttpBinding(), new Uri(uri + "/Account"));
             host.AddServiceEndpoint(typeof(IComment), new WebHttpBinding(), new Uri(uri + "/Comment"));
@@ -46,6 +36,7 @@ namespace whatsfordinner {
             host.AddServiceEndpoint(typeof(IIngredientIn), new WebHttpBinding(), new Uri(uri + "/IngredientIn"));
             host.AddServiceEndpoint(typeof(IOffers), new WebHttpBinding(), new Uri(uri + "/Offers"));
             host.AddServiceEndpoint(typeof(IPictures), new WebHttpBinding(), new Uri(uri + "/Pictures"));
+            host.AddServiceEndpoint(typeof(ILogin), new WebHttpBinding(), new Uri(uri + "/Login"));
             host.Open();
 
 

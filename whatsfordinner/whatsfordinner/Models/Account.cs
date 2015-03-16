@@ -12,9 +12,9 @@ namespace whatsfordinner {
     public class Account {
         // Contains:
         // Account Id
-        // Account Username
-        // Account Password
         // Account Email
+        // Account Password
+        // Account Alias
         // Account CreationDate
         // Account Settings
         // Account Preferences
@@ -24,27 +24,27 @@ namespace whatsfordinner {
 
         public Account(DataRow row) {
             this.GetOrSetId = row.Field<int>("accountid");
-            this.GetOrSetUsername = row.Field<string>("username");
-            this.GetOrSetPassword = row.Field<string>("password");
             this.GetOrSetEmail = row.Field<string>("email");
+            this.GetOrSetPassword = row.Field<string>("password");
+            this.GetOrSetAlias = row.Field<string>("alias");
             this.GetOrSetCreationDate = row.Field<DateTime>("creationdate");
             this.GetOrSetSettings = row.Field<string>("settings");
             this.GetOrSetPreferences = row.Field<string>("preferences");
         }
 
         // Test account
-        public Account(string accountUsername, string accountPassword, string accountEmail, string accountSettings, string accountPreferences) {
-            this.GetOrSetUsername = accountUsername;
+        public Account(string accountEmail, string accountPassword, string accountAlias, string accountSettings, string accountPreferences) {
+            this.GetOrSetAlias = accountAlias;
             this.GetOrSetPassword = accountPassword;
             this.GetOrSetEmail = accountEmail;
             this.GetOrSetSettings = accountSettings;
             this.GetOrSetPreferences = accountPreferences;
         }
 
-        public Account(string accountUsername, string accountPassword, string accountEmail, DateTime creationdate, string accountSettings, string accountPreferences) {
-            this.GetOrSetUsername = accountUsername;
-            this.GetOrSetPassword = accountPassword;
+        public Account(string accountEmail, string accountPassword, string accountAlias, DateTime creationdate, string accountSettings, string accountPreferences) {
             this.GetOrSetEmail = accountEmail;
+            this.GetOrSetPassword = accountPassword;
+            this.GetOrSetAlias = accountAlias;
             this.GetOrSetCreationDate = (creationdate);
             this.GetOrSetSettings = accountSettings;
             this.GetOrSetPreferences = accountPreferences;
@@ -61,16 +61,16 @@ namespace whatsfordinner {
         }
         private int _accountId;
 
-        [DataMember (Name = "username")]
-        public string GetOrSetUsername {
+        [DataMember(Name = "email")]
+        public string GetOrSetEmail {
             get {
-                return _accountUsername;
+                return _accountEmail;
             }
             set {
-                _accountUsername = value;
+                _accountEmail = value;
             }
         }
-        private string _accountUsername;
+        private string _accountEmail;
 
         [DataMember(Name = "password")]
         public string GetOrSetPassword {
@@ -83,18 +83,18 @@ namespace whatsfordinner {
         }
         private string _accountPassword;
 
-        [DataMember(Name = "email")]
-        public string GetOrSetEmail {
+        [DataMember(Name = "alias")]
+        public string GetOrSetAlias {
             get {
-                return _accountEmail;
+                return _accountAlias;
             }
             set {
-                _accountEmail = value;
+                _accountAlias = value;
             }
         }
-        private string _accountEmail;
+        private string _accountAlias;
 
-        //  [DataMember(Name = "creationdate")]
+        [DataMember(Name = "creationDate")]
         public DateTime GetOrSetCreationDate {
             get {
                 return _accountCreationDate;
@@ -128,10 +128,10 @@ namespace whatsfordinner {
         private string _accountPreferences;
         
         public override string ToString() {
-            return this.GetOrSetId 
-            + " " + this.GetOrSetUsername 
-            + " " + this.GetOrSetPassword 
+            return this.GetOrSetId
             + " " + this.GetOrSetEmail 
+            + " " + this.GetOrSetPassword
+            + " " + this.GetOrSetAlias 
             + " " + this.GetOrSetCreationDate.ToString("dd/MM/yyyy HH:mm")
             + " " + this.GetOrSetSettings
             + " " + this.GetOrSetPreferences;
