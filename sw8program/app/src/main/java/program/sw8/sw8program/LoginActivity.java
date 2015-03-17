@@ -9,12 +9,15 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -250,7 +254,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             if (success) {
                 //TODO: Remove Debug
                 if(getString(R.string.debug).equals(("on"))) {
-
                     UserAccount = new Account("alias", "password", "email@", "settings", "preferences");
                     SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
                     SharedPreferences.Editor editor = session.edit();
@@ -307,6 +310,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             finish();
         }
     };
+
+    private String bitmapToBase64(Bitmap image) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
+
+    private Bitmap base64ToBitmap(String base64) {
+        byte[] byteArray = Base64.decode(base64, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+    }
 }
 
 
