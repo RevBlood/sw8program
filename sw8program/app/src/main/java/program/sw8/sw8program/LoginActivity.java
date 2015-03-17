@@ -36,7 +36,6 @@ import Models.Account;
 import Helpers.ServiceHelper;
 
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
-
     private UserLoginTask AuthTask = null;
     private AutoCompleteTextView EmailView;
     private EditText PasswordView;
@@ -220,7 +219,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 try {
                     // Simulate network access.
                     Thread.sleep(2000);
-                    UserAccount = new Account("alias", "password", "email@", "settings", "preferences");
+                    UserAccount = new Account(Email, Password, "hardcoded alias", "settings", "preferences");
                     return true;
                 } catch (InterruptedException e) {
                     return false;
@@ -248,6 +247,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 SharedPreferences.Editor editor = session.edit();
                 editor.putString("alias", UserAccount.getAlias());
                 editor.putString("email", UserAccount.getEmail());
+                editor.putString("password", UserAccount.getPassword());
                 editor.putString("preferences", UserAccount.getPreferences());
                 editor.putString("settings", UserAccount.getSettings());
                 editor.putInt("id", UserAccount.getId());

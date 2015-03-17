@@ -30,7 +30,6 @@ public class UserFragment extends Fragment {
     private final int ContextUserImageChange = 2;
     private final int SelectImage = 1;
 
-
     private Account Profile;
     private ImageView UserImage;
 
@@ -44,25 +43,28 @@ public class UserFragment extends Fragment {
     List<String> listPreferencesHeader;
     HashMap<String, List<String[]>> listPreferencesChild;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_user, container, false);
 
         UserImage = (ImageView) rootView.findViewById(R.id.user_image);
         TextView userName = (TextView) rootView.findViewById(R.id.user_name);
+        TextView userEmail = (TextView) rootView.findViewById(R.id.user_email);
         registerForContextMenu(UserImage);
 
-        //TODO: Remove testdata
-        Profile = new Account("CarstenHolstBaby", "123456", "@", "settings", "preferences");
+        SharedPreferences session = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
+        Profile = new Account(
+                session.getString("email", null),
+                session.getString("password", null),
+                session.getString("alias", null),
+                session.getString("settings", null),
+                session.getString("preferences", null));
 
         if (Profile.hasImage()) {
             UserImage.setImageResource(Profile.getImageId());
         }
         userName.setText(Profile.getAlias());
-
-        SharedPreferences session = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
-        userName.setText(session.getString("alias", Profile.getAlias()));
+        userEmail.setText(Profile.getEmail());
 
         // setting up data and adapter for Personal Information expandable list
         explistPersonal = (ExpandableListView) rootView.findViewById(R.id.explist_personal);
@@ -79,9 +81,7 @@ public class UserFragment extends Fragment {
         return rootView;
     }
 
-    /*
-         * Preparing the list data
-         */
+    //Preparing the listdata
     private void preparePersonalData() {
         listPersonalHeader = new ArrayList<String>();
         listPersonalChild = new HashMap<String, List<String[]>>();

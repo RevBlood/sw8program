@@ -3,15 +3,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="user" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp">
-
 
         <ImageView
             android:id="@+id/user_image"
@@ -25,8 +19,22 @@
             android:layout_height="50dp"
             android:text="@string/loading"
             android:layout_toRightOf="@id/user_image"
+            android:layout_toEndOf="@id/user_image"
             android:textSize="25dp"
-            android:gravity="left|bottom"
+            android:gravity="start|bottom"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:singleLine="true"/>
+
+        <TextView
+            android:id="@+id/user_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_name"
+            android:layout_toRightOf="@id/user_image"
+            android:layout_toEndOf="@id/user_image"
+            android:textSize="15dp"
+            android:gravity="start|bottom"
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
             android:singleLine="true"/>
@@ -42,6 +50,5 @@
         android:id="@+id/explist_preferences"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
-
 
 </LinearLayout>
