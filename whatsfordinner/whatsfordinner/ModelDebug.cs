@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace whatsfordinner {
     public static class ModelDebug {
         public static Account GetTestAccount() {
-            DateTime dt = DateTime.Now;        
-            Account acc = new Account("andrejs", "andrejspw", "andrejs@andrejs.com", dt, "noget med setting", "noget med preferences");
+            DateTime dt = DateTime.Now;
+            Account acc = new Account("andrejs@andrejs.com", "andrejspw", "andrejs", dt, "noget med setting", "noget med preferences");
             return acc;
         }
 

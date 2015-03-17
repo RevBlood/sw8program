@@ -2,6 +2,7 @@ package program.sw8.sw8program;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,10 +36,15 @@ public class UserFragment extends Fragment {
     private Account Profile;
     private ImageView UserImage;
 
-    List<String> listDataHeader;
-    List<String> listDataChild;
-    HashMap<String, List<String>> listDataChildHash;
-    ExpandableListView expListView;
+    ExpandableListPersonal listPersonalAdapter;
+    ExpandableListView explistPersonal;
+    List<String> listPersonalHeader;
+    HashMap<String, List<String[]>> listPersonalChild;
+
+    ExpandableListPreferences listPreferencesAdapter;
+    ExpandableListView explistPreferences;
+    List<String> listPreferencesHeader;
+    HashMap<String, List<String[]>> listPreferencesChild;
 
 
     @Override
@@ -56,47 +63,61 @@ public class UserFragment extends Fragment {
         }
         userName.setText(Profile.getAlias());
 
-        expListView = (ExpandableListView) rootView.findViewById(R.id.expandable_listview);
+        SharedPreferences session = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
+        userName.setText(session.getString("alias", Profile.getAlias()));
 
-        listGroupData();
-        listData();
+        // setting up data and adapter for Personal Information expandable list
+        explistPersonal = (ExpandableListView) rootView.findViewById(R.id.explist_personal);
+        preparePersonalData();
+        listPersonalAdapter = new ExpandableListPersonal(getActivity(), listPersonalHeader, listPersonalChild);
+        explistPersonal.setAdapter(listPersonalAdapter);
 
-        ExpandableListAdapter expListAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChildHash);
-        expListView.setAdapter(expListAdapter);
+        // setting up data and adapter for Preferences expandable list
+        explistPreferences = (ExpandableListView) rootView.findViewById(R.id.explist_preferences);
+        preparePreferencesData();
+        listPreferencesAdapter = new ExpandableListPreferences(getActivity(), listPreferencesHeader, listPreferencesChild);
+        explistPreferences.setAdapter(listPreferencesAdapter);
 
         return rootView;
     }
 
-    private void listGroupData() {
-        listDataHeader = new ArrayList<>();
-        listDataHeader.add("Personlig Information");
-        listDataHeader.add("Præferencer");
+    /*
+         * Preparing the list data
+         */
+    private void preparePersonalData() {
+        listPersonalHeader = new ArrayList<String>();
+        listPersonalChild = new HashMap<String, List<String[]>>();
+
+        // Adding group data
+        listPersonalHeader.add("Personlig Information");
+
+        String[] name = new String[]{Profile.getUsername(),"name"};
+        String[] description = new String[]{"The Godfather","description"};
+
+        // Adding child data
+        List<String[]> PersonalInformation = new ArrayList<String[]>();
+        PersonalInformation.add(0, name);
+        PersonalInformation.add(1, description);
+
+        listPersonalChild.put(listPersonalHeader.get(0), PersonalInformation); // Header, Child data
     }
 
-    private void listData() {
+    private void preparePreferencesData() {
+        listPreferencesHeader = new ArrayList<String>();
+        listPreferencesChild = new HashMap<String, List<String []>>();
 
-        String[] personalInformation = {"preferences"};
-        String[] preferences = {"personalInformation"};
+        // Adding group data
+        listPreferencesHeader.add("Præferencer");
 
-        listDataChildHash = new LinkedHashMap<>();
+        String[] price = new String[]{"50","price"};
+        String[] magic = new String[]{"50","magic"};
 
-        for (String data : listDataHeader)  {
-            if (data.equals("Personlig Information")) {
-                loadChild(personalInformation);
-            } else {
-                if (data.equals("Præferencer")) {
-                    loadChild(preferences);
-                }
-            }
-            listDataChildHash.put(data,listDataChild);
-        }
+        // Adding child data
+        List<String[]> preferences = new ArrayList<String[]>();
+        preferences.add(price);
+        preferences.add(magic);
 
-    }
-
-    private void loadChild(String[] childRelatives) {
-        listDataChild = new ArrayList<>();
-        for (String model : childRelatives)
-            listDataChild.add(model);
+        listPreferencesChild.put(listPreferencesHeader.get(0), preferences); // Header, Child data
     }
 
     @Override

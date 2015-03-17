@@ -9,7 +9,7 @@ using System.ServiceModel.Web;
 
 namespace whatsfordinner {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, AddressFilterMode = AddressFilterMode.Any)]
-    public partial class RestService : IAccount, IComment, IIngredient, IRecipe, IRetailer, IFavorises, IHasEaten, IIngredientIn, IPictures {
+    public partial class RestService : IAccount, IComment, IIngredient, IRecipe, IRetailer, IFavorises, IHasEaten, IIngredientIn, IPictures, ILogin {
 
     }
 }

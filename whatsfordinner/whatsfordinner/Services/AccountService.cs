@@ -47,17 +47,17 @@ namespace whatsfordinner {
             return null;
         }
 
-        [WebInvoke(Method = "GET", UriTemplate = "GetAccountByUsername?username={username}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public Account GetAccountByUsername(string username) {
+        [WebInvoke(Method = "GET", UriTemplate = "GetAccountByEmail?email={email}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public Account GetAccountByEmail(string email) {
             DBController dbc = new DBController();
             WebOperationContext ctx = WebOperationContext.Current;
             try {
-                Account tempAcc = dbc.GetAccountByUsername(username);
+                Account tempAcc = dbc.GetAccountByEmail(email);
                 if (tempAcc != null) {
                     return tempAcc;
                 }
             } catch (NpgsqlException e) {
-                Console.WriteLine((Program.sqlDebugMessages) ? "GetAccountByUsername: " + e.BaseMessage.ToString() : "");
+                Console.WriteLine((Program.sqlDebugMessages) ? "GetAccountByEmail: " + e.BaseMessage.ToString() : "");
                 ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.Conflict;
                 ctx.OutgoingResponse.StatusDescription = e.BaseMessage;
                 return null;

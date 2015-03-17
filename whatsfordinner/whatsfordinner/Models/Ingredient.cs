@@ -60,7 +60,7 @@ namespace whatsfordinner {
         }
         private string _ingredientName;
 
-        [DataMember(Name = "measurementtype")]
+        [DataMember(Name = "measurementType")]
         public string GetOrSetMeasurementType {
             get {
                 return _ingredientMeasurementType;

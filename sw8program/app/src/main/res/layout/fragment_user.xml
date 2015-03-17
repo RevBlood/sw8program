@@ -34,8 +34,14 @@
         </RelativeLayout>
 
     <ExpandableListView
-        android:id="@+id/expandable_listview"
-        android:layout_height="match_parent"
+        android:id="@+id/explist_personal"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
+
+    <ExpandableListView
+        android:id="@+id/explist_preferences"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
 
 </LinearLayout>
