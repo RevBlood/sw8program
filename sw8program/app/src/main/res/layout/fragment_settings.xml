@@ -8,4 +8,11 @@
         android:layout_height="wrap_content"
         android:text="settings" />
 
+    <Button
+        android:id="@+id/button_log_out"
+        android:text="@string/log_out"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"/>
+
 </LinearLayout>

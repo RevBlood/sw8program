@@ -37,7 +37,6 @@ import Helpers.ServiceHelper;
 
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
-    //Keep track of the login task to ensure we can cancel it if requested.
     private UserLoginTask AuthTask = null;
     private AutoCompleteTextView EmailView;
     private EditText PasswordView;
@@ -50,19 +49,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-        if(!getString(R.string.debug).equals("on")) {
+        if(getString(R.string.debug).equals("off")) {
             // Check if a session is available for reload
             SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
-            SharedPreferences.Editor editor = session.edit();
-            if (session.contains("username")) {
+            if (session.contains("alias")) {
                 Intent intent = new Intent(LoginActivity.this, PagerActivity.class);
                 startActivity(intent);
                 finish();
             }
         }
 
-        // Set up the login form.
         EmailView = (AutoCompleteTextView) findViewById(R.id.email);
         PasswordView = (EditText) findViewById(R.id.password);
         LoginFormView = findViewById(R.id.login_form);
@@ -70,19 +66,17 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         Button EmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         TextView SignUpLinkView = (TextView) findViewById(R.id.link_sign_up);
 
-        //Auto-complete email if possible
-        getLoaderManager().initLoader(0, null, this);
-
         PasswordView.setOnEditorActionListener(onKeyboardActionListener);
-
         EmailSignInButton.setOnClickListener(signInListener);
         SignUpLinkView.setOnClickListener(signUpListener);
 
+        //Auto-complete email if possible
+        getLoaderManager().initLoader(0, null, this);
     }
 
     //Check if field contents are valid; Then try to sign in
     public void attemptLogin() {
-        // If login in progress, don't try on top of that
+        // If login is in progress, don't try on top of that
         if (AuthTask != null) {
             return;
         }
@@ -205,6 +199,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         EmailView.setAdapter(adapter);
     }
 
+
     //Represents an asynchronous login/registration task used to authenticate the user
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         private final String Email;
@@ -220,28 +215,25 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         //Returns true when login is handled, and false if not possible to handle, fx wrong password
         @Override
         protected Boolean doInBackground(Void... params) {
-
             // TODO: Remove Debug
             if (getString(R.string.debug).equals("on")) {
                 try {
                     // Simulate network access.
                     Thread.sleep(2000);
+                    UserAccount = new Account("alias", "password", "email@", "settings", "preferences");
                     return true;
                 } catch (InterruptedException e) {
                     return false;
                 }
+
             } else {
-
-                // TODO: Attempt authentication against database
-                //  Username and password correct - Return true
-
+                //  If UserAccount is not null, then login was success - Return true
                 UserAccount = ServiceHelper.Login(Email, Password);
                 if (UserAccount != null) {
                     return true;
                 } else {
                     // Wrong username/password combination - Return false
                     return false;
-
                 }
             }
         }
@@ -252,25 +244,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
-                //TODO: Remove Debug
-                if(getString(R.string.debug).equals(("on"))) {
-                    UserAccount = new Account("alias", "password", "email@", "settings", "preferences");
-                    SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
-                    SharedPreferences.Editor editor = session.edit();
-                    editor.putString("alias", UserAccount.getAlias());
-                    editor.commit();
+                SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
+                SharedPreferences.Editor editor = session.edit();
+                editor.putString("alias", UserAccount.getAlias());
+                editor.apply();
 
-                    Intent intent = new Intent(Activity, PagerActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    //TODO: Handle login properly
-
-                    SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
-                    SharedPreferences.Editor editor = session.edit();
-
-                    editor.commit();
-                }
+                Intent intent = new Intent(Activity, PagerActivity.class);
+                startActivity(intent);
+                finish();
             } else {
                 EmailView.setError(getString(R.string.error_bad_account));
                 EmailView.requestFocus();

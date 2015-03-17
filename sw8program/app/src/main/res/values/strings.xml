@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Debug Mode on/off -->
-    <string name="debug">on</string>
+    <string name="debug">off</string>
 
     <!-- Android generated -->
     <string name="app_name">sw8program</string>
@@ -39,6 +39,9 @@
 
     <!-- Favourites context menu -->
     <string name="favourite_remove">Fjern favorit</string>
+
+    <!-- Settings fragment -->
+    <string name="log_out">Log ud</string>
 
     <!-- User context menu -->
     <string name="user_image_remove">Slet billede</string>
