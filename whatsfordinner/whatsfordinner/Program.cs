@@ -29,6 +29,10 @@ namespace whatsfordinner {
             startRestService();
             //Script.ExcelExtractionScript();
             Console.WriteLine("Program Ended");
+			while (true) {
+
+			}
+
             Console.ReadLine();
         }
 
