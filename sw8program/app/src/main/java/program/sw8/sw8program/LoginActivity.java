@@ -247,6 +247,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
                 SharedPreferences.Editor editor = session.edit();
                 editor.putString("alias", UserAccount.getAlias());
+                editor.putString("email", UserAccount.getEmail());
+                editor.putString("preferences", UserAccount.getPreferences());
+                editor.putString("settings", UserAccount.getSettings());
+                editor.putInt("id", UserAccount.getId());
                 editor.apply();
 
                 Intent intent = new Intent(Activity, PagerActivity.class);
