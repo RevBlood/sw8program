@@ -2,7 +2,7 @@ package program.sw8.sw8program;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -15,14 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import Models.Account;
@@ -91,7 +89,7 @@ public class UserFragment extends Fragment {
         // Adding group data
         listPersonalHeader.add("Personlig Information");
 
-        String[] name = new String[]{Profile.getUsername(),"name"};
+        String[] name = new String[]{Profile.getAlias(),"name"};
         String[] description = new String[]{"The Godfather","description"};
 
         // Adding child data
