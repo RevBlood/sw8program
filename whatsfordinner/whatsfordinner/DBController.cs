@@ -21,7 +21,7 @@ namespace whatsfordinner {
                 "Server={0};User Id={1};Password={2};Database={3};Encoding=Unicode;",
                 dbHost, dbUser, dbPass, dbName);
             conn = new NpgsqlConnection(connstring);
-            
+            //
             conn.Open();
         }
 
@@ -202,12 +202,12 @@ namespace whatsfordinner {
         // All Entities methods for adding a single instance to the DB
         //
         public int AddAccount(Account accountToInsert) {
-            string sql = "INSERT INTO accounts(username, password, email, settings, preferences) VALUES (@username, @password, @email, @settings, @preferences)";
+            string sql = "INSERT INTO accounts(email, password, alias, settings, preferences) VALUES (@email, @password, @alias, @settings, @preferences)";
 
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-            command.Parameters.AddWithValue("@username", accountToInsert.GetOrSetUsername);
-            command.Parameters.AddWithValue("@password", accountToInsert.GetOrSetPassword);
             command.Parameters.AddWithValue("@email", accountToInsert.GetOrSetEmail);
+            command.Parameters.AddWithValue("@password", accountToInsert.GetOrSetPassword);
+            command.Parameters.AddWithValue("@alias", accountToInsert.GetOrSetAlias);
             command.Parameters.AddWithValue("@settings", accountToInsert.GetOrSetSettings);
             command.Parameters.AddWithValue("@preferences", accountToInsert.GetOrSetPreferences);
 
@@ -455,7 +455,7 @@ namespace whatsfordinner {
                 return allPicturesFromRecipeId;
             }
         }
-        
+
         public List<Offers> GetOfferByRetailerId(int retailerId) {
             string sql = String.Format("SELECT * FROM offers WHERE retailerid = '{0}'", retailerId);
             DataRowCollection res = Query(sql);
@@ -550,8 +550,8 @@ namespace whatsfordinner {
         // Special queries / entity specific queries
         //
 
-        public Account GetAccountByUsername(string accountUsername) {
-            string sql = String.Format("SELECT * FROM accounts WHERE username = '{0}'", accountUsername);
+        public Account GetAccountByEmail(string accountEmail) {
+            string sql = String.Format("SELECT * FROM accounts WHERE email = '{0}'", accountEmail);
             DataRowCollection res = Query(sql);
             if (res.Count == 1) {
                 return new Account(res[0]);
@@ -612,7 +612,7 @@ namespace whatsfordinner {
                 return allIngredientsFromRecipeId;
             }
         }
-        
+
         public List<Recipe> GetRecipesByIngredientId(int ingredientId) {
             string sql = String.Format("SELECT recipes.recipeid, recipes.accountid, recipes.name, recipes.description, "
                 + "recipes.creationdate, recipes.numberofservings, recipes.tags, recipes.rating "
@@ -636,6 +636,16 @@ namespace whatsfordinner {
             rec.GetOrSetIngredientIns = GetIngredientInsByRecipeId(recipeId);
             return rec;
         }
-        
+
+        public Account Login(string accountEmail, string accountPassword) {
+            string sql = String.Format("SELECT * FROM accounts WHERE email = '{0}' AND password = '{1}'", accountEmail, accountPassword);
+            DataRowCollection res = Query(sql);
+            if (res.Count == 1) {
+                return new Account(res[0]);
+            } else {
+                return null;
+            }
+        }
+
     }
 }

@@ -13,7 +13,7 @@ namespace whatsfordinner {
         [OperationContract]
         Account GetAccountById(int accId);
         [OperationContract]
-        Account GetAccountByUsername(string username);
+        Account GetAccountByEmail(string email);
         [OperationContract]
         List<Account> GetAllAccounts();
         [OperationContract]
