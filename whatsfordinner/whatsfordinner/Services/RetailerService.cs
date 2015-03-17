@@ -26,12 +26,12 @@ namespace whatsfordinner {
             }
         }
 
-        [WebInvoke(Method = "GET", UriTemplate = "GetRetailerById?retId={retId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public Retailer GetRetailerById(int retId) {
+        [WebInvoke(Method = "GET", UriTemplate = "GetRetailerById?retailerId={retailerId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public Retailer GetRetailerById(int retailerId) {
             DBController dbc = new DBController();
             WebOperationContext ctx = WebOperationContext.Current;
             try {
-                Retailer tempRet = dbc.GetRetailerById(retId);
+                Retailer tempRet = dbc.GetRetailerById(retailerId);
                 if (tempRet != null) {
                     return tempRet;
                 }
@@ -67,10 +67,10 @@ namespace whatsfordinner {
             return null;
         }
 
-        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteRetailerById?retId={retId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public void DeleteRetById(int retId) {
+        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteRetailerById?retailerId={retailerId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public void DeleteRetById(int retailerId) {
             DBController dbc = new DBController();
-            dbc.DeleteRetailerById(retId);
+            dbc.DeleteRetailerById(retailerId);
             dbc.Close();
         }
     }

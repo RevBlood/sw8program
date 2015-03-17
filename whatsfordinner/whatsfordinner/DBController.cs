@@ -414,6 +414,21 @@ namespace whatsfordinner {
             }
         }
 
+        public List<Recipe> GetFavorisedRecipesByAccountId(int accountId) {
+            string sql = String.Format("SELECT recipes.recipeid, recipes.accountid, recipes.name, recipes.description, recipes.creationdate, recipes.numberofservings, recipes.tags, recipes.rating "
+                                        + "FROM (SELECT favorises.recipeid FROM favorises WHERE accountid = '{0}') AS favs, recipes WHERE favs.recipeid = recipes.recipeid", accountId);
+            DataRowCollection res = Query(sql);
+            List<Recipe> allFavorisedRecipesFromAccountId = new List<Recipe>();
+            if (res.Count >= 1) {
+                foreach (DataRow recipe in res) {
+                    allFavorisedRecipesFromAccountId.Add(new Recipe(recipe));
+                }
+                return allFavorisedRecipesFromAccountId;
+            } else {
+                return allFavorisedRecipesFromAccountId;
+            }
+        }
+
         public List<IngredientIn> GetIngredientInsByIngredientId(int ingredientId) {
             string sql = String.Format("SELECT * FROM ingredientin WHERE ingredientid = '{0}'", ingredientId);
             DataRowCollection res = Query(sql);

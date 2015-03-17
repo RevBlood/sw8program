@@ -26,12 +26,12 @@ namespace whatsfordinner {
             }
         }
 
-        [WebInvoke(Method = "GET", UriTemplate = "GetRecipeById?recId={recId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public Recipe GetRecipeById(int recId) {
+        [WebInvoke(Method = "GET", UriTemplate = "GetRecipeById?recipeId={recipeId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public Recipe GetRecipeById(int recipeId) {
             DBController dbc = new DBController();
             WebOperationContext ctx = WebOperationContext.Current;
             try {
-                Recipe tempRec = dbc.GetRecipeById(recId);
+                Recipe tempRec = dbc.GetRecipeById(recipeId);
                 if (tempRec != null) {
                     return tempRec;
                 }
@@ -89,12 +89,12 @@ namespace whatsfordinner {
             return null;
         }
 
-        [WebInvoke(Method = "GET", UriTemplate = "GetRecipesByIdWithIngredients?recId={recId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public RecipeWithIngredients GetRecipesByIdWithIngredients(int recId) {
+        [WebInvoke(Method = "GET", UriTemplate = "GetRecipesByIdWithIngredients?recipeId={recipeId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public RecipeWithIngredients GetRecipesByIdWithIngredients(int recipeId) {
             DBController dbc = new DBController();
             WebOperationContext ctx = WebOperationContext.Current;
             try {
-                RecipeWithIngredients tempRec = dbc.GetRecipeByIdWithIngredients(recId);
+                RecipeWithIngredients tempRec = dbc.GetRecipeByIdWithIngredients(recipeId);
                 if (tempRec != null) {
                     return tempRec;
                 }
@@ -131,10 +131,10 @@ namespace whatsfordinner {
             return null;
         }
 
-        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteRecipeById?recId={recId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public void DeleteRecById(int recId) {
+        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteRecipeById?recipeId={recipeId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public void DeleteRecById(int recipeId) {
             DBController dbc = new DBController();
-            dbc.DeleteRecipeById(recId);
+            dbc.DeleteRecipeById(recipeId);
             dbc.Close();
         }
     }

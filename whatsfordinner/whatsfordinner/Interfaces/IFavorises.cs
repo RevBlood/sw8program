@@ -15,6 +15,8 @@ namespace whatsfordinner {
         [OperationContract]
         List<Favorises> GetFavorisesByRecipeId(int recipeId);
         [OperationContract]
+        List<Recipe> GetFavorisedRecipesByAccountId(int accountId);
+        [OperationContract]
         void DeleteFavorisesByAccountIdAndRecipeId(int accountId, int recipeId);
     }
 }

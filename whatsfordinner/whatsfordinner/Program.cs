@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.ServiceModel.Description;
+using System.Net;
+using System.Net.Sockets;
+
 
 namespace whatsfordinner {
     public class Program {
         public static bool sqlDebugMessages = true;
         
         static void Main(string[] args) {
-
             //DBDebug.dbMassInsert();
-
             Console.WriteLine("Starting Service...");
             startRestService();
             //Script.ExcelExtractionScript();
@@ -23,8 +24,17 @@ namespace whatsfordinner {
         }
 
         static void startRestService() {
+            string localIP = "?";
+            IPHostEntry myHost = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in myHost.AddressList) {
+                if (ip.AddressFamily == AddressFamily.InterNetwork) {
+                    localIP = ip.ToString();
+                }
+            }
+
             //Uri uri = new Uri("http://192.168.1.206:8000/RestService");
-            Uri uri = new Uri("http://localhost:8000/RestService");
+            //Uri uri = new Uri("http://localhost:8000/RestService");
+            Uri uri = new Uri("http://" + localIP + ":8000/RestService");
             WebServiceHost host = new WebServiceHost(typeof(RestService), uri);
             host.AddServiceEndpoint(typeof(IAccount), new WebHttpBinding(), new Uri(uri + "/Account"));
             host.AddServiceEndpoint(typeof(IComment), new WebHttpBinding(), new Uri(uri + "/Comment"));

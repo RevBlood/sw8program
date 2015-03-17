@@ -11,7 +11,7 @@ namespace whatsfordinner {
         [OperationContract]
         void AddIngredient(Ingredient ing);
         [OperationContract]
-        Ingredient GetIngredientById(int ingId);
+        Ingredient GetIngredientById(int ingredientId);
         [OperationContract]
         Ingredient GetIngredientByName(string name);
         [OperationContract]
@@ -19,6 +19,6 @@ namespace whatsfordinner {
         [OperationContract]
         List<Ingredient> GetIngredientsByRecipeId(int recipeId);
         [OperationContract]
-        void DeleteIngById(int ingId);
+        void DeleteIngById(int ingredientId);
     }
 }

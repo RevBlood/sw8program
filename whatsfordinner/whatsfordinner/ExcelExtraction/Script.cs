@@ -23,7 +23,8 @@ namespace whatsfordinner
 			decimal tempValueOne;
 			decimal tempValuetwo;
 
-			using (StreamReader reader = new StreamReader(@"C:/Users/Casper/Dropbox/P8/gnmsnit.csv", Encoding.Default)) {
+			//using (StreamReader reader = new StreamReader(@"C:/Users/Casper/Dropbox/P8/gnmsnit.csv", Encoding.Default)) {
+            using (StreamReader reader = new StreamReader(@"C:/Users/Casper/Documents/My Dropbox/P8/gnmsnit.csv", Encoding.Default)) {
 				string line;
                 while ((line = reader.ReadLine()) != null) {
 					string[] fields = line.Split (';');

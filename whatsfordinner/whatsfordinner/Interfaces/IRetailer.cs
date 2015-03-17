@@ -11,10 +11,10 @@ namespace whatsfordinner {
         [OperationContract]
         void AddRetailer(Retailer ret);
         [OperationContract]
-        Retailer GetRetailerById(int retId);
+        Retailer GetRetailerById(int retailerId);
         [OperationContract]
         List<Retailer> GetAllRetailers();
         [OperationContract]
-        void DeleteRetById(int retId);
+        void DeleteRetById(int retailerId);
     }
 }

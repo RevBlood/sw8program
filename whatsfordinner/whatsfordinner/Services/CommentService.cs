@@ -26,12 +26,12 @@ namespace whatsfordinner {
             }
         }
 
-        [WebInvoke(Method = "GET", UriTemplate = "GetCommentById?comId={comId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public Comment GetCommentById(int comId) {
+        [WebInvoke(Method = "GET", UriTemplate = "GetCommentById?commentId={commentId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public Comment GetCommentById(int commentId) {
             DBController dbc = new DBController();
             WebOperationContext ctx = WebOperationContext.Current;
             try {
-                Comment tempCom = dbc.GetCommentById(comId);
+                Comment tempCom = dbc.GetCommentById(commentId);
                 if (tempCom != null) {
                     return tempCom;
                 }
@@ -89,10 +89,10 @@ namespace whatsfordinner {
             return null;
         }
 
-        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteCommentById?comId={comId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public void DeleteComById(int comId) {
+        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteCommentById?commentId={commentId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public void DeleteComById(int commentId) {
             DBController dbc = new DBController();
-            dbc.DeleteCommentById(comId);
+            dbc.DeleteCommentById(commentId);
             dbc.Close();
         }
     }
