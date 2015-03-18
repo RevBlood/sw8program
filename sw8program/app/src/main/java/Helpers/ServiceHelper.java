@@ -1,17 +1,27 @@
+package Helpers;
+
 import java.util.ArrayList;
 
 import CommunicationModels.RecipeWithIngredients;
-import Models.*;
-import Relationships.*;
+import Models.Account;
+import Models.Comment;
+import Models.Recipe;
+import Models.Retailer;
+import Relationships.Favorises;
+import Relationships.HasEaten;
+import Relationships.IngredientIn;
+import Relationships.Offers;
+import Relationships.Pictures;
+import program.sw8.sw8program.Ingredient;
 
 
 public class ServiceHelper {
-	private static String ip = "localhost";
+	private static String ip = "192.168.1.101";
 	
 	//Entities
 	//Accounts
 	
-	public static void PutAccount(Account newAcc){
+	public static boolean PutAccount(Account newAcc){
 		String response = null;
 		//Account newAcc = new Account("Peter Pedal1234523232326", "peterpedal", "peter@pedal.com", "some settings", "some prefs");
 		String serializedAcc = JSONHelper.Serializer(newAcc);
@@ -19,17 +29,18 @@ public class ServiceHelper {
 		
 		String addAccount = "http://" + ip + ":8000/RestService/Account/AddAccount";
 		try {
-			response = HTTPHelper.HTTPPut(addAccount, serializedAcc);
-			System.out.println(response);
+            HTTPHelper.HTTPPut(addAccount, serializedAcc);
+            return true;
 		} catch(Exception e) {
 			e.printStackTrace();
+            return false;
 		}
 	}
 	
 	public static Account GetAccountById(int id){
 		String response = null;
 		try {
-			response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/Account/GetAccountById?accId=" + id);
+			response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/Account/GetAccountById?accountId=" + id);
 			System.out.println(response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -42,7 +53,6 @@ public class ServiceHelper {
 		String response = null;
 		try {
 			response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/Account/GetAccountByEmail?email=" + email);
-			System.out.println(response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

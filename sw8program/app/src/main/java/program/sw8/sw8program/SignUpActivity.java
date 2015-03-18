@@ -28,11 +28,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import Helpers.ServiceHelper;
 import Models.Account;
 
 public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> {
-
-    //Keep track of the login task to ensure we can cancel it if requested.
     private UserSignUpTask AuthTask = null;
     private AutoCompleteTextView EmailView;
     private EditText AliasView;
@@ -40,7 +39,7 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
     private EditText ConfirmPasswordView;
     private View ProgressView;
     private View LoginFormView;
-    private Account UserAccount;
+    Account UserAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +55,11 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
         ProgressView = findViewById(R.id.sign_up_progress);
         Button SignUpButton = (Button) findViewById(R.id.email_sign_up_button);
 
-        //Auto-complete email if possible
-        getLoaderManager().initLoader(0, null, this);
-
         PasswordView.setOnEditorActionListener(onKeyboardActionListener);
         SignUpButton.setOnClickListener(signUpListener);
 
+        //Auto-complete email if possible
+        getLoaderManager().initLoader(0, null, this);
     }
 
     //Check if there are errors in the form. Otherwise attempt to sign up
@@ -76,7 +74,6 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
         AliasView.setError(null);
         PasswordView.setError(null);
         ConfirmPasswordView.setError(null);
-
 
         // Store values at the time of the login attempt
         String email = EmailView.getText().toString();
@@ -230,22 +227,18 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
         protected Boolean doInBackground(Void... params) {
 
             // TODO: Remove Debug
-            if(getString(R.string.debug).equals("on")) {
+            if (getString(R.string.debug).equals("on")) {
                 try {
                     // Simulate network access.
                     Thread.sleep(2000);
+                    UserAccount = new Account(Alias, Password, Email, "settings", "preferences");
                     return true;
                 } catch (InterruptedException e) {
                     return false;
                 }
-            } else if (0 == 0) {
-                // TODO: Attempt authentication against database
-                // Server says OK - return true
-                return true;
             } else {
-                // Username already taken - return false
-                return false;
-
+                // Try to create the account - returns true or false
+                return ServiceHelper.PutAccount(new Account(Email, Password, Alias, "settings", "preferences"));
             }
         }
 
@@ -255,29 +248,25 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
             showProgress(false);
 
             if (success) {
-                //TODO: Remove Debug
-                if(getString(R.string.debug).equals(("on"))) {
+                UserAccount = ServiceHelper.GetAccountByEmail(Email);
 
-                    UserAccount = new Account(Alias, Password, Email, "settings", "preferences");
-
-                    SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
-                    SharedPreferences.Editor editor = session.edit();
-                    editor.putString("email", UserAccount.getEmail());
-                    editor.putString("alias", UserAccount.getAlias());
-                    editor.putString("password", UserAccount.getPassword());
-                    editor.commit();
-
-                    Intent intent = new Intent(Activity, PagerActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    //TODO: Implement proper sign up handling
-
-                    SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
-                    SharedPreferences.Editor editor = session.edit();
-
-                    editor.commit();
+                if (UserAccount == null) {
+                    throw new Error("Failed retrieving account");
                 }
+
+                SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
+                SharedPreferences.Editor editor = session.edit();
+                editor.putString("alias", UserAccount.getAlias());
+                editor.putString("email", UserAccount.getEmail());
+                editor.putString("password", UserAccount.getPassword());
+                editor.putString("preferences", UserAccount.getPreferences());
+                editor.putString("settings", UserAccount.getSettings());
+                editor.putInt("id", UserAccount.getId());
+                editor.apply();
+
+                Intent intent = new Intent(Activity, PagerActivity.class);
+                startActivity(intent);
+                finish();
             } else {
                 EmailView.setError(getString(R.string.error_email_taken));
                 EmailView.requestFocus();

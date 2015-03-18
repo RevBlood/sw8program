@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Account {
 	public Account() {}
@@ -41,11 +42,13 @@ public class Account {
 		setPreferences(accountPreferences);
 	}
 	
-	
+
 	//Account Id
+    @JsonIgnore
 	public int getId(){
 		return _accountId;
 	}
+    @JsonProperty
 	public void setId(int id){
 		this._accountId = id;
 	}
@@ -77,11 +80,13 @@ public class Account {
 		this._accountAlias = alias;
 	}
 	private String _accountAlias;
-	
-	//Account CreationDate
+
+    //Account CreationDate
+    @JsonIgnore
 	public Date getCreationDate(){
 		return _accountCreationDate;
 	}
+    @JsonProperty
 	public void setCreationDate(Date creationDate) {
 		this._accountCreationDate = creationDate;
 	}
