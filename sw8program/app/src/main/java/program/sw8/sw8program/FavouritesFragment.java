@@ -10,31 +10,50 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Spinner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Models.Recipe;
 
 public class FavouritesFragment extends Fragment implements View.OnCreateContextMenuListener{
-    private FavouritesAdapter FavAdapter;
+
     private final int ContextFavouriteRemove = 11;
+
+
+    private Spinner sortbySpinner;
+    private SortbySpinnerAdapter SpinnerAdapter;
+    // private SortbySpinnerListener SpinnerListener;
+    private RecipeListAdapter FavAdapter;
+    String[] sortStrings = {"Pris","Besparelse","Besparelse","Rating"};
+
+    Date date = new Date();
+    BigDecimal bigdiddy = new BigDecimal(3.31231);
+
+    Recipe recipeOne = new Recipe(1,1,"Pøllemix", "flot mad", date, 3, "house", bigdiddy);
+    Recipe recipeTwo = new Recipe(3,2,"magiskmad", "flot mad", date, 5, "house", bigdiddy);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_favourites, container, false);
-        ArrayList<ListItem> favourites = new ArrayList<>();
 
-        //Test data for favourite list
-        favourites.add(new ListItem(R.drawable.placeholder_recipe_2, "Awesome sauce"));
-        favourites.add(new ListItem(R.drawable.placeholder_recipe_1, "Din mors sauce"));
+        ArrayList<Recipe> recipes = new ArrayList<>();
 
-        ListView list = (ListView) rootView.findViewById(R.id.list_favourites);
-        list.setEmptyView(rootView.findViewById(R.id.empty));
+        recipes.add(recipeOne);
+        recipes.add(recipeTwo);
 
-        //Set the adapter to control the list
-        FavAdapter = new FavouritesAdapter(getActivity(), R.layout.row_item_favourites, favourites);
-        list.setAdapter(FavAdapter);
-        registerForContextMenu(list);
+        sortbySpinner = (Spinner) rootView.findViewById(R.id.sortby_spinner);
+        SpinnerAdapter = new SortbySpinnerAdapter(getActivity(), R.layout.row_item_sort, sortStrings);
+        sortbySpinner.setAdapter(SpinnerAdapter);
+
+        ListView listOfRecipes = (ListView) rootView.findViewById(R.id.list_favourites);
+        listOfRecipes.setEmptyView(rootView.findViewById(R.id.empty));
+        FavAdapter = new RecipeListAdapter(getActivity(), R.layout.row_item_recipe,recipes);
+        listOfRecipes.setAdapter(FavAdapter);
+
+        registerForContextMenu(listOfRecipes);
 
         return rootView;
     }

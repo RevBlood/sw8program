@@ -43,6 +43,10 @@
     <!-- Settings fragment -->
     <string name="log_out">Log ud</string>
 
+    <!-- Discover fragment -->
+    <string name="discover_list_empty">Ingen opskrifter indenfor søgeområdet</string>
+    <string name="not_interested">Ikke interesseret i denne opskrift</string>
+
     <!-- User context menu -->
     <string name="user_image_remove">Slet billede</string>
     <string name="user_image_change">Skift billede...</string>
@@ -52,4 +56,5 @@
     <string name="loading">Øjeblik...</string>
     <string name="title_activity_recipe">RecipeActivity</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
+
 </resources>
