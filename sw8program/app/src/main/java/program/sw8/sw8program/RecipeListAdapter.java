@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import Helpers.JSONHelper;
 import Models.Recipe;
 
 
@@ -33,7 +35,7 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe>  {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -49,17 +51,22 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe>  {
         RecipePrice.setText("50 kr");
         RecipeSavings.setText("%%%");
 
-        convertView.setOnClickListener(onRecipeClickListener);
 
+
+
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final String JSONrecipe = JSONHelper.Serializer(_listofRecipes.get(position));
+                Log.d("this is JSONrecipe:",JSONrecipe);
+                Intent intent = new Intent(_context, RecipeActivity.class);
+                intent.putExtra("recipe",JSONrecipe);
+
+                _context.startActivity(intent);
+            }
+        });
         return convertView;
-
     }
-
-    View.OnClickListener onRecipeClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(_context, RecipeActivity.class);
-            _context.startActivity(intent);
-        }
-    };
 }
