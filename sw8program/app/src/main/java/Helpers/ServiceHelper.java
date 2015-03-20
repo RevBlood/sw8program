@@ -14,7 +14,6 @@ import Relationships.Offers;
 import Relationships.Pictures;
 import program.sw8.sw8program.Ingredient;
 
-
 public class ServiceHelper {
 	private static String ip = "192.168.1.101";
 	

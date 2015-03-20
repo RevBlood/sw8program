@@ -6,22 +6,17 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.util.concurrent.ExecutionException;
-
-import Models.Account;
 
 public class HTTPHelper {
     private final static String USER_AGENT = "sw8Client";
 
     public static String HTTPGet(String url) {
         HTTPGetTask getTask = new HTTPGetTask();
-        getTask.execute(url);
+        getTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url);
         try {
             return getTask.get();
         } catch (InterruptedException e) {
@@ -102,10 +97,11 @@ public class HTTPHelper {
                 e.printStackTrace();
                 return null;
             }
-    }
+        }
 
-    @Override
-    protected void onPostExecute(final String result) {
+        @Override
+        protected void onPostExecute(String result) {
+
+        }
     }
-}
 }
