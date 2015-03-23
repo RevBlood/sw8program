@@ -60,7 +60,7 @@ public class Recipe {
 		this._recipeDescription = description;
 	}
 	private String _recipeDescription;
-	
+
 	//Recipe CreationDate
     @JsonIgnore
 	public Date getCreationDate(){

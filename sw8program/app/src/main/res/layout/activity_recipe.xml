@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    tools:context="program.sw8.sw8program.RecipeActivity">
+    tools:context="program.sw8.sw8program.recipetemptemtept">
 
     <ScrollView
         android:id="@+id/recipe_layout"
@@ -100,35 +100,48 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"/>
 
-
 <!--
-            <RelativeLayout
-                android:id="@+id/comment_layout"
+            <Button
+                android:id="@+id/comment_submit"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentRight="true"
+                android:text="@string/comment_submit"/>
+
+            <EditText
+                android:id="@+id/comment_box"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/preparation_text">
-
-                <Button
-                    android:id="@+id/comment_submit"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_alignParentRight="true"
-                    android:text="@string/comment_submit"/>
-
-                <EditText
-                    android:id="@+id/comment_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:minHeight="100dp"
-                    android:hint="@string/comment_hint"
-                    android:scrollHorizontally="false"
-                    android:maxLength="400"
-                    android:textSize="16dp"
-                    android:imeOptions="actionSend"
-                    android:inputType="textEmailAddress|textEmailSubject|textCapSentences"
-                    android:singleLine="false"/>
-            </RelativeLayout>
+                android:layout_height="80dp"
+                android:minHeight="100dp"
+                android:hint="@string/comment_hint"
+                android:scrollHorizontally="false"
+                android:maxLength="400"
+                android:textSize="16dp"
+                android:imeOptions="actionSend"
+                android:inputType="textEmailAddress|textEmailSubject|textCapSentences"
+                android:singleLine="false"/>
 -->
+
+            <EditText
+                android:id="@+id/comment_edit_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:minLines="5">
+            </EditText>
+
+            <Button
+                android:id="@+id/comment_save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Save"
+                android:textSize="10dp"/>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

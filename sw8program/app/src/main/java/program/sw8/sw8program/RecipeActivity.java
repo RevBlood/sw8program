@@ -1,122 +1,86 @@
 package program.sw8.sw8program;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.TabHost;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
-import Helpers.JSONHelper;
-import Models.Comment;
-import Models.Recipe;
+/**
+ * Created by Johan 'Jizztærsker' on 23-03-2015.
+ */
+public class RecipeActivity extends FragmentActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 
-public class RecipeActivity extends Activity {
+    private TabHost mTabHost;
+    private ViewPager mViewPager;
+    private PagerAdapter mPagerAdapter;
 
-    List<Drawable> RecipeImages = new ArrayList<>();
-    List<Ingredient> RecipeIngredients = new ArrayList<>();
-    List<Comment> RecipeComments = new ArrayList<>();
-    TextView recipeCommentBox;
 
-    Intent intent = getIntent();
-    String JSONRecipe;
-
-    Recipe recipe;
-
-    Date thisdate = new Date();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe);
-
-
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                JSONRecipe = null;
-            } else {
-                JSONRecipe = extras.getString("recipe");
-            }
+        // Inflate the layout
+        setContentView(R.layout.recipe_view_pager);
+        // Initialise the TabHost
+        this.initialiseTabHost(savedInstanceState);
+        if (savedInstanceState != null) {
+            mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
         }
-
-        Log.d("this is JSONrecipe:", JSONRecipe);
-
-        recipe = JSONHelper.Deserialize(JSONRecipe, Recipe.class);
-
-        Log.d("this is JSONrecipe:", recipe.getName());
-
-
-
-        TextView recipeNameView = (TextView) findViewById(R.id.recipe_name);
-        ViewPager recipeImagePager = (ViewPager) findViewById(R.id.paged_image_layout);
-        LinearLayout recipeIngredientLayout = (LinearLayout) findViewById(R.id.ingredient_layout);
-        TextView recipePreparationView = (TextView) findViewById(R.id.preparation_text);
-        //recipeCommentBox = (TextView) findViewById(R.id.comment_box);
-        //Button recipeCommentSubmitButton = (Button) findViewById(R.id.comment_submit);
-        LinearLayout recipeCommentLayout = (LinearLayout) findViewById(R.id.comments);
-
-
-        //Testdata
-        //TODO: Slet
-
-        Resources r = getResources();
-        RecipeImages.add(r.getDrawable(R.drawable.placeholder_recipe_1));
-        RecipeImages.add(r.getDrawable(R.drawable.placeholder_recipe_2));
-
-        RecipeIngredients.add(new Ingredient("2 kg", "spices"));
-        RecipeIngredients.add(new Ingredient("2 tsk", "shit"));
-        RecipeIngredients.add(new Ingredient("15 minutes", "love"));
-        RecipeIngredients.add(new Ingredient("3g", "salt"));
-
-        RecipeComments.add(new Comment(1,1,1,thisdate,"this is a really cool comment"));
-        RecipeComments.add(new Comment(1,1,1,thisdate,"this is another reeeeeeeally cool comment, and it is very long. That is pretty neat, I really find this recipe something out of the spectacular and i really hope that i could create something as beautiful as it at some point in my life, i wish to make to love to it"));
-        RecipeComments.add(new Comment(1,1,1,thisdate,"this is another reeeeeeeally, reeeeeeeeeeeeeeeeeeeeeally cool comment"));
-
-
-        //Populate views and set adapters
-        recipeNameView.setText(recipe.getName());
-        recipePreparationView.setText(recipe.getDescription());
-
-        RecipeImageAdapter recipeImageAdapter = new RecipeImageAdapter(this, RecipeImages);
-        recipeImagePager.setAdapter(recipeImageAdapter);
-
-        RecipeIngredientAdapter recipeIngredientAdapter = new RecipeIngredientAdapter(this, R.layout.row_item_ingredients, RecipeIngredients);
-
-        for (int i = 0; i < RecipeIngredients.size(); i++) {
-            View row = recipeIngredientAdapter.getView(i, null, null);
-            recipeIngredientLayout.addView(row);
-        }
-
-        RecipeCommentAdapter recipeCommentAdapter = new RecipeCommentAdapter(this, R.layout.row_item_comment, RecipeComments);
-
-        for (int i = 0; i < RecipeComments.size(); i++) {
-            View row = recipeCommentAdapter.getView(i, null, null);
-            recipeCommentLayout.addView(row);
-        }
-
-        //recipeCommentSubmitButton.setOnClickListener(onSubmitCommentListener);
-
+        // Initialise ViewPager
+        this.initialiseViewPager();
     }
 
-    Button.OnClickListener onSubmitCommentListener = (new Button.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //TODO: Post comment
-        }
-    });
+    private void initialiseTabHost(Bundle args) {
+        mTabHost = (TabHost)findViewById(android.R.id.tabhost);
+        mTabHost.setup();
+        this.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab1").setIndicator("Opskrift"));
+        this.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab2").setIndicator("Kommentarer"));
+
+        mTabHost.setOnTabChangedListener(this);
+    }
+
+    private void initialiseViewPager() {
+
+        List<Fragment> fragments = new Vector<>();
+        fragments.add(Fragment.instantiate(this, RecipeFragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, RecipeCommentFragment.class.getName()));
+        this.mPagerAdapter  = new RecipePagerAdapter(super.getSupportFragmentManager(), fragments);
+        this.mViewPager = (ViewPager)super.findViewById(R.id.viewpager);
+        this.mViewPager.setAdapter(this.mPagerAdapter);
+        this.mViewPager.setOnPageChangeListener(this);
+    }
+
+    private void AddTab(RecipeActivity activity, TabHost tabHost, TabHost.TabSpec tabSpec) {
+        // Attach a Tab view factory to the spec
+        tabSpec.setContent(new TabFactory(activity));
+        tabHost.addTab(tabSpec);
+    }
+
+    public void onTabChanged(String tag) {
+        //TabInfo newTab = this.mapTabInfo.get(tag);
+        int pos = this.mTabHost.getCurrentTab();
+        this.mViewPager.setCurrentItem(pos);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset,
+                               int positionOffsetPixels) {
+        // TODO Auto-generated method stub
+
+    }
+    @Override
+    public void onPageSelected(int position) {
+        // TODO Auto-generated method stub
+        this.mTabHost.setCurrentTab(position);
+    }
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        // TODO Auto-generated method stub
+
+    }
 }

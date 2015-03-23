@@ -8,12 +8,12 @@ import android.support.v4.view.ViewPager;
 /**
  * Created by Johan 'Jizztærsker' on 16-02-2015.
  */
-public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
+public class MainFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private final int PageCount = 5;
     private GridViewAdapter TabAdapter;
     private FragmentManager Manager;
 
-    public FragmentPagerAdapter(FragmentManager fragmentManager, GridViewAdapter tabAdapter) {
+    public MainFragmentPagerAdapter(FragmentManager fragmentManager, GridViewAdapter tabAdapter) {
         super(fragmentManager);
         TabAdapter = tabAdapter;
         Manager = fragmentManager;

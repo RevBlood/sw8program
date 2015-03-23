@@ -10,7 +10,7 @@ import android.widget.GridView;
 public class PagerActivity extends FragmentActivity {
     private final int DefaultPage = 2;
     private ViewPager Pager;
-    private FragmentPagerAdapter PagerAdapter;
+    private MainFragmentPagerAdapter PagerAdapter;
     private GridView Tabs;
     private GridViewAdapter TabAdapter;
 
@@ -29,7 +29,7 @@ public class PagerActivity extends FragmentActivity {
 
         //Setup the pages with an adapter and a listener.
         Pager.setOnPageChangeListener(pagerChangeListener);
-        PagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), TabAdapter);
+        PagerAdapter = new MainFragmentPagerAdapter(getSupportFragmentManager(), TabAdapter);
         Pager.setAdapter(PagerAdapter);
 
         //Needed because Android fucking always keeps shit for too long
