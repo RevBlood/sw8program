@@ -1,5 +1,6 @@
 package program.sw8.sw8program;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
@@ -16,36 +17,33 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 
+import Helpers.ServiceHelper;
 import Models.Recipe;
 
 public class FavouritesFragment extends Fragment implements View.OnCreateContextMenuListener{
-
     private final int ContextFavouriteRemove = 11;
-
-
-    private Spinner sortbySpinner;
-    private SortbySpinnerAdapter SpinnerAdapter;
-    // private SortbySpinnerListener SpinnerListener;
     private RecipeListAdapter FavAdapter;
     String[] sortStrings = {"Pris","Besparelse","Besparelse","Rating"};
-
+    ArrayList<Recipe> recipes = new ArrayList<>();
     Date date = new Date();
     BigDecimal bigdiddy = new BigDecimal(3.31231);
-
-    Recipe recipeOne = new Recipe(1,1,"Pøllemix", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", date, 3, "house", bigdiddy);
-    Recipe recipeTwo = new Recipe(3,2,"magiskmad", "flot mad", date, 5, "house", bigdiddy);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_favourites, container, false);
 
-        ArrayList<Recipe> recipes = new ArrayList<>();
+        //TODO: Remove debug
+        if(getString(R.string.debug).equals("on")) {
+            recipes.add(new Recipe(1, 1, "Pøllemix", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", date, 3, "house", bigdiddy));
+            recipes.add(new Recipe(3, 2, "magiskmad", "flot mad", date, 5, "house", bigdiddy));
+        } else {
+            //Get user id from shared preferences. Then contact server to fetch recipes.
+            SharedPreferences session = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
+            recipes = ServiceHelper.GetFavorisedRecipesByAccountId(session.getInt("id", -1));
+        }
 
-        recipes.add(recipeOne);
-        recipes.add(recipeTwo);
-
-        sortbySpinner = (Spinner) rootView.findViewById(R.id.sortby_spinner);
-        SpinnerAdapter = new SortbySpinnerAdapter(getActivity(), R.layout.row_item_sort, sortStrings);
+        Spinner sortbySpinner = (Spinner) rootView.findViewById(R.id.sortby_spinner);
+        SortbySpinnerAdapter SpinnerAdapter = new SortbySpinnerAdapter(getActivity(), R.layout.row_item_sort, sortStrings);
         sortbySpinner.setAdapter(SpinnerAdapter);
 
         ListView listOfRecipes = (ListView) rootView.findViewById(R.id.list_favourites);
