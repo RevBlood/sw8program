@@ -32,7 +32,7 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
     Date date = new Date();
     BigDecimal bigdiddy = new BigDecimal(3.31231);
 
-    Recipe recipeOne = new Recipe(1,1,"Pøllemix", "flot mad", date, 3, "house", bigdiddy);
+    Recipe recipeOne = new Recipe(1,1,"Pøllemix", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", date, 3, "house", bigdiddy);
     Recipe recipeTwo = new Recipe(3,2,"magiskmad", "flot mad", date, 5, "house", bigdiddy);
 
     @Override

@@ -35,10 +35,7 @@ public class RecipeActivity extends Activity {
     Intent intent = getIntent();
     String JSONRecipe;
 
-    Date date = new Date();
-    BigDecimal bigdiddy = new BigDecimal(3.31231);
-
-    Recipe recipe = new Recipe(3,2,"magiskmad", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", date, 5, "house", bigdiddy);
+    Recipe recipe;
 
     Date thisdate = new Date();
 
@@ -47,7 +44,7 @@ public class RecipeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        /*
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -61,7 +58,9 @@ public class RecipeActivity extends Activity {
 
         recipe = JSONHelper.Deserialize(JSONRecipe, Recipe.class);
 
-        */
+        Log.d("this is JSONrecipe:", recipe.getName());
+
+
 
         TextView recipeNameView = (TextView) findViewById(R.id.recipe_name);
         ViewPager recipeImagePager = (ViewPager) findViewById(R.id.paged_image_layout);
