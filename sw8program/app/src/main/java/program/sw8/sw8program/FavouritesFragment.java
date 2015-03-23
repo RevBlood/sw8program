@@ -32,10 +32,12 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_favourites, container, false);
 
+        //TODO: Remove debug
         if(getString(R.string.debug).equals("on")) {
             recipes.add(new Recipe(1, 1, "Pøllemix", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", date, 3, "house", bigdiddy));
             recipes.add(new Recipe(3, 2, "magiskmad", "flot mad", date, 5, "house", bigdiddy));
         } else {
+            //Get user id from shared preferences. Then contact server to fetch recipes.
             SharedPreferences session = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
             recipes = ServiceHelper.GetFavorisedRecipesByAccountId(session.getInt("id", -1));
         }
