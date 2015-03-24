@@ -1,13 +1,16 @@
 package CommunicationModels;
 
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import Models.*;
 import Relationships.*;
 
 public class RecipeWithIngredients {
 	public RecipeWithIngredients(){};
 	
-	public RecipeWithIngredients(Recipe rec, List<Ingredient> ingredients, List<IngredientIn> ingredientIns) {
+	public RecipeWithIngredients(Recipe rec, ArrayList<Ingredient> ingredients, ArrayList<IngredientIn> ingredientIns) {
 		this.setRecipe(rec);
 		this.setIngredients(ingredients);
 		this.setIngredientIns(ingredientIns);
@@ -17,26 +20,29 @@ public class RecipeWithIngredients {
 	public Recipe getRecipe(){
 		return _privateRecipe;
 	}
+	@JsonProperty("recipe")
 	public void setRecipe(Recipe rec) {
 		this._privateRecipe = rec;
 	}
 	private Recipe _privateRecipe;
 	
 	//Ingredients
-	public List<Ingredient> getIngredients(){
+	public ArrayList<Ingredient> getIngredients(){
 		return _privateIngredients;
 	}
-	public void setIngredients(List<Ingredient> ingredients) {
+	@JsonProperty("ingredients")
+	public void setIngredients(ArrayList<Ingredient> ingredients) {
 		this._privateIngredients = ingredients;
 	}
-	private List<Ingredient> _privateIngredients;
+	private ArrayList<Ingredient> _privateIngredients;
 	
 	//IngredientIns
-	public List<IngredientIn> getIngredientIns(){
+	public ArrayList<IngredientIn> getIngredientIns(){
 		return _privateIngredientIns;
 	}
-	public void setIngredientIns(List<IngredientIn> ingredientIns) {
+	@JsonProperty("amounts")
+	public void setIngredientIns(ArrayList<IngredientIn> ingredientIns) {
 		this._privateIngredientIns = ingredientIns;
 	}
-	private List<IngredientIn> _privateIngredientIns;
+	private ArrayList<IngredientIn> _privateIngredientIns;
 }

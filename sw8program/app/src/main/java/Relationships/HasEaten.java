@@ -5,8 +5,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class HasEaten {
 	public HasEaten(){}
+	
+	public HasEaten(int hasEatenAccountId, int hasEatenRecipeId, BigDecimal hasEatenRating){
+		this.setAccountId(hasEatenAccountId);
+		this.setRecipeId(hasEatenRecipeId);
+		this.setRating(hasEatenRating);
+	}
 	
 	public HasEaten(int hasEatenAccountId, int hasEatenRecipeId, Date hasEatenEatenAt, BigDecimal hasEatenRating){
 		this.setAccountId(hasEatenAccountId);
@@ -34,9 +43,11 @@ public class HasEaten {
 	private int _hasEatenRecipeId;
 	
 	//HasEaten EatenAt
+	@JsonIgnore
 	public Date getEatenAt(){
 		return _hasEatenEatenAt;
 	}
+	@JsonProperty
 	public void setEatenAt(Date eatenAt){
 		this._hasEatenEatenAt = eatenAt;
 	}

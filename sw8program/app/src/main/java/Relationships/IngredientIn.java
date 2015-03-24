@@ -1,5 +1,7 @@
 package Relationships;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class IngredientIn {
 	
 	public IngredientIn(){}
@@ -14,6 +16,7 @@ public class IngredientIn {
 	public int getIngredientId(){
 		return _ingredientInIngredientId;
 	}
+	@JsonProperty("ingredientid")
 	public void setIngredientId(int id){
 		this._ingredientInIngredientId = id;
 	}
@@ -23,6 +26,7 @@ public class IngredientIn {
 	public int getRecipeId(){
 		return _ingredientInRecipeId;
 	}
+	@JsonProperty("recipeid")
 	public void setRecipeId(int id){
 		this._ingredientInRecipeId = id;	
 	}
@@ -32,6 +36,7 @@ public class IngredientIn {
 	public int getAmount(){
 		return _ingredientInAmount;
 	}
+	@JsonProperty("amount")
 	public void setAmount(int amount){
 		this._ingredientInAmount = amount;
 	}

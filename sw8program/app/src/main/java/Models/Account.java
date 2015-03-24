@@ -16,7 +16,7 @@ public class Account {
 		setAlias(accountAlias);
 		setPassword(accountPassword);
 		setEmail(accountEmail);
-		setCreationDate(accountCreationDate);
+		setCreationdate(accountCreationDate);
 		setSettings(accountSettings);
 		setPreferences(accountPreferences);
 	}
@@ -42,13 +42,13 @@ public class Account {
 		setPreferences(accountPreferences);
 	}
 	
-
+	
 	//Account Id
-    @JsonIgnore
+	@JsonIgnore
 	public int getId(){
 		return _accountId;
 	}
-    @JsonProperty
+	@JsonProperty
 	public void setId(int id){
 		this._accountId = id;
 	}
@@ -80,17 +80,17 @@ public class Account {
 		this._accountAlias = alias;
 	}
 	private String _accountAlias;
-
-    //Account CreationDate
-    @JsonIgnore
-	public Date getCreationDate(){
-		return _accountCreationDate;
+	
+	//Account CreationDate
+	@JsonIgnore
+	public Date getCreationdate(){
+		return _accountCreationdate;
 	}
-    @JsonProperty
-	public void setCreationDate(Date creationDate) {
-		this._accountCreationDate = creationDate;
+	@JsonProperty
+	public void setCreationdate(Date creationdate) {
+		this._accountCreationdate = creationdate;
 	}
-	private Date _accountCreationDate;
+	private Date _accountCreationdate;
 	
 	//Account settings
 	public String getSettings() {
@@ -109,7 +109,7 @@ public class Account {
 		this._accountPreferences = preferences;
 	}
 	private String _accountPreferences;
-
+	
     //TODO: Finish the image stuff
     public boolean hasImage() {
         return false;
@@ -122,8 +122,8 @@ public class Account {
     public void setImageId(Integer id) {
 
     }
-
-    @Override
+	
+	@Override
 	public String toString() {
 		Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		StringBuilder result = new StringBuilder();
@@ -133,7 +133,7 @@ public class Account {
 		result.append(this.getAlias() + space);
 		result.append(this.getPassword() + space);
 		result.append(this.getEmail() + space);
-		result.append(formatter.format(this.getCreationDate()) + space);
+		result.append(formatter.format(this.getCreationdate()) + space);
 		result.append(this.getSettings() + space);
 		result.append(this.getPreferences() + space);
 

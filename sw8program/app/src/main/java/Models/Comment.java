@@ -4,8 +4,17 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Comment {
 	public Comment() {}
+	
+	public Comment(int commentAccountId, int commentRecipeId, String commentText) {
+		this.setAccountId(commentAccountId);
+		this.setRecipeId(commentRecipeId);
+		this.setText(commentText);
+	}
 	
 	public Comment(int commentId, int commentAccountId, int commentRecipeId, Date commentCreationDate, String commentText) {
 		this.setId(commentId);
@@ -16,9 +25,11 @@ public class Comment {
 	}
 	
 	//Comment Id
+	@JsonIgnore
 	public int getId() {
 		return _commentId;
 	}
+	@JsonProperty
 	public void setId(int id){
 		this._commentId = id;
 	}
@@ -28,12 +39,14 @@ public class Comment {
 	public int getAccountId(){
 		return _commentAccountId;
 	}
+	@JsonProperty("accountid")
 	public void setAccountId(int accountId) {
 		this._commentAccountId = accountId;
 	}
 	private int _commentAccountId;
 	
 	//Comment RecipeId
+	@JsonProperty("recipeid")
 	public int getRecipeId(){
 		return _commentRecipeId;
 	}
@@ -43,11 +56,13 @@ public class Comment {
 	private int _commentRecipeId;
 	
 	//Comment CreationDate
+	@JsonIgnore
 	public Date getCreationDate(){
 		return _commentCreationDate;
 	}
-	public void setCreationDate(Date creationDate) {
-		this._commentCreationDate = creationDate;
+	@JsonProperty("creationdate")
+	public void setCreationDate(Date creationdate) {
+		this._commentCreationDate = creationdate;
 	}
 	private Date _commentCreationDate;
 	

@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Offers {
 	public Offers(){}
 	
@@ -26,6 +28,7 @@ public class Offers {
 	public int getRetailerId(){
 		return _offersRetailerId;
 	}
+	@JsonProperty("retailerid")
 	public void setRetailerId(int id){
 		this._offersRetailerId = id;
 	}
@@ -35,6 +38,7 @@ public class Offers {
 	public int getIngredientId(){
 		return _offersIngredientId;
 	}
+	@JsonProperty("ingredientid")
 	public void setIngredientId(int id){
 		this._offersIngredientId = id;
 	}
@@ -44,6 +48,7 @@ public class Offers {
 	public Date getOfferFrom(){
 		return _offersOfferFrom;
 	}
+	@JsonProperty("offerfrom")
 	public void setOfferFrom(Date offerFrom){
 		this._offersOfferFrom = offerFrom;
 	}
@@ -53,6 +58,7 @@ public class Offers {
 	public Date getOfferTo(){
 		return _offersOfferTo;
 	}
+	@JsonProperty("offerto")
 	public void setOfferTo(Date offerTo){
 		this._offersOfferTo = offerTo;
 	}
@@ -62,6 +68,7 @@ public class Offers {
 	public BigDecimal getNormalPrice(){
 		return _offersNormalPrice;
 	}
+	@JsonProperty("normalprice")
 	public void setNormalPrice(BigDecimal normalPrice){
 		this._offersNormalPrice = normalPrice;
 	}
@@ -71,6 +78,7 @@ public class Offers {
 	public BigDecimal getOnSalePrice(){
 		return _offersOnSalePrice;
 	}
+	@JsonProperty("onsaleprice")
 	public void setOnSalePrice(BigDecimal onSalePrice){
 		this._offersOnSalePrice = onSalePrice;
 	}
@@ -80,6 +88,7 @@ public class Offers {
 	public BigDecimal getKrSaving(){
 		return _offersKrSaving;
 	}
+	@JsonProperty("krsaving")
 	public void setKrSaving(BigDecimal krSaving){
 		this._offersKrSaving = krSaving;
 	}
@@ -89,6 +98,7 @@ public class Offers {
 	public BigDecimal getPercentageSavingRetailer(){
 		return _offersPercentageSavingRetailer;
 	}
+	@JsonProperty("percentagesavingretailer")
 	public void setPercentageSavingRetailer(BigDecimal percentageSavingRetailer) {
 		this._offersPercentageSavingRetailer = percentageSavingRetailer;
 	}
@@ -98,6 +108,7 @@ public class Offers {
 	public BigDecimal getPercentageSavingGeneral(){
 		return _offersPercentageSavingGeneral;
 	}
+	@JsonProperty("percentagesavinggeneral")
 	public void setPercentageSavingGeneral(BigDecimal percentageSavingGeneral) {
 		this._offersPercentageSavingGeneral = percentageSavingGeneral;
 	}

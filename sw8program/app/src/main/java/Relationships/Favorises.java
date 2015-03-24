@@ -1,5 +1,7 @@
 package Relationships;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Favorises {
 	public Favorises(){}
 	
@@ -12,6 +14,7 @@ public class Favorises {
 	public int getAccountId(){
 		return _favorisesAccountId;
 	}
+	@JsonProperty("accountid")
 	public void setAccountId(int id){
 		this._favorisesAccountId = id;
 	}
@@ -21,6 +24,7 @@ public class Favorises {
 	public int getRecipeId(){
 		return _favorisesRecipeId;
 	}
+	@JsonProperty("recipeid")
 	public void setRecipeId(int id){
 		this._favorisesRecipeId = id;
 	}

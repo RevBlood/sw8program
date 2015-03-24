@@ -28,13 +28,13 @@ public class HTTPHelper {
         }
     }
 
-    public static String HTTPPut(String targetUrl, String jsonInput) throws IOException {
+    public static String HTTPPost(String targetUrl, String jsonInput) throws IOException {
         String output = "";
         System.out.println("Starting url connection");
         URL url = new URL(targetUrl);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
-        conn.setRequestMethod("PUT");
+        conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
 
         OutputStream os = conn.getOutputStream();
@@ -49,12 +49,13 @@ public class HTTPHelper {
         BufferedReader br = new BufferedReader(new InputStreamReader(
                 (conn.getInputStream())));
 
-        System.out.println("Output from Server .... \n");
+        System.out.println("Output from Server:");
         while ((output = br.readLine()) != null) {
             System.out.println(conn.getResponseMessage());
             System.out.println(output);
         }
-
+		System.out.println("End of Output from Server");
+		
         conn.disconnect();
 
         return output;
@@ -75,7 +76,7 @@ public class HTTPHelper {
                 con.setRequestProperty("User-Agent", USER_AGENT);
 
                 int responseCode = con.getResponseCode();
-                System.out.println("\nSending 'GET' request to URL : " + obj);
+                System.out.println("Sending 'GET' request to URL : " + obj);
                 System.out.println("Response Code : " + responseCode);
 
                 BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));

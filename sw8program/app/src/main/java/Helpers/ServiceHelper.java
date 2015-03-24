@@ -3,36 +3,31 @@ package Helpers;
 import java.util.ArrayList;
 
 import CommunicationModels.RecipeWithIngredients;
-import Models.Account;
-import Models.Comment;
-import Models.Recipe;
-import Models.Retailer;
-import Relationships.Favorises;
-import Relationships.HasEaten;
-import Relationships.IngredientIn;
-import Relationships.Offers;
-import Relationships.Pictures;
+import Models.*;
+import Relationships.*;
+
 import program.sw8.sw8program.Ingredient;
 
+
 public class ServiceHelper {
-	private static String ip = "192.168.1.101";
+	private static String ip = "localhost";
 	
 	//Entities
 	//Accounts
 	
-	public static boolean PutAccount(Account newAcc){
+	public static boolean PostAccount(Account newAcc){
 		String response = null;
-		//Account newAcc = new Account("Peter Pedal1234523232326", "peterpedal", "peter@pedal.com", "some settings", "some prefs");
 		String serializedAcc = JSONHelper.Serializer(newAcc);
 		System.out.println("Serialized account: " + serializedAcc);
 		
 		String addAccount = "http://" + ip + ":8000/RestService/Account/AddAccount";
 		try {
-            HTTPHelper.HTTPPut(addAccount, serializedAcc);
-            return true;
+			response = HTTPHelper.HTTPPost(addAccount, serializedAcc);
+			System.out.println("Response: " + response);
+			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
-            return false;
+			return false;
 		}
 	}
 	
@@ -40,7 +35,7 @@ public class ServiceHelper {
 		String response = null;
 		try {
 			response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/Account/GetAccountById?accountId=" + id);
-			System.out.println(response);
+			System.out.println("Response: " + response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,6 +47,7 @@ public class ServiceHelper {
 		String response = null;
 		try {
 			response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/Account/GetAccountByEmail?email=" + email);
+			System.out.println("Response: " + response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,7 +60,7 @@ public class ServiceHelper {
 		String response = null;
 		try {
 			response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/Account/GetAllAccounts");
-			System.out.println(response);
+			System.out.println("Response: " + response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -75,17 +71,19 @@ public class ServiceHelper {
 	
 	//Comments
 	
-	public static void PutComment(Comment newCom){
+	public static boolean PostComment(Comment newCom){
 		String response = null;
 		String serializedCom = JSONHelper.Serializer(newCom);
 		System.out.println("Serialized comment: " + serializedCom);
 		
 		String addComment = "http://" + ip + ":8000/RestService/Comment/AddComment";
 		try {
-			response = HTTPHelper.HTTPPut(addComment, serializedCom);
-			System.out.println(response);
+			response = HTTPHelper.HTTPPost(addComment, serializedCom);
+			System.out.println("Response: " + response);
+			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -93,7 +91,7 @@ public class ServiceHelper {
 		String response = null;
 		try {
 			response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/Comment/GetCommentById?commentId=" + id);
-			System.out.println(response);
+			System.out.println("Response: " + response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -130,17 +128,19 @@ public class ServiceHelper {
 
 	//Ingredients
 	
-	public static void PutIngredient(Ingredient newIng){
+	public static boolean PostIngredient(Ingredient newIng){
 		String response = null;
 		String serializedIng = JSONHelper.Serializer(newIng);
 		System.out.println("Serialized ingredient: " + serializedIng);
 		
 		String addIngredient = "http://" + ip + ":8000/RestService/Ingredient/AddIngredient";
 		try {
-			response = HTTPHelper.HTTPPut(addIngredient, serializedIng);
+			response = HTTPHelper.HTTPPost(addIngredient, serializedIng);
 			System.out.println(response);
+			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -198,17 +198,19 @@ public class ServiceHelper {
 
 	//Recipes
 	
-	public static void PutRecipe(Recipe newRec){
+	public static boolean PostRecipe(Recipe newRec){
 		String response = null;
 		String serializedRec = JSONHelper.Serializer(newRec);
 		System.out.println("Serialized Recipe: " + serializedRec);
 		
 		String addRecipe = "http://" + ip + ":8000/RestService/Recipe/AddRecipe";
 		try {
-			response = HTTPHelper.HTTPPut(addRecipe, serializedRec);
+			response = HTTPHelper.HTTPPost(addRecipe, serializedRec);
 			System.out.println(response);
+			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -248,7 +250,7 @@ public class ServiceHelper {
 		return recipes;
 	}
 	
-	public static ArrayList<RecipeWithIngredients> GetRecipesByIdWithIngredients(int id){
+	public static RecipeWithIngredients GetRecipeByIdWithIngredients(int id){
 		String response = null;
 		try {
 			response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/Recipe/GetRecipesByIdWithIngredients?recipeId=" + id);
@@ -256,7 +258,7 @@ public class ServiceHelper {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		ArrayList<RecipeWithIngredients> recipes = JSONHelper.DeserializeList(response, RecipeWithIngredients.class);
+		RecipeWithIngredients recipes = JSONHelper.Deserialize(response, RecipeWithIngredients.class);
 		return recipes;
 	}
 	
@@ -274,17 +276,19 @@ public class ServiceHelper {
 	
 	//Retailers
 	
-	public static void PutRetailer(Retailer newRet){
+	public static boolean PostRetailer(Retailer newRet){
 		String response = null;
 		String serializedRet = JSONHelper.Serializer(newRet);
 		System.out.println("Serialized Retailer: " + serializedRet);
 		
 		String addRetailer = "http://" + ip + ":8000/RestService/Retailer/AddRetailer";
 		try {
-			response = HTTPHelper.HTTPPut(addRetailer, serializedRet);
+			response = HTTPHelper.HTTPPost(addRetailer, serializedRet);
 			System.out.println(response);
+			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -315,17 +319,19 @@ public class ServiceHelper {
 	//Relationships
 	//Favorises
 	
-	public static void PutFavorises(Favorises newFav){
+	public static boolean PostFavorises(Favorises newFav){
 		String response = null;
 		String serializedFav = JSONHelper.Serializer(newFav);
 		System.out.println("Serialized Favorises: " + serializedFav);
 		
 		String addFavorises = "http://" + ip + ":8000/RestService/Favorises/AddFavorises";
 		try {
-			response = HTTPHelper.HTTPPut(addFavorises, serializedFav);
+			response = HTTPHelper.HTTPPost(addFavorises, serializedFav);
 			System.out.println(response);
+			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -367,40 +373,43 @@ public class ServiceHelper {
 	
 	//HasEaten
 	
-	public static void PutHasEaten(HasEaten newHas){
+	public static boolean PostHasEaten(HasEaten newHas){
 		String response = null;
 		String serializedHas = JSONHelper.Serializer(newHas);
 		System.out.println("Serialized HasEaten: " + serializedHas);
 		
 		String addHasEaten = "http://" + ip + ":8000/RestService/HasEaten/AddHasEaten";
 		try {
-			response = HTTPHelper.HTTPPut(addHasEaten, serializedHas);
+			response = HTTPHelper.HTTPPost(addHasEaten, serializedHas);
 			System.out.println(response);
+			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 
 	//IngredientIn
 	
-	public static void PutIngredientIn(IngredientIn newIngIn){
+	public static boolean PostIngredientIn(IngredientIn newIngIn){
 		String response = null;
 		String serializedIngIn = JSONHelper.Serializer(newIngIn);
 		System.out.println("Serialized IngredientIn: " + serializedIngIn);
 		
 		String addIngredientIn = "http://" + ip + ":8000/RestService/IngredientIn/AddIngredientIn";
 		try {
-			response = HTTPHelper.HTTPPut(addIngredientIn, serializedIngIn);
+			response = HTTPHelper.HTTPPost(addIngredientIn, serializedIngIn);
 			System.out.println(response);
+			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
-	
 	public static ArrayList<IngredientIn> GetIngredientInsByIngredientId(int ingredientId){
 		String response = null;
 		try {
-			response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/Favorises/GetIngredientInsByIngredientId?ingredientId=" + ingredientId);
+			response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/IngredientIn/GetIngredientInsByIngredientId?ingredientId=" + ingredientId);
 			System.out.println(response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -412,7 +421,7 @@ public class ServiceHelper {
 	public static ArrayList<IngredientIn> GetIngredientInsByRecipeId(int recipeId){
 		String response = null;
 		try {
-			response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/Favorises/GetIngredientInsByRecipeId?recipeId=" + recipeId);
+			response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/IngredientIn/GetIngredientInsByRecipeId?recipeId=" + recipeId);
 			System.out.println(response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -423,17 +432,19 @@ public class ServiceHelper {
 	
 	//Offers
 	
-	public static void PutOffers(Offers newOff){
+	public static boolean PostOffers(Offers newOff){
 		String response = null;
 		String serializedOff = JSONHelper.Serializer(newOff);
 		System.out.println("Serialized Offers: " + serializedOff);
 		
 		String addOffers = "http://" + ip + ":8000/RestService/Offers/AddOffers";
 		try {
-			response = HTTPHelper.HTTPPut(addOffers, serializedOff);
+			response = HTTPHelper.HTTPPost(addOffers, serializedOff);
 			System.out.println(response);
+			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -463,17 +474,19 @@ public class ServiceHelper {
 	
 	//Pictures
 	
-	public static void PutPictures(Pictures newPic){
+	public static boolean PostPictures(Pictures newPic){
 		String response = null;
 		String serializedPic = JSONHelper.Serializer(newPic);
 		System.out.println("Serialized Pictures: " + serializedPic);
 		
 		String addPictures = "http://" + ip + ":8000/RestService/Pictures/AddPictures";
 		try {
-			response = HTTPHelper.HTTPPut(addPictures, serializedPic);
+			response = HTTPHelper.HTTPPost(addPictures, serializedPic);
 			System.out.println(response);
+			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
 import com.fasterxml.jackson.databind.module.*;
 
-
+import com.fasterxml.jackson.core.JsonGenerator;
 public class JSONHelper<T> {
 	
 	public static <T> T Deserialize(String json, Class<T> targetClass) {
@@ -55,12 +55,13 @@ public class JSONHelper<T> {
 	
 	public static String Serializer(Object obj){
 		ObjectMapper mapper = new ObjectMapper();
-
+		
+		mapper.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
+		
 		String resultString = "";
 		try {
 			resultString = mapper.writeValueAsString(obj);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resultString;

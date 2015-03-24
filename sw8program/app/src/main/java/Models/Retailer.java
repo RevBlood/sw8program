@@ -1,7 +1,19 @@
 package Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Retailer {
 	public Retailer(){}
+	
+	public Retailer(String retailerLatitude, String retailerLongitude, String retailerCompanyName, 
+			String retailerDescription, String retailerOpeningHours) {
+		this.setLatitude(retailerLatitude);
+		this.setLongitude(retailerLongitude);
+		this.setCompanyName(retailerCompanyName);
+		this.setDescription(retailerDescription);
+		this.setOpeningHours(retailerOpeningHours);
+	}
 	
 	public Retailer(int retailerId, String retailerLatitude, String retailerLongitude, String retailerCompanyName, 
 			String retailerDescription, String retailerOpeningHours) {
@@ -14,9 +26,11 @@ public class Retailer {
 	}
 	
 	//Retailer Id
+	@JsonIgnore
 	public int getId(){
 		return _retailerId;
 	}
+	@JsonProperty
 	public void setId(int id){
 		this._retailerId = id;
 	}
@@ -26,6 +40,7 @@ public class Retailer {
 	public String getLatitude(){
 		return _retailerLatitude;
 	}
+	@JsonProperty("latitude")
 	public void setLatitude(String latitude){
 		this._retailerLatitude = latitude;
 	}
@@ -35,6 +50,7 @@ public class Retailer {
 	public String getLongitude(){
 		return _retailerLongitude;
 	}
+	@JsonProperty("longitude")
 	public void setLongitude(String longitude){
 		this._retailerLongitude = longitude;
 	}
@@ -44,6 +60,7 @@ public class Retailer {
 	public String getCompanyName(){
 		return _retailerCompanyName;
 	}
+	@JsonProperty("companyname")
 	public void setCompanyName(String companyName){
 		this._retailerCompanyName = companyName;
 	}
@@ -53,6 +70,7 @@ public class Retailer {
 	public String getDescription(){
 		return _retailerDescription;
 	}
+	@JsonProperty("description")
 	public void setDescription(String description){
 		this._retailerDescription = description;
 	}
@@ -62,6 +80,7 @@ public class Retailer {
 	public String getOpeningHours(){
 		return _retailerOpeningHours;
 	}
+	@JsonProperty("openinghours")
 	public void setOpeningHours(String openingHours){
 		this._retailerOpeningHours = openingHours;
 	}

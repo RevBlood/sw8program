@@ -2,8 +2,20 @@ package Models;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Ingredient {
 	public Ingredient(){}
+	
+	public Ingredient(String ingredientName, String ingredientMeasurementType, String ingredientMeasure, 
+			BigDecimal ingredientPrice, String ingredientTags) {
+		this.setName(ingredientName);
+		this.setMeasurementType(ingredientMeasurementType);
+		this.setMeasure(ingredientMeasure);
+		this.setPrice(ingredientPrice);
+		this.setTags(ingredientTags);
+	}
 	
 	public Ingredient(int ingredientId, String ingredientName, String ingredientMeasurementType, String ingredientMeasure, 
 			BigDecimal ingredientPrice, String ingredientTags) {
@@ -16,9 +28,11 @@ public class Ingredient {
 	}
 	
 	//Ingredient Id
+	@JsonIgnore
 	public int getId(){
 		return _ingredientId;
 	}
+	@JsonProperty
 	public void setId(int id){
 		this._ingredientId = id;
 	}
