@@ -11,7 +11,7 @@ using Npgsql;
 namespace whatsfordinner {
     public partial class RestService : IComment {
 
-        [WebInvoke(Method = "PUT", UriTemplate = "AddComment", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "AddComment", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public void AddComment(Comment com) {
             DBController dbc = new DBController();
             try {

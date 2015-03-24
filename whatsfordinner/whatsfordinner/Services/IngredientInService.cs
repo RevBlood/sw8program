@@ -11,7 +11,7 @@ using Npgsql;
 namespace whatsfordinner {
     public partial class RestService : IIngredientIn {
 
-        [WebInvoke(Method = "PUT", UriTemplate = "AddIngredientIn", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "AddIngredientIn", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public void AddIngredientIn(IngredientIn ing) {
             DBController dbc = new DBController();
             try {
@@ -26,7 +26,7 @@ namespace whatsfordinner {
             }
         }
 
-        [WebInvoke(Method = "GET", UriTemplate = "GetIngredientsInByIngredientId?ingredientId={ingredientId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "GET", UriTemplate = "GetIngredientInsByIngredientId?ingredientId={ingredientId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public List<IngredientIn> GetIngredientInsByIngredientId(int ingredientId) {
             DBController dbc = new DBController();
             WebOperationContext ctx = WebOperationContext.Current;
@@ -47,7 +47,7 @@ namespace whatsfordinner {
             return null;
         }
 
-        [WebInvoke(Method = "GET", UriTemplate = "GetIngredientsInByRecipeId?recipeId={recipeId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "GET", UriTemplate = "GetIngredientInsByRecipeId?recipeId={recipeId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public List<IngredientIn> GetIngredientInsByRecipeId(int recipeId) {
             DBController dbc = new DBController();
             WebOperationContext ctx = WebOperationContext.Current;

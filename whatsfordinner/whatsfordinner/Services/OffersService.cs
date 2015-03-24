@@ -11,7 +11,7 @@ using Npgsql;
 namespace whatsfordinner {
     public partial class RestService : IOffers {
 
-        [WebInvoke(Method = "PUT", UriTemplate = "AddOffers", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "AddOffers", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public void AddOffers(Offers off) {
             DBController dbc = new DBController();
             try {

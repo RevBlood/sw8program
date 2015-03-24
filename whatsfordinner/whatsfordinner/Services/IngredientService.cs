@@ -11,7 +11,7 @@ using Npgsql;
 namespace whatsfordinner {
     public partial class RestService : IIngredient {
 
-        [WebInvoke(Method = "PUT", UriTemplate = "AddIngredient", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "AddIngredient", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public void AddIngredient(Ingredient ing) {
             DBController dbc = new DBController();
             try {

@@ -11,7 +11,7 @@ using Npgsql;
 namespace whatsfordinner {
     public partial class RestService : IPictures {
 
-        [WebInvoke(Method = "PUT", UriTemplate = "AddPictures", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "AddPictures", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public void AddPictures(Pictures pic) {
             DBController dbc = new DBController();
             try {

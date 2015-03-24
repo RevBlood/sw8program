@@ -330,8 +330,8 @@ namespace whatsfordinner {
             return NonQuery(command, "pictures");
         }
         //
-        // All Entities GetById
-        //
+        #region All Entities GetById
+        
         public Account GetAccountById(int accountId) {
             string sql = String.Format("SELECT * FROM accounts WHERE accountid = '{0}'", accountId);
             DataRowCollection res = Query(sql);
@@ -348,7 +348,7 @@ namespace whatsfordinner {
             if (res.Count == 1) {
                 return new Comment(res[0]);
             } else {
-                return new Comment();
+                return null;
             }
         }
 
@@ -358,7 +358,7 @@ namespace whatsfordinner {
             if (res.Count == 1) {
                 return new Ingredient(res[0]);
             } else {
-                return new Ingredient();
+                return null;
             }
         }
 
@@ -368,7 +368,7 @@ namespace whatsfordinner {
             if (res.Count == 1) {
                 return new Recipe(res[0]);
             } else {
-                return new Recipe();
+                return null;
             }
         }
 
@@ -378,13 +378,14 @@ namespace whatsfordinner {
             if (res.Count == 1) {
                 return new Retailer(res[0]);
             } else {
-                return new Retailer();
+                return null;
             }
         }
+        #endregion
+        //
 
         //
-        // Relationship queries, get by ids
-        //
+        #region Relationship queries, get by ids
 
         public List<Favorises> GetFavorisesByAccountId(int accountId) {
             string sql = String.Format("SELECT * FROM favorises WHERE accountid = '{0}'", accountId);
@@ -498,6 +499,8 @@ namespace whatsfordinner {
                 return allOffersFromIngredientId;
             }
         }
+        #endregion
+        //
 
         //
         // Delete entities by id
@@ -571,7 +574,7 @@ namespace whatsfordinner {
             if (res.Count == 1) {
                 return new Account(res[0]);
             } else {
-                return new Account();
+                return null;
             }
         }
 
@@ -595,7 +598,7 @@ namespace whatsfordinner {
             if (res.Count == 1) {
                 return new Ingredient(res[0]);
             } else {
-                return new Ingredient();
+                return null;
             }
         }
 
@@ -614,8 +617,9 @@ namespace whatsfordinner {
         }
 
         public List<Ingredient> GetIngredientsByRecipeId(int recipeId) {
-            string sql = String.Format("SELECT ingredients.ingredientid, ingredients.name, ingredients.measurementtype, ingredients.measure, ingredients.price, ingredients.tags "
-                                        + "FROM ingredients, ingredientin WHERE recipeid = '{0}'", recipeId);
+            string sql = String.Format("SELECT ingredients.ingredientid, ingredients.name, ingredients.measurementtype, ingredients.measure, ingredients.price, ingredients.tags " +
+                                        "FROM ingredients, ingredientin " +
+                                        "WHERE ingredientin.ingredientid = ingredients.ingredientid AND ingredientin.recipeid = '{0}'", recipeId);
             DataRowCollection res = Query(sql);
             List<Ingredient> allIngredientsFromRecipeId = new List<Ingredient>();
             if (res.Count >= 1) {

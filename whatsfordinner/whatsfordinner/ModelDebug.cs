@@ -8,7 +8,7 @@ namespace whatsfordinner {
     public static class ModelDebug {
         public static Account GetTestAccount() {
             DateTime dt = DateTime.Now;
-            Account acc = new Account("andrejs@andrejs.com", "andrejspw", "andrejs", dt, "noget med setting", "noget med preferences");
+            Account acc = new Account(1234, "andrejs@andrejs.com", "andrejspw", "andrejs", dt, "noget med setting", "noget med preferences");
             return acc;
         }
 

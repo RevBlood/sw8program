@@ -11,7 +11,7 @@ using Npgsql;
 namespace whatsfordinner {
     public partial class RestService : IFavorises {
 
-        [WebInvoke(Method = "PUT", UriTemplate = "AddFavorises", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "AddFavorises", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public void AddFavorises(Favorises fav) {
             DBController dbc = new DBController();
             try {
