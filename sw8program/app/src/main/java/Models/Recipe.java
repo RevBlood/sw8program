@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.math.BigDecimal;
 
-public class Recipe {
+public class Recipe{
 	public Recipe(){}
 
 	public Recipe(int recipeId, int recipeAccountId, String recipeName, String recipeDescription,

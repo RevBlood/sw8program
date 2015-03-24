@@ -51,9 +51,9 @@ public class SortbySpinnerAdapter extends ArrayAdapter<String>{
 
             TextView description = (TextView)convertView.findViewById(R.id.sort_by_item_description);
 
-            if(position == 0 | position == 2) {
+            if(position == 0 | position == 1) {
                 description.setText("i Kroner");
-            } else if (position == 1) {
+            } else if (position == 2) {
                 description.setText("i Procent");
             } else {
                 description.setText("fra Brugere");
