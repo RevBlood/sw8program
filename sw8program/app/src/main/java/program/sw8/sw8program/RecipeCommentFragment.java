@@ -74,15 +74,20 @@ public class RecipeCommentFragment extends Fragment {
     Button.OnClickListener postCommentListener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (ServiceHelper.PostComment(new Comment(AccountId, recipe.getId(), recipeCommentBox.getText().toString()))) {
-                recipeCommentBox.setText("");
-                CommentAdapter.clear();
-                CommentAdapter.addAll(ServiceHelper.GetCommentsByRecipeId(recipe.getId()));
-                CommentAdapter.notifyDataSetChanged();
-                CommentsListView.setSelection(CommentsListView.getAdapter().getCount() - 1);
+
+            if (getString(R.string.debug).equals("off")) {
+                if (ServiceHelper.PostComment(new Comment(AccountId, recipe.getId(), recipeCommentBox.getText().toString()))) {
+                    recipeCommentBox.setText("");
+                    CommentAdapter.clear();
+                    CommentAdapter.addAll(ServiceHelper.GetCommentsByRecipeId(recipe.getId()));
+                    CommentsListView.setSelection(CommentsListView.getAdapter().getCount() - 1);
+                } else {
+                    //TODO: Make an error
+                    Toast.makeText(getActivity(), "Fucking shit server", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                //TODO: Make an error
-                Toast.makeText(getActivity(),"Fucking shit server", Toast.LENGTH_SHORT).show();
+                CommentAdapter.add(new Comment(1,1,1, new Date(),recipeCommentBox.getText().toString()));
+                CommentsListView.setSelection(CommentsListView.getAdapter().getCount() - 1);
             }
         }
     };

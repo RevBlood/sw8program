@@ -86,7 +86,6 @@ public class RecipeFragment extends Fragment {
     }
 
     public void PrepareIngredients() {
-
         if (getString(R.string.debug).equals("on")) {
             BigDecimal biggie = new BigDecimal(5.0);
             RecipeIngredients.add(new Ingredient("One", "ingredientMeasurementType", "ingredientMeasure", biggie, "ingredientTags"));
@@ -98,7 +97,6 @@ public class RecipeFragment extends Fragment {
     }
 
     public void PreparePictures() {
-
         Resources r = getResources();
 
         if (getString(R.string.debug).equals("on")) {
@@ -112,19 +110,23 @@ public class RecipeFragment extends Fragment {
     ImageButton.OnClickListener toggleFavouriteListener = new ImageButton.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(!RecipeFavouriteToggleButton.isSelected()) {
-                if (ServiceHelper.PostFavorises(new Favorises(AccountId, recipe.getId()))) {
-                    RecipeFavouriteToggleButton.setSelected(true);
+            if (getString(R.string.debug).equals("off")) {
+                if (!RecipeFavouriteToggleButton.isSelected()) {
+                    if (ServiceHelper.PostFavorises(new Favorises(AccountId, recipe.getId()))) {
+                        RecipeFavouriteToggleButton.setSelected(true);
+                    } else {
+                        //TODO: Handle that server was shit.
+                    }
                 } else {
-                    //TODO: Handle that server was shit.
+                    if (ServiceHelper.DeleteFavorises(AccountId, recipe.getId())) {
+
+                        RecipeFavouriteToggleButton.setSelected(false);
+                    } else {
+                        //TODO: Handle server pooped
+                    }
                 }
             } else {
-                if (ServiceHelper.DeleteFavorises(AccountId, recipe.getId())) {
-
-                    RecipeFavouriteToggleButton.setSelected(false);
-                } else {
-                    //TODO: Handle server pooped
-                }
+                RecipeFavouriteToggleButton.setSelected(!RecipeFavouriteToggleButton.isSelected());
             }
         }
     };

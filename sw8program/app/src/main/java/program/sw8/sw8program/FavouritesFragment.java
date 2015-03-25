@@ -81,11 +81,18 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
             case ContextFavouriteRemove:
                 //Find the item that was pressed and delete it
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                if (ServiceHelper.DeleteFavorises(AccountId, FavAdapter.getItem(info.position).getId())) {
-                    FavAdapter.remove(FavAdapter.getItem(info.position));
+
+                //TODO: Remove debug
+                if (getString(R.string.debug).equals("off")) {
+                    if (ServiceHelper.DeleteFavorises(AccountId, FavAdapter.getItem(info.position).getId())) {
+                        FavAdapter.remove(FavAdapter.getItem(info.position));
+                    } else {
+                        //TODO: Complain to user about shitty server
+                    }
                 } else {
-                    //TODO: Complain to user about shitty server
+                    FavAdapter.remove(FavAdapter.getItem(info.position));
                 }
+
                 return true;
             //If case was not found, return false. This causes Android to look in other overrides for a case that matches
             default: return false;
