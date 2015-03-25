@@ -56,8 +56,12 @@ public class RecipeFragment extends Fragment {
         RecipeFavouriteToggleButton.setOnClickListener(toggleFavouriteListener);
 
         ArrayList<Favorises> favourites = ServiceHelper.GetFavorisesByAccountId(AccountId);
-        if (favourites.contains(new Favorises(AccountId, recipe.getId()))) {
-            RecipeFavouriteToggleButton.setSelected(true);
+        Favorises toCompare = new Favorises(AccountId, recipe.getId());
+        for (Favorises f : favourites) {
+            if (f.equals(toCompare)) {
+                RecipeFavouriteToggleButton.setSelected(true);
+                break;
+            }
         }
 
         PreparePictures();
@@ -108,12 +112,19 @@ public class RecipeFragment extends Fragment {
     ImageButton.OnClickListener toggleFavouriteListener = new ImageButton.OnClickListener() {
         @Override
         public void onClick(View v) {
-            RecipeFavouriteToggleButton.setSelected(!RecipeFavouriteToggleButton.isSelected());
-
-            if(RecipeFavouriteToggleButton.isSelected()) {
-                //TODO: Add to favourites
+            if(!RecipeFavouriteToggleButton.isSelected()) {
+                if (ServiceHelper.PostFavorises(new Favorises(AccountId, recipe.getId()))) {
+                    RecipeFavouriteToggleButton.setSelected(true);
+                } else {
+                    //TODO: Handle that server was shit.
+                }
             } else {
-                //TODO: Remove from favourites
+                if (ServiceHelper.DeleteFavorises(AccountId, recipe.getId())) {
+
+                    RecipeFavouriteToggleButton.setSelected(false);
+                } else {
+                    //TODO: Handle server pooped
+                }
             }
         }
     };

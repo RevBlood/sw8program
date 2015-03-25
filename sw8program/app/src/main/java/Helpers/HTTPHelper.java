@@ -42,6 +42,59 @@ public class HTTPHelper {
         }
     }
 
+    public static String HTTPDelete(String url) throws Exception {
+        HTTPDeleteTask deleteTask = new HTTPDeleteTask();
+        deleteTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url);
+        try {
+            return deleteTask.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static class HTTPGetTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... url) {
+            try {
+                URL obj = new URL(url[0]);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+                // optional default is GET
+                con.setRequestMethod("GET");
+
+                //add request header
+                con.setRequestProperty("User-Agent", USER_AGENT);
+
+                int responseCode = con.getResponseCode();
+                System.out.println("Sending 'GET' request to URL : " + obj);
+                System.out.println("Response Code : " + responseCode);
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+
+                in.close();
+
+                return response.toString();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return null;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
+
     public static class HTTPPostTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... data) {
@@ -88,35 +141,34 @@ public class HTTPHelper {
         }
     }
 
-    public static class HTTPGetTask extends AsyncTask<String, Void, String> {
+    public static class HTTPDeleteTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... url) {
             try {
                 URL obj = new URL(url[0]);
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-                // optional default is GET
-                con.setRequestMethod("GET");
+                // DELETE
+                con.setRequestMethod("DELETE");
 
                 //add request header
                 con.setRequestProperty("User-Agent", USER_AGENT);
 
                 int responseCode = con.getResponseCode();
-                System.out.println("Sending 'GET' request to URL : " + obj);
+                System.out.println("Sending 'DELETE' request to URL : " + url);
                 System.out.println("Response Code : " + responseCode);
 
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
                 String inputLine;
-                StringBuilder response = new StringBuilder();
+                StringBuffer response = new StringBuffer();
 
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                 }
-
                 in.close();
 
                 return response.toString();
-
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 return null;

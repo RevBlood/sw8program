@@ -38,6 +38,7 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe>  {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(_layoutId, parent, false);
+            convertView.setLongClickable(true);
         }
 
         TextView RecipeName = (TextView) convertView.findViewById(R.id.recipe_name);

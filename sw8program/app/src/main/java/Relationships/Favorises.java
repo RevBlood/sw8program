@@ -40,4 +40,17 @@ public class Favorises {
 		
 		return result.toString();	
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Favorises favorises = (Favorises) o;
+
+        if (_favorisesAccountId != favorises._favorisesAccountId) return false;
+        if (_favorisesRecipeId != favorises._favorisesRecipeId) return false;
+
+        return true;
+    }
 }

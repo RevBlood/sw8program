@@ -27,6 +27,7 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
     ArrayList<Recipe> Recipes = new ArrayList<>();
     Date date = new Date();
     BigDecimal bigdiddy = new BigDecimal(3.31231);
+    Integer AccountId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,12 +38,10 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
             Recipes.add(new Recipe(1, 1, "Pøllemix", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", date, 3, "house", bigdiddy));
             Recipes.add(new Recipe(3, 2, "magiskmad", "flot mad", date, 5, "house", bigdiddy));
         } else {
-            //Get user id from shared preferences. Then contact server to fetch recipes.
+            //Get user id from shared preferences.  In case the list retrieved is null, instantiate Recipes again to avoid NullPointerException
             SharedPreferences session = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
-            ArrayList<Recipe> recipes = new ArrayList<>();
-
-            //Try to retrieve recipes from server. In case the list retrieved is null, instantiate Recipes again to avoid NullPointerException
-            Recipes = ServiceHelper.GetFavorisedRecipesByAccountId(session.getInt("id", -1));
+            AccountId = session.getInt("id", -1);
+            Recipes = ServiceHelper.GetFavorisedRecipesByAccountId(AccountId);
             if (Recipes == null) {
                 Recipes = new ArrayList<>();
             }
@@ -82,8 +81,11 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
             case ContextFavouriteRemove:
                 //Find the item that was pressed and delete it
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                FavAdapter.getItem(info.position);
-                FavAdapter.remove(FavAdapter.getItem(info.position));
+                if (ServiceHelper.DeleteFavorises(AccountId, FavAdapter.getItem(info.position).getId())) {
+                    FavAdapter.remove(FavAdapter.getItem(info.position));
+                } else {
+                    //TODO: Complain to user about shitty server
+                }
                 return true;
             //If case was not found, return false. This causes Android to look in other overrides for a case that matches
             default: return false;

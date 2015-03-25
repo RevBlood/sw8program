@@ -325,7 +325,7 @@ public class ServiceHelper {
 		String addFavorises = "http://" + ip + ":8000/RestService/Favorises/AddFavorises";
 		try {
 			response = HTTPHelper.HTTPPost(addFavorises, serializedFav);
-			System.out.println(response);
+			System.out.println("PostFavorises response: " + response);
 			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -515,5 +515,30 @@ public class ServiceHelper {
 
 		return null;
 	}
+
+    // Delete
+    public static boolean DeleteComment(int commentId) {
+        String response = null;
+        try {
+            response = HTTPHelper.HTTPDelete("http://" + ip + ":8000/RestService/Comment/DeleteCommentById?commentId=" + commentId);
+            System.out.println("Delete response: " + response);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean DeleteFavorises(int accountId, int recipeId) {
+        String response = null;
+        try {
+            response = HTTPHelper.HTTPDelete("http://" + ip + ":8000/RestService/Favorises/DeleteFavorisesByAccountIdAndRecipeId?accountId=" + accountId + "&recipeId=" + recipeId);
+            System.out.println("Delete response: " + response);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
