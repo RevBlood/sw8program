@@ -1,6 +1,5 @@
 package program.sw8.sw8program;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,7 +15,6 @@ import android.widget.Spinner;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
@@ -26,9 +24,6 @@ import Models.Recipe;
 public class DiscoverFragment extends Fragment {
 
     private final int ContextRecipeRemove = 11;
-
-    private Spinner sortbySpinner;
-    private SortbySpinnerAdapter SpinnerAdapter;
     private RecipeListAdapter discAdapter;
     String[] sortStrings = {"Pris","Besparelse","Besparelse","Rating"};
 
@@ -49,13 +44,16 @@ public class DiscoverFragment extends Fragment {
             recipes.add(new Recipe(1, 1, "Pøllemix", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", date, 3, "house", bigdiddy));
             recipes.add(new Recipe(3, 2, "magiskmad", "flot mad", date, 5, "house", bigdaddy));
         } else {
-
             //TODO: this shit is wrong - we need a method for discovering based on something (e.g search by ingredient, price limitation or whatever)
+            //Try to retrieve recipes from server. In case the list retrieved is null, instantiate Recipes again to avoid NullPointerException
             recipes = ServiceHelper.GetRecipesByIngredientId(1);
+            if (recipes == null) {
+                recipes = new ArrayList<>();
+            }
         }
 
-        sortbySpinner = (Spinner) rootView.findViewById(R.id.sortby_spinner);
-        SpinnerAdapter = new SortbySpinnerAdapter(getActivity(), R.layout.row_item_sort, sortStrings);
+        Spinner sortbySpinner = (Spinner) rootView.findViewById(R.id.sortby_spinner);
+        SortbySpinnerAdapter SpinnerAdapter = new SortbySpinnerAdapter(getActivity(), R.layout.row_item_sort, sortStrings);
         sortbySpinner.setAdapter(SpinnerAdapter);
 
         ListView recipeList = (ListView) rootView.findViewById(R.id.recipe_list);

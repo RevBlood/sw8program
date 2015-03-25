@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import Models.Ingredient;
+
 /**
  * Created by Morten on 20-02-2015.
  */
@@ -39,7 +41,7 @@ public class RecipeIngredientAdapter extends ArrayAdapter<Ingredient> {
         TextView amountView = (TextView) row.findViewById(R.id.ingredient_amount);
         TextView nameView = (TextView) row.findViewById(R.id.ingredient_name);
 
-        amountView.setText(RecipeIngredients.get(position).getAmount());
+        amountView.setText(RecipeIngredients.get(position).getMeasure());
         nameView.setText(RecipeIngredients.get(position).getName());
 
         return row;

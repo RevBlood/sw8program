@@ -24,7 +24,7 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
     private final int ContextFavouriteRemove = 11;
     private RecipeListAdapter FavAdapter;
     String[] sortStrings = {"Pris","Besparelse","Besparelse","Rating"};
-    ArrayList<Recipe> recipes = new ArrayList<>();
+    ArrayList<Recipe> Recipes = new ArrayList<>();
     Date date = new Date();
     BigDecimal bigdiddy = new BigDecimal(3.31231);
 
@@ -34,12 +34,18 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
 
         //TODO: Remove debug
         if(getString(R.string.debug).equals("on")) {
-            recipes.add(new Recipe(1, 1, "Pøllemix", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", date, 3, "house", bigdiddy));
-            recipes.add(new Recipe(3, 2, "magiskmad", "flot mad", date, 5, "house", bigdiddy));
+            Recipes.add(new Recipe(1, 1, "Pøllemix", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", date, 3, "house", bigdiddy));
+            Recipes.add(new Recipe(3, 2, "magiskmad", "flot mad", date, 5, "house", bigdiddy));
         } else {
             //Get user id from shared preferences. Then contact server to fetch recipes.
             SharedPreferences session = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
-            recipes = ServiceHelper.GetFavorisedRecipesByAccountId(session.getInt("id", -1));
+            ArrayList<Recipe> recipes = new ArrayList<>();
+
+            //Try to retrieve recipes from server. In case the list retrieved is null, instantiate Recipes again to avoid NullPointerException
+            Recipes = ServiceHelper.GetFavorisedRecipesByAccountId(session.getInt("id", -1));
+            if (Recipes == null) {
+                Recipes = new ArrayList<>();
+            }
         }
 
         Spinner sortbySpinner = (Spinner) rootView.findViewById(R.id.sortby_spinner);
@@ -48,7 +54,7 @@ public class FavouritesFragment extends Fragment implements View.OnCreateContext
 
         ListView listOfRecipes = (ListView) rootView.findViewById(R.id.list_favourites);
         listOfRecipes.setEmptyView(rootView.findViewById(R.id.empty));
-        FavAdapter = new RecipeListAdapter(getActivity(), R.layout.row_item_recipe,recipes);
+        FavAdapter = new RecipeListAdapter(getActivity(), R.layout.row_item_recipe, Recipes);
         listOfRecipes.setAdapter(FavAdapter);
 
         registerForContextMenu(listOfRecipes);

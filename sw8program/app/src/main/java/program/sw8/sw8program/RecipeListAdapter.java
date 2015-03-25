@@ -15,9 +15,7 @@ import java.util.List;
 import Helpers.JSONHelper;
 import Models.Recipe;
 
-
 public class RecipeListAdapter extends ArrayAdapter<Recipe>  {
-
     private Context _context;
     private int _layoutId;
     private List<Recipe> _listofRecipes;
@@ -27,7 +25,11 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe>  {
         this._context = context;
         this._layoutId = textViewResourceId;
         this._listofRecipes = listofRecipes;
+    }
 
+    @Override
+    public int getCount() {
+        return _listofRecipes.size();
     }
 
     @Override
@@ -47,18 +49,15 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe>  {
         RecipePrice.setText("50 kr");
         RecipeSavings.setText("%%%");
 
-
-
-
-
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 final String JSONrecipe = JSONHelper.Serializer(_listofRecipes.get(position));
                 Log.d("this is JSONrecipe:",JSONrecipe);
+
                 Intent intent = new Intent(_context, RecipeActivity.class);
                 intent.putExtra("recipe",JSONrecipe);
+                intent.putExtra("id", _listofRecipes.get(position).getId());
 
                 _context.startActivity(intent);
             }

@@ -6,11 +6,9 @@ import CommunicationModels.RecipeWithIngredients;
 import Models.*;
 import Relationships.*;
 
-import program.sw8.sw8program.Ingredient;
-
 
 public class ServiceHelper {
-	private static String ip = "localhost";
+	private static String ip = "192.168.1.101";
 	
 	//Entities
 	//Accounts

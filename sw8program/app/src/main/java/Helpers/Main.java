@@ -35,7 +35,7 @@ public class Main {
 		
 		String addAccount = "http://localhost:8000/RestService/Account/AddAccount";
 		try {
-			response = HTTPHelper.HTTPPut(addAccount, serializedAcc);
+			response = HTTPHelper.HTTPPost(addAccount, serializedAcc);
 			System.out.println(response);
 		} catch(Exception e) {
 			System.out.println(e.toString());

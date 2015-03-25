@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Offers {
@@ -45,6 +46,7 @@ public class Offers {
 	private int _offersIngredientId;
 	
 	//Offers OfferFrom
+    @JsonIgnore
 	public Date getOfferFrom(){
 		return _offersOfferFrom;
 	}
@@ -55,6 +57,7 @@ public class Offers {
 	private Date _offersOfferFrom;
 	
 	//Offers OfferTo
+    @JsonIgnore
 	public Date getOfferTo(){
 		return _offersOfferTo;
 	}

@@ -1,3 +1,5 @@
+package Helpers;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ public class ServiceDebug {
 	public static boolean AccountTest(){
 		try {
 			Account newAcc = new Account("peter1235444@pedal.com", "peterpedal", "Peter Pedal1234523232326", "some settings", "some prefs");
-			ServiceHelper.PutAccount(newAcc);
+			ServiceHelper.PostAccount(newAcc);
 			ServiceHelper.GetAccountByEmail("andrejs@andrejs.com");
 			ServiceHelper.GetAccountById(1);
 			ServiceHelper.GetAllAccounts();
@@ -22,7 +24,7 @@ public class ServiceDebug {
 	public static boolean CommentTest(){
 		try {
 			Comment newCom = new Comment(1,1,"a comment");
-			ServiceHelper.PutComment(newCom);
+			ServiceHelper.PostComment(newCom);
 			ServiceHelper.GetCommentById(1);
 			ServiceHelper.GetCommentsByRecipeId(1);
 			return true;
@@ -34,7 +36,7 @@ public class ServiceDebug {
 	public static boolean IngredientTest(){
 		try {
 			Ingredient newIng = new Ingredient("ingredient1", "gram", "500", new BigDecimal("5.90"), "tags");
-			ServiceHelper.PutIngredient(newIng);
+			ServiceHelper.PostIngredient(newIng);
 			ServiceHelper.GetIngredientById(1);
 			ServiceHelper.GetIngredientByName("Kaffe");
 			return true;
@@ -46,7 +48,7 @@ public class ServiceDebug {
 	public static boolean RecipeTest(){
 		try {
 			Recipe newRec = new Recipe(1, "name1", "description", 5, "tags", new BigDecimal("4.0"));
-			ServiceHelper.PutRecipe(newRec);
+			ServiceHelper.PostRecipe(newRec);
 			ServiceHelper.GetRecipeById(1);
 			ServiceHelper.GetRecipesByAccountId(1);
 			ServiceHelper.GetRecipeByIdWithIngredients(1);
@@ -60,7 +62,7 @@ public class ServiceDebug {
 	public static boolean RetailerTest(){
 		try {
 			Retailer newRet = new Retailer("lat", "long", "comp name", "description", "opening hours");
-			ServiceHelper.PutRetailer(newRet);
+			ServiceHelper.PostRetailer(newRet);
 			ServiceHelper.GetRetailerById(1);
 			return true;
 		} catch(Exception e){
@@ -71,7 +73,7 @@ public class ServiceDebug {
 	public static boolean FavorisesTest(){
 		try {
 			Favorises newFav = new Favorises(1, 1);
-			ServiceHelper.PutFavorises(newFav);
+			ServiceHelper.PostFavorises(newFav);
 			ServiceHelper.GetFavorisesByAccountId(1);
 			ServiceHelper.GetFavorisesByRecipeId(1);
 			ServiceHelper.GetFavorisedRecipesByAccountId(1);
@@ -84,7 +86,7 @@ public class ServiceDebug {
 	public static boolean HasEatenTest(){
 		try {
 			HasEaten newHas = new HasEaten(1,1, new BigDecimal("4.0"));
-			ServiceHelper.PutHasEaten(newHas);
+			ServiceHelper.PostHasEaten(newHas);
 			return true;
 		} catch(Exception e){
 			return false;
@@ -94,7 +96,7 @@ public class ServiceDebug {
 	public static boolean IngredientInTest(){
 		try {
 			IngredientIn newIngIn = new IngredientIn(1, 1, 500);
-			ServiceHelper.PutIngredientIn(newIngIn);
+			ServiceHelper.PostIngredientIn(newIngIn);
 			ServiceHelper.GetIngredientInsByIngredientId(1);
 			ServiceHelper.GetIngredientInsByRecipeId(1);
 			return true;
@@ -107,7 +109,7 @@ public class ServiceDebug {
 		try {
 			Offers newOff= new Offers(1, 1, new Date(), new Date(), new BigDecimal("10.00"), new BigDecimal("5.00"), 
 					new BigDecimal("5.00"), new BigDecimal("50.00"), new BigDecimal("50.00"));
-			ServiceHelper.PutOffers(newOff);
+			ServiceHelper.PostOffers(newOff);
 			ServiceHelper.GetOffersByIngredientId(1);
 			ServiceHelper.GetOffersByRetailerId(1);
 			return true;
@@ -119,7 +121,7 @@ public class ServiceDebug {
 	public static boolean PicturesTest(){
 		try {
 			Pictures newPic = new Pictures(1,1,"path to pic");
-			ServiceHelper.PutPictures(newPic);
+			ServiceHelper.PostPictures(newPic);
 			ServiceHelper.GetPicturesByRecipeId(1);
 			return true;
 		} catch(Exception e){

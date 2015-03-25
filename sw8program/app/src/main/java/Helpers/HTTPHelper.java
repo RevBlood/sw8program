@@ -29,40 +29,66 @@ public class HTTPHelper {
     }
 
     public static String HTTPPost(String targetUrl, String jsonInput) throws IOException {
-        String output = "";
-        System.out.println("Starting url connection");
-        URL url = new URL(targetUrl);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setDoOutput(true);
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+        HTTPPostTask postTask = new HTTPPostTask();
+        postTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, targetUrl, jsonInput);
+        try {
+            return postTask.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-        OutputStream os = conn.getOutputStream();
-        os.write(jsonInput.getBytes());
-        os.flush();
-        if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
-            if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code: "
-                        + conn.getResponseCode() + ". HTTP error message: " + conn.getResponseMessage());
+    public static class HTTPPostTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... data) {
+            String targetUrl = data[0];
+            String jsonInput = data[1];
+            String output = "";
+            System.out.println("Starting url connection");
+            try {
+                URL url = new URL(targetUrl);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setDoOutput(true);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+
+                OutputStream os = conn.getOutputStream();
+                os.write(jsonInput.getBytes());
+                os.flush();
+                if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+                    if (conn.getResponseCode() != 200) {
+                        throw new RuntimeException("Failed : HTTP error code: "
+                                + conn.getResponseCode() + ". HTTP error message: " + conn.getResponseMessage());
+                    }
+                }
+                BufferedReader br = new BufferedReader(new InputStreamReader(
+                        (conn.getInputStream())));
+
+                System.out.println("Output from Server:");
+                while ((output = br.readLine()) != null) {
+                    System.out.println(conn.getResponseMessage());
+                    System.out.println(output);
+                }
+                System.out.println("End of Output from Server");
+
+                conn.disconnect();
+
+                return output;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return null;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
             }
         }
-        BufferedReader br = new BufferedReader(new InputStreamReader(
-                (conn.getInputStream())));
-
-        System.out.println("Output from Server:");
-        while ((output = br.readLine()) != null) {
-            System.out.println(conn.getResponseMessage());
-            System.out.println(output);
-        }
-		System.out.println("End of Output from Server");
-		
-        conn.disconnect();
-
-        return output;
     }
 
     public static class HTTPGetTask extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... url) {
             try {
@@ -98,11 +124,6 @@ public class HTTPHelper {
                 e.printStackTrace();
                 return null;
             }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
         }
     }
 }

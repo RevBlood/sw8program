@@ -12,20 +12,18 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import Helpers.JSONHelper;
 import Helpers.ServiceHelper;
-import Models.Account;
+import Models.Ingredient;
 import Models.Recipe;
 
-
 public class RecipeFragment extends Fragment {
-
     List<Drawable> RecipeImages = new ArrayList<>();
     List<Ingredient> RecipeIngredients = new ArrayList<>();
-
     String JSONRecipe;
     Recipe recipe;
 
@@ -38,7 +36,6 @@ public class RecipeFragment extends Fragment {
         recipe = JSONHelper.Deserialize(JSONRecipe, Recipe.class);
         Log.d("RecipeActivity","this is the name of the recipe used in RecipeActivity: " + recipe.getName());
 
-
         TextView recipeNameView = (TextView) rootView.findViewById(R.id.recipe_name);
         ViewPager recipeImagePager = (ViewPager) rootView.findViewById(R.id.paged_image_layout);
         LinearLayout recipeIngredientLayout = (LinearLayout) rootView.findViewById(R.id.ingredient_layout);
@@ -46,7 +43,6 @@ public class RecipeFragment extends Fragment {
 
         PreparePictures();
         PrepareIngredients();
-
 
         //Populate views and set adapters
         recipeNameView.setText(recipe.getName());
@@ -69,10 +65,10 @@ public class RecipeFragment extends Fragment {
     public void PrepareIngredients() {
 
         if (getString(R.string.debug).equals("on")) {
-            RecipeIngredients.add(new Ingredient("2 kg", "spices"));
-            RecipeIngredients.add(new Ingredient("2 tsk", "shit"));
-            RecipeIngredients.add(new Ingredient("15 minutes", "love"));
-            RecipeIngredients.add(new Ingredient("3g", "salt"));
+            BigDecimal biggie = new BigDecimal(5.0);
+            RecipeIngredients.add(new Ingredient("One", "ingredientMeasurementType", "ingredientMeasure", biggie, "ingredientTags"));
+            RecipeIngredients.add(new Ingredient("Two", "ingredientMeasurementType", "ingredientMeasure", biggie, "ingredientTags"));
+            RecipeIngredients.add(new Ingredient("Three", "ingredientMeasurementType", "ingredientMeasure", biggie, "ingredientTags"));
         } else {
             RecipeIngredients = ServiceHelper.GetIngredientsByRecipeId(recipe.getId());
         }

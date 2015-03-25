@@ -238,7 +238,7 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
                 }
             } else {
                 // Try to create the account - returns true or false
-                return ServiceHelper.PutAccount(new Account(Email, Password, Alias, "settings", "preferences"));
+                return ServiceHelper.PostAccount(new Account(Email, Password, Alias, "settings", "preferences"));
             }
         }
 
