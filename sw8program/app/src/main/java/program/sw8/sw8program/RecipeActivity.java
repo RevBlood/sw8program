@@ -1,6 +1,5 @@
 package program.sw8.sw8program;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -8,7 +7,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.TabHost;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -25,7 +23,7 @@ public class RecipeActivity extends FragmentActivity implements TabHost.OnTabCha
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         // Inflate the layout
-        setContentView(R.layout.recipe_view_pager);
+        setContentView(R.layout.recipe_activity);
         // Initialise the TabHost
         this.initialiseTabHost(savedInstanceState);
         if (savedInstanceState != null) {
