@@ -23,43 +23,36 @@ import Models.Recipe;
 
 public class DiscoverFragment extends Fragment {
 
-    private final int ContextRecipeRemove = 11;
-    private RecipeListAdapter discAdapter;
-    String[] sortStrings = {"Pris","Besparelse","Besparelse","Rating"};
-
-    Date date = new Date();
-    BigDecimal bigdiddy = new BigDecimal(3.91231);
-    BigDecimal bigdaddy = new BigDecimal(3.41231);
-
-    ArrayList<Recipe> recipes;
+    private final int ContextRecipeRemove = 11; //TODO: This value is copy-pasted from FavouritesFragment. It's not allowed to be 11. Need fix.
+    private final String[] DropDownOptions = {"Pris", "Besparelse", "Besparelse", "Rating"};
+    private ArrayList<Recipe> Recipes = new ArrayList<>();
+    private RecipeListAdapter RecipeAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_discover, container, false);
 
-        ArrayList<Recipe> recipes = new ArrayList<>();
-
         //TODO: Remove debug
         if(getString(R.string.debug).equals("on")) {
-            recipes.add(new Recipe(1, 1, "Pøllemix", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", date, 3, "house", bigdiddy));
-            recipes.add(new Recipe(3, 2, "magiskmad", "flot mad", date, 5, "house", bigdaddy));
+            Recipes.add(new Recipe(1, 1, "Pølsemix", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", new Date(), 3, "house", new BigDecimal(3.91231)));
+            Recipes.add(new Recipe(3, 2, "Grillet Johan", "flot mad", new Date(), 5, "house", new BigDecimal(3.41231)));
         } else {
             //TODO: this shit is wrong - we need a method for discovering based on something (e.g search by ingredient, price limitation or whatever)
             //Try to retrieve recipes from server. In case the list retrieved is null, instantiate Recipes again to avoid NullPointerException
-            recipes = ServiceHelper.GetRecipesByIngredientId(1);
-            if (recipes == null) {
-                recipes = new ArrayList<>();
+            Recipes = ServiceHelper.GetRecipesByIngredientId(1);
+            if (Recipes == null) {
+                Recipes = new ArrayList<>();
             }
         }
 
         Spinner sortbySpinner = (Spinner) rootView.findViewById(R.id.sortby_spinner);
-        SortbySpinnerAdapter SpinnerAdapter = new SortbySpinnerAdapter(getActivity(), R.layout.row_item_sort, sortStrings);
+        SortbySpinnerAdapter SpinnerAdapter = new SortbySpinnerAdapter(getActivity(), R.layout.row_item_sort, DropDownOptions);
         sortbySpinner.setAdapter(SpinnerAdapter);
 
         ListView recipeList = (ListView) rootView.findViewById(R.id.recipe_list);
         recipeList.setEmptyView(rootView.findViewById(R.id.empty));
-        discAdapter = new RecipeListAdapter(getActivity(), R.layout.row_item_recipe,recipes);
-        recipeList.setAdapter(discAdapter);
+        RecipeAdapter = new RecipeListAdapter(getActivity(), R.layout.row_item_recipe, Recipes);
+        recipeList.setAdapter(RecipeAdapter);
         sortbySpinner.setOnItemSelectedListener(spinnerListener);
 
         registerForContextMenu(recipeList);
@@ -73,7 +66,7 @@ public class DiscoverFragment extends Fragment {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
         //Recipe name as title for menu
-        String title = (discAdapter.getItem(info.position)).getName();
+        String title = (RecipeAdapter.getItem(info.position)).getName();
         menu.setHeaderTitle(title);
 
         //Create menu entry for deleting the recipe
@@ -87,8 +80,8 @@ public class DiscoverFragment extends Fragment {
             case ContextRecipeRemove:
                 //Find the item that was pressed and delete it
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                discAdapter.getItem(info.position);
-                discAdapter.remove(discAdapter.getItem(info.position));
+                RecipeAdapter.getItem(info.position);
+                RecipeAdapter.remove(RecipeAdapter.getItem(info.position));
                 return true;
             //If case was not found, return false. This causes Android to look in other overrides for a case that matches
             default: return false;
@@ -98,7 +91,7 @@ public class DiscoverFragment extends Fragment {
     public ArrayList<Recipe> SortBy(Integer i, ArrayList<Recipe> _recipes) {
         switch (i) {
             case 0:
-                discAdapter.sort(new Comparator<Recipe>() {
+                RecipeAdapter.sort(new Comparator<Recipe>() {
                     @Override
                     public int compare(Recipe recipe, Recipe recipe2) {
                         return ((Integer) recipe.getNumberOfServings()).compareTo(recipe2.getNumberOfServings());
@@ -107,7 +100,7 @@ public class DiscoverFragment extends Fragment {
                 });
                 break;
             case 1:
-                discAdapter.sort(new Comparator<Recipe>() {
+                RecipeAdapter.sort(new Comparator<Recipe>() {
                     @Override
                     public int compare(Recipe recipe, Recipe recipe2) {
                         return ((Integer) recipe.getId()).compareTo(recipe2.getId());
@@ -116,7 +109,7 @@ public class DiscoverFragment extends Fragment {
                 });
                 break;
             case 2:
-                discAdapter.sort(new Comparator<Recipe>() {
+                RecipeAdapter.sort(new Comparator<Recipe>() {
                 @Override
                 public int compare(Recipe recipe, Recipe recipe2) {
                     return ((Integer) recipe.getId()).compareTo(recipe2.getId());
@@ -125,7 +118,7 @@ public class DiscoverFragment extends Fragment {
                 });
                 break;
             case 3:
-                discAdapter.sort(new Comparator<Recipe>() {
+                RecipeAdapter.sort(new Comparator<Recipe>() {
                     @Override
                     public int compare(Recipe recipe, Recipe recipe2) {
                         return recipe.getRating().compareTo(recipe2.getRating());
@@ -140,8 +133,8 @@ public class DiscoverFragment extends Fragment {
     public AdapterView.OnItemSelectedListener spinnerListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            SortBy(i, recipes);
-            discAdapter.notifyDataSetChanged();
+            SortBy(i, Recipes);
+            RecipeAdapter.notifyDataSetChanged();
         }
 
         @Override
