@@ -55,12 +55,15 @@ public class RecipeFragment extends Fragment {
 
         RecipeFavouriteToggleButton.setOnClickListener(toggleFavouriteListener);
 
-        ArrayList<Favorises> favourites = ServiceHelper.GetFavorisesByAccountId(AccountId);
-        Favorises toCompare = new Favorises(AccountId, recipe.getId());
-        for (Favorises f : favourites) {
-            if (f.equals(toCompare)) {
-                RecipeFavouriteToggleButton.setSelected(true);
-                break;
+        //TODO: Remove debug
+        if (getString(R.string.debug).equals("off")) {
+            ArrayList<Favorises> favourites = ServiceHelper.GetFavorisesByAccountId(AccountId);
+            Favorises toCompare = new Favorises(AccountId, recipe.getId());
+            for (Favorises f : favourites) {
+                if (f.equals(toCompare)) {
+                    RecipeFavouriteToggleButton.setSelected(true);
+                    break;
+                }
             }
         }
 
