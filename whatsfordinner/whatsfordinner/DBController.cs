@@ -46,9 +46,9 @@ namespace whatsfordinner {
                 return affectedRows;
             }
         }
-        //
-        // GetAll of the Entities
-        //
+        
+        #region GetAll of the Entities
+        
         public List<Account> GetAllAccounts() {
             string sql = String.Format("SELECT * FROM accounts");
             DataRowCollection res = Query(sql);
@@ -121,9 +121,10 @@ namespace whatsfordinner {
                 return allRetailers;
             }
         }
-        //
-        // Get all of the Relationships
-        //
+        #endregion
+
+        #region Get all of the Relationships
+
         public List<Favorises> GetAllFavorises() {
             string sql = String.Format("SELECT * FROM favorises");
             DataRowCollection res = Query(sql);
@@ -198,9 +199,10 @@ namespace whatsfordinner {
                 return allPictures;
             }
         }
-        //
-        // All Entities methods for adding a single instance to the DB
-        //
+        #endregion
+
+        #region All Entities methods for adding a single instance to the DB
+
         public int AddAccount(Account accountToInsert) {
             string sql = "INSERT INTO accounts(email, password, alias, settings, preferences) VALUES (@email, @password, @alias, @settings, @preferences)";
 
@@ -264,9 +266,9 @@ namespace whatsfordinner {
 
             return NonQuery(command, "retailers");
         }
-        //
-        // All Entities methods for adding a single instance to the DB
-        //
+        #endregion
+
+        #region All Relationship methods for adding a single instance to the DB
         public int AddFavorises(Favorises favorisesToInsert) {
             string sql = "INSERT INTO favorises(accountid, recipeid) VALUES (@accountid, @recipeid)";
 
@@ -329,9 +331,10 @@ namespace whatsfordinner {
 
             return NonQuery(command, "pictures");
         }
-        //
+        #endregion
+
         #region All Entities GetById
-        
+
         public Account GetAccountById(int accountId) {
             string sql = String.Format("SELECT * FROM accounts WHERE accountid = '{0}'", accountId);
             DataRowCollection res = Query(sql);
@@ -382,9 +385,7 @@ namespace whatsfordinner {
             }
         }
         #endregion
-        //
 
-        //
         #region Relationship queries, get by ids
 
         public List<Favorises> GetFavorisesByAccountId(int accountId) {
@@ -500,72 +501,88 @@ namespace whatsfordinner {
             }
         }
         #endregion
-        //
 
-        //
-        // Delete entities by id
-        //
+        #region Delete entities by id
 
-        public void DeleteAccountById(int accountId) {
+        public bool DeleteAccountById(int accountId) {
             string sql = String.Format("DELETE FROM accounts WHERE accountid = '{0}'", accountId);
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-            NonQuery(command, "accounts");
+            int affectedRows = NonQuery(command, "accounts");
+
+            return affectedRows >= 1 ? true : false;
         }
 
-        public void DeleteCommentById(int commentId) {
+        public bool DeleteCommentById(int commentId) {
             string sql = String.Format("DELETE FROM comments WHERE commentid = '{0}'", commentId);
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-            NonQuery(command, "comments");
+            int affectedRows = NonQuery(command, "comments");
+
+            return affectedRows >= 1 ? true : false;
         }
 
-        public void DeleteIngredientById(int ingredientId) {
+        public bool DeleteIngredientById(int ingredientId) {
             string sql = String.Format("DELETE FROM ingredients WHERE ingredientid = '{0}'", ingredientId);
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-            NonQuery(command, "ingredients");
+            int affectedRows = NonQuery(command, "ingredients");
+
+            return affectedRows >= 1 ? true : false;
         }
 
-        public void DeleteRecipeById(int recipeId) {
+        public bool DeleteRecipeById(int recipeId) {
             string sql = String.Format("DELETE FROM recipes WHERE recipeid = '{0}'", recipeId);
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-            NonQuery(command, "recipes");
+            int affectedRows = NonQuery(command, "recipes");
+
+            return affectedRows >= 1 ? true : false;
         }
 
-        public void DeleteRetailerById(int retailerId) {
+        public bool DeleteRetailerById(int retailerId) {
             string sql = String.Format("DELETE FROM retailers WHERE retailerid = '{0}'", retailerId);
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-            NonQuery(command, "retailers");
+            int affectedRows = NonQuery(command, "retailers");
+
+            return affectedRows >= 1 ? true : false;
         }
+        #endregion
 
-        //
-        // Delete relationships from ids
-        //
+        #region Delete relationships by ids
 
-        public void DeleteFavorisesByAccountIdAndRecipeId(int accountId, int recipeId) {
+        public bool DeleteFavorisesByAccountIdAndRecipeId(int accountId, int recipeId) {
             string sql = String.Format("DELETE FROM favorises WHERE accountid = '{0}' AND recipeid = '{1}'", accountId, recipeId);
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-            NonQuery(command, "favorises");
+            int affectedRows = NonQuery(command, "favorises");
+
+            return affectedRows >= 1 ? true : false;
         }
 
-        public void DeleteIngredientInByIngredientIdAndRecipeId(int ingredientId, int recipeId) {
+        public bool DeleteIngredientInByIngredientIdAndRecipeId(int ingredientId, int recipeId) {
             string sql = String.Format("DELETE FROM ingredientin WHERE ingredientid = '{0}' AND recipeid = '{1}'", ingredientId, recipeId);
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-            NonQuery(command, "ingredientin");
+            int affectedRows = NonQuery(command, "ingredientin");
+
+            return affectedRows >= 1 ? true : false;
         }
 
-        public void DeletePictursByAccountIdAndRecipeId(int accountId, int recipeId) {
-            string sql = String.Format("DELETE FROM pictures WHERE accountid = '{0}' AND recipeid = '{1}'", accountId, recipeId);
-            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-            NonQuery(command, "pictures");
-        }
-
-        public void DeleteOffersByRetailerIdAndIngredientId(int retailerId, int ingredientId) {
+        public bool DeleteOffersByRetailerIdAndIngredientId(int retailerId, int ingredientId) {
             string sql = String.Format("DELETE FROM offers WHERE retailerid = '{0}' AND ingredientid = '{1}'", retailerId, ingredientId);
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-            NonQuery(command, "offers");
+            int affectedRows = NonQuery(command, "offers");
+
+            return affectedRows >= 1 ? true : false;
         }
 
-        //
-        // Special queries / entity specific queries
+        public bool DeletePictursByAccountIdAndRecipeId(int accountId, int recipeId) {
+            string sql = String.Format("DELETE FROM pictures WHERE accountid = '{0}' AND recipeid = '{1}'", accountId, recipeId);
+            NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+            int affectedRows = NonQuery(command, "pictures");
+
+            return affectedRows >= 1 ? true : false;
+        }
+
+
+        #endregion
+
+        #region Special queries / entity specific queries
         //
 
         public Account GetAccountByEmail(string accountEmail) {
@@ -665,6 +682,7 @@ namespace whatsfordinner {
                 return null;
             }
         }
-
+        #endregion
     }
 }
+

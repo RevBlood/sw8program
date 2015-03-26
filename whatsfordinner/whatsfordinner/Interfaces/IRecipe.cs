@@ -21,6 +21,6 @@ namespace whatsfordinner {
         [OperationContract]
         List<Recipe> GetAllRecipes();
         [OperationContract]
-        void DeleteRecById(int recipeId);
+        bool DeleteRecById(int recipeId);
     }
 }

@@ -15,6 +15,6 @@ namespace whatsfordinner {
         [OperationContract]
         List<Offers> GetOffersByIngredientId(int ingredientId);
         [OperationContract]
-        void DeleteOffersByRetailerIdAndIngredientId(int retailerId, int ingredientId);
+        bool DeleteOffersByRetailerIdAndIngredientId(int retailerId, int ingredientId);
     }
 }

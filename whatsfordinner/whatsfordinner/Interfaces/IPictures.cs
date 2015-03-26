@@ -13,6 +13,6 @@ namespace whatsfordinner {
         [OperationContract]
         List<Pictures> GetPicturesByRecipeId(int recipeId);
         [OperationContract]
-        void DeletePicByAccountIdAndRecipeId(int accountId, int recipeId);
+        bool DeletePicByAccountIdAndRecipeId(int accountId, int recipeId);
     }
 }

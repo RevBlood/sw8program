@@ -17,6 +17,6 @@ namespace whatsfordinner {
         [OperationContract]
         List<Comment> GetAllComments();
         [OperationContract]
-        void DeleteComById(int commentId);
+        bool DeleteComById(int commentId);
     }
 }

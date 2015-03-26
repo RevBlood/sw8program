@@ -89,10 +89,11 @@ namespace whatsfordinner {
         }
 
         [WebInvoke(Method = "DELETE", UriTemplate = "DeleteAccountById?accountId={accountId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public void DeleteAccById(int accountId) {
+        public bool DeleteAccById(int accountId) {
             DBController dbc = new DBController();
             dbc.DeleteAccountById(accountId);
             dbc.Close();
+            return true;
         }
     }
 }

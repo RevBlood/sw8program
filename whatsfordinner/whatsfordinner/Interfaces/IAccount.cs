@@ -17,6 +17,6 @@ namespace whatsfordinner {
         [OperationContract]
         List<Account> GetAllAccounts();
         [OperationContract]
-        void DeleteAccById(int accountId);
+        bool DeleteAccById(int accountId);
     }
 }

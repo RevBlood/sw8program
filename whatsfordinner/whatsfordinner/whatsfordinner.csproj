@@ -94,6 +94,7 @@
     <Compile Include="Interfaces\IAccount.cs" />
     <Compile Include="JSONDebug.cs" />
     <Compile Include="JSONHelper.cs" />
+    <Compile Include="Logics\IngredientIdentifier.cs" />
     <Compile Include="ModelDebug.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Comment.cs" />

@@ -49,10 +49,12 @@ namespace whatsfordinner {
 
         
         [WebInvoke(Method = "DELETE", UriTemplate = "DeletePicByAccountIdAndRecipeId?accountId={accountId}&recipeId={recipeId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public void DeletePicByAccountIdAndRecipeId(int accountId, int recipeId) {
+        public bool DeletePicByAccountIdAndRecipeId(int accountId, int recipeId) {
             DBController dbc = new DBController();
             dbc.DeletePictursByAccountIdAndRecipeId(accountId, recipeId);
             dbc.Close();
+
+            return true;
         }
 
     }

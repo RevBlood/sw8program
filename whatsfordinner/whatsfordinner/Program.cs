@@ -15,9 +15,16 @@ namespace whatsfordinner {
         public static bool sqlDebugMessages = true;
         
         static void Main(string[] args) {
+
+            IngredientIdentifier.Identify();
+            
+            
+            
             //DBDebug.dbMassInsert();
             Console.WriteLine("Starting Service...");
-            startRestService();
+            //startRestService();
+            
+            
             //Script.ExcelExtractionScript();
             Console.WriteLine("Program Ended");
 			while (true) {

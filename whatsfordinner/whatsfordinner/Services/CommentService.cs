@@ -90,10 +90,26 @@ namespace whatsfordinner {
         }
 
         [WebInvoke(Method = "DELETE", UriTemplate = "DeleteCommentById?commentId={commentId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public void DeleteComById(int commentId) {
+        public bool DeleteComById(int commentId) {
+
             DBController dbc = new DBController();
-            dbc.DeleteCommentById(commentId);
-            dbc.Close();
+            WebOperationContext ctx = WebOperationContext.Current;
+            try {
+                bool deleted = dbc.DeleteCommentById(commentId);
+                if(deleted) {
+                    return true;
+                }
+            } catch (NpgsqlException e) {
+                Console.WriteLine((Program.sqlDebugMessages) ? "DeleteCommentById: " + e.BaseMessage.ToString() : "");
+                ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.Conflict;
+                ctx.OutgoingResponse.StatusDescription = e.BaseMessage;
+                return false;
+            } finally {
+                dbc.Close();
+            }
+
+            ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.Gone;
+            return false;
         }
     }
 }
