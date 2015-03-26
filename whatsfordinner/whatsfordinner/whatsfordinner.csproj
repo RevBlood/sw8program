@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>C0B3C4937CC3256BD83BCCE61D5FEAC242C05804</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>19ADBC5DD30E7E4B9CD4D95E44E6AA6BE8F437E3</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>whatsfordinner_TemporaryKey.pfx</ManifestKeyFile>
@@ -94,6 +94,7 @@
     <Compile Include="Interfaces\IAccount.cs" />
     <Compile Include="JSONDebug.cs" />
     <Compile Include="JSONHelper.cs" />
+    <Compile Include="Logics\eTilbudRetriever.cs" />
     <Compile Include="Logics\IngredientIdentifier.cs" />
     <Compile Include="ModelDebug.cs" />
     <Compile Include="Models\Account.cs" />
@@ -124,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="whatsfordinner_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
