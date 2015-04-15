@@ -16,6 +16,11 @@ namespace whatsfordinner {
         
         static void Main(string[] args) {
 
+            eTilbudRetriever retriever = new eTilbudRetriever();
+            //retriever.GetDealersList();
+            retriever.GetStoresList();
+
+
             IngredientIdentifier.Identify();
             
             

@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>662EBDBEABD51D8081119819E7130AFDD685710C</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E36C7A50FB02C245C945C7249B6E555373D62925</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>whatsfordinner_TemporaryKey.pfx</ManifestKeyFile>
@@ -128,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="whatsfordinner_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

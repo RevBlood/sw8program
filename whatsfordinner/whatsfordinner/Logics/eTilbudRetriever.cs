@@ -8,6 +8,7 @@ using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
+using System.Threading;
 
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
@@ -109,11 +110,18 @@ namespace whatsfordinner {
              * Stop when returned results are no longer valid
              */
             while (!String.IsNullOrEmpty(result)) {
+                if(!result.Equals("[]")) {
+                    break;
+                }
                 resultSet.Add(result);
                 offset += Int32.Parse(Limit);
                 query[query.Count-1] = new KeyValuePair<String, String>(ParamOffset, offset.ToString());
                 result = SendWebRequest(Get, target, query);
+                Thread.Sleep(1000);
+                
             }
+
+            Console.WriteLine(offset);
         }
 
         private String SendWebRequest(String method, String extension, List<KeyValuePair<String, String>> arguments) {
