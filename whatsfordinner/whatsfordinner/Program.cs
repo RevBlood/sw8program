@@ -9,6 +9,9 @@ using System.ServiceModel.Description;
 using System.Net;
 using System.Net.Sockets;
 
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Utilities;
 
 namespace whatsfordinner {
     public class Program {
@@ -18,7 +21,34 @@ namespace whatsfordinner {
 
             eTilbudRetriever retriever = new eTilbudRetriever();
             //retriever.GetDealersList();
-            retriever.GetStoresList();
+            //retriever.GetStoresList();
+
+            //SaveDataToFile.writeToFile("Dealers", retriever.GetDealersList());
+            //SaveDataToFile.writeToFile("Stores", retriever.GetStoresList());
+            //SaveDataToFile.writeToFile("Offers", retriever.GetOffersList());
+
+            List<String> dealerData = SaveDataToFile.readFromFile("Dealers");
+            List<Dealer> dealers = new List<Dealer>();
+
+            foreach (String line in dealerData) {
+
+                dealers.AddRange(JsonConvert.DeserializeObject<List<Dealer>>(line));
+            };
+
+            List<String> storeData = SaveDataToFile.readFromFile("Stores");
+            List<Store> stores = new List<Store>();
+
+            foreach (String line in storeData) {
+                stores.AddRange(JsonConvert.DeserializeObject<List<Store>>(line));
+            };
+
+            List<String> offerData = SaveDataToFile.readFromFile("Offers");
+            List<Offer> offers = new List<Offer>();
+
+            foreach (String line in offerData)
+            {
+                offers.AddRange(JsonConvert.DeserializeObject<List<Offer>>(line));
+            };
 
 
             IngredientIdentifier.Identify();

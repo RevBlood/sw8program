@@ -84,6 +84,12 @@
     <Compile Include="CommunicationModels\RecipeWithIngredients.cs" />
     <Compile Include="DBController.cs" />
     <Compile Include="DBDebug.cs" />
+    <Compile Include="eTilbudObjects\Branding.cs" />
+    <Compile Include="eTilbudObjects\Country.cs" />
+    <Compile Include="eTilbudObjects\Dealer.cs" />
+    <Compile Include="eTilbudObjects\Offer.cs" />
+    <Compile Include="eTilbudObjects\Pageflip.cs" />
+    <Compile Include="eTilbudObjects\Store.cs" />
     <Compile Include="Interfaces\ILogin.cs" />
     <Compile Include="Interfaces\IPictures.cs" />
     <Compile Include="Interfaces\IOffers.cs" />
@@ -97,6 +103,7 @@
     <Compile Include="Interfaces\IAccount.cs" />
     <Compile Include="JSONDebug.cs" />
     <Compile Include="JSONHelper.cs" />
+    <Compile Include="Logics\SaveDataToFile.cs" />
     <Compile Include="Logics\eTilbudRetriever.cs" />
     <Compile Include="Logics\IngredientIdentifier.cs" />
     <Compile Include="ModelDebug.cs" />
