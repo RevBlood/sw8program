@@ -8,6 +8,7 @@ using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
+using System.Threading;
 
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
@@ -34,7 +35,7 @@ namespace whatsfordinner {
         String Latitude = "57.051188"; //Havnen i Aalborg
         String Longitude = "9.922371";
         String Radius = "800000"; //Radius in meters (800km)
-        String Limit = "48"; // Max amount of results in a query
+        String Limit = "100"; // Max amount of results in a query
 
         //Custom header identifiers
         readonly String HeaderXToken = "X-Token";
@@ -74,19 +75,19 @@ namespace whatsfordinner {
             
         }
 
-        public void GetDealersList() {
-            GetList(Dealers);
+        public List<String> GetDealersList() {
+            return GetList(Dealers);
         }
 
-        public void GetStoresList() {
-            GetList(Stores);
+        public List<String> GetStoresList() {
+            return GetList(Stores);
         }
 
-        public void GetOffersList() {
-            GetList(Offers);
+        public List<String> GetOffersList() {
+            return GetList(Offers);
         }
 
-        private void GetList(string target) {
+        private List<String> GetList(string target) {
 
             List<String> resultSet = new List<String>();
             String result;
@@ -109,11 +110,19 @@ namespace whatsfordinner {
              * Stop when returned results are no longer valid
              */
             while (!String.IsNullOrEmpty(result)) {
+                if(result.Equals("[]")) {
+                    break;
+                }
                 resultSet.Add(result);
                 offset += Int32.Parse(Limit);
                 query[query.Count-1] = new KeyValuePair<String, String>(ParamOffset, offset.ToString());
                 result = SendWebRequest(Get, target, query);
+                Thread.Sleep(750);
+                Console.WriteLine(result);
+                
             }
+            return resultSet;
+            Console.WriteLine(offset);
         }
 
         private String SendWebRequest(String method, String extension, List<KeyValuePair<String, String>> arguments) {
