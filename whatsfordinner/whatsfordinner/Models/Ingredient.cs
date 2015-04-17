@@ -16,6 +16,9 @@ namespace whatsfordinner {
         // Ingredient Name
         // Ingredient Measurementtype
         // Ingredient Price
+        // Ingredient Organic
+        // Ingredient Fat
+        // Ingredient Fresh
         // Ingredient Tags
 
         // Here to use JSON Deserialize
@@ -27,14 +30,20 @@ namespace whatsfordinner {
             this.GetOrSetMeasurementType = row.Field<string>("measurementtype");
             this.GetOrSetMeasure = row.Field<int>("measure");
             this.GetOrSetPrice = row.Field<decimal>("price");
-            this.GetOrSetTags = row.Field<string>("tags");
+            this.GetOrSetOrganic = row.Field<bool>("organic");
+            this.GetOrSetFat = row.Field<decimal>("fat");
+            this.GetOrSetFresh = row.Field<bool>("fresh");
+            //this.GetOrSetTags = row.Field<List<string>>("tags");
         }
 
-        public Ingredient(string ingredientName, string ingredientMeasureType, int ingredientMeasure, decimal ingredientPrice, string ingredientTags) {
+        public Ingredient(string ingredientName, string ingredientMeasureType, int ingredientMeasure, decimal ingredientPrice, bool ingredientOrganic, decimal ingredientFat, bool ingredientFresh, List<string> ingredientTags) {
             this.GetOrSetName = ingredientName;
             this.GetOrSetMeasurementType = ingredientMeasureType;
             this.GetOrSetMeasure = ingredientMeasure;
             this.GetOrSetPrice = ingredientPrice;
+            this.GetOrSetOrganic = ingredientOrganic;
+            this.GetOrSetFat = ingredientFat;
+            this.GetOrSetFresh = ingredientFresh;
             this.GetOrSetTags = ingredientTags;
         }
 
@@ -93,8 +102,41 @@ namespace whatsfordinner {
         }
         private decimal _ingredientPrice;
 
+        [DataMember(Name = "organic")]
+        public bool GetOrSetOrganic {
+            get {
+                return _ingredientOrganic;
+            }
+            set {
+                _ingredientOrganic = value;
+            }
+        }
+        private bool _ingredientOrganic;
+
+        [DataMember(Name = "fat")]
+        public decimal GetOrSetFat {
+            get {
+                return _ingredientFat;
+            }
+            set {
+                _ingredientFat = value;
+            }
+        }
+        private decimal _ingredientFat;
+        
+        [DataMember(Name = "fresh")]
+        public bool GetOrSetFresh {
+            get {
+                return _ingredientFresh;
+            }
+            set {
+                _ingredientFresh = value;
+            }
+        }
+        private bool _ingredientFresh;
+
         [DataMember(Name = "tags")]
-        public string GetOrSetTags {
+        public List<string> GetOrSetTags {
             get {
                 return _ingredientTags;
             }
@@ -102,7 +144,7 @@ namespace whatsfordinner {
                 _ingredientTags = value;
             }
         }
-        private string _ingredientTags;
+        private List<string> _ingredientTags;
 
         public override string ToString() {
             return this.GetOrSetId
