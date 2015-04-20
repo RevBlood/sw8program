@@ -20,7 +20,7 @@ namespace whatsfordinner
         public String dealer_id;
         public Branding branding;
         public String contact;
-        public IList<String> category_id;
+        public IList<String> category_ids;
 
     }
 }

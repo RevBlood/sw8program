@@ -7,16 +7,16 @@ using System.IO;
 
 namespace whatsfordinner
 {
-    public static class SaveDataToFile
+    public static class FileManager
     {
 
-        public static void writeToFile(String target, List<String> data) {
+        public static void write(String target, List<String> data) {
 
             string filepath = Path.Combine(Environment.CurrentDirectory, target + ".txt");
             File.WriteAllLines(filepath, data);
         }
 
-        public static List<String> readFromFile(String target) {
+        public static List<String> read(String target) {
 
             string filepath = Path.Combine(Environment.CurrentDirectory, target + ".txt");
             return File.ReadAllLines(filepath).ToList();

@@ -258,7 +258,7 @@ namespace whatsfordinner {
         }
 
         public int AddRetailer(Retailer retailerToInsert) {
-            string sql = "INSERT INTO retailers(latitude, longitude, companyname, description, openinghours) VALUES (@latitude, @longitude, @companyname, @description, @openinghours)";
+            string sql = "INSERT INTO retailers(latitude, longitude, companyname, description, openinghours) VALUES (@latitude, @longitude, @companyname, @description, @openinghours) RETURNING retailerid";
 
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
             command.Parameters.AddWithValue("@latitude", retailerToInsert.GetOrSetLatitude);
@@ -267,7 +267,8 @@ namespace whatsfordinner {
             command.Parameters.AddWithValue("@description", retailerToInsert.GetOrSetDescription);
             command.Parameters.AddWithValue("@openinghours", retailerToInsert.GetOrSetOpeningHours);
 
-            return NonQuery(command, "retailers");
+            return Int32.Parse(command.ExecuteScalar().ToString());
+            //return NonQuery(command, "retailers");
         }
         #endregion
 

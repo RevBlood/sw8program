@@ -103,7 +103,8 @@
     <Compile Include="Interfaces\IAccount.cs" />
     <Compile Include="JSONDebug.cs" />
     <Compile Include="JSONHelper.cs" />
-    <Compile Include="Logics\SaveDataToFile.cs" />
+    <Compile Include="Logics\eTilbudDatabaseHandler.cs" />
+    <Compile Include="Logics\FileManager.cs" />
     <Compile Include="Logics\eTilbudRetriever.cs" />
     <Compile Include="Logics\IngredientIdentifier.cs" />
     <Compile Include="ModelDebug.cs" />
