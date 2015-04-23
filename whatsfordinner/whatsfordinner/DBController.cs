@@ -671,8 +671,16 @@ namespace whatsfordinner {
 
         public RecipeWithIngredients GetRecipeByIdWithIngredients(int recipeId) {
             RecipeWithIngredients rec = new RecipeWithIngredients();
+            List<Offers> offers = new List<Offers>();
+
             rec.GetOrSetRecipe = GetRecipeById(recipeId);
             rec.GetOrSetIngredients = GetIngredientsByRecipeId(recipeId);
+
+            foreach(Ingredient ingredient in rec.GetOrSetIngredients) {
+                offers.AddRange(GetOfferByIngredientId(ingredient.GetOrSetId));
+            }
+
+            rec.GetOrSetOffers = offers;
             rec.GetOrSetIngredientIns = GetIngredientInsByRecipeId(recipeId);
             return rec;
         }
