@@ -29,14 +29,14 @@ namespace whatsfordinner {
             this.GetOrSetIngredientId = row.Field<int>("ingredientid");
             this.GetOrSetOfferFrom = row.Field<DateTime>("offerfrom");
             this.GetOrSetOfferTo = row.Field<DateTime>("offerto");
-            this.GetOrSetNormalPrice = row.Field<decimal>("normalprice");
+            this.GetOrSetNormalPrice = row.Field<decimal?>("normalprice");
             this.GetOrSetOnSalePrice = row.Field<decimal>("onsaleprice");
             this.GetOrSetKrSaving = row.Field<decimal>("krsaving");
             this.GetOrSetPercentageSavingRetailer = row.Field<decimal>("percentagesavingretailer");
             this.GetOrSetPercentageSavingGeneral = row.Field<decimal>("percentagesavinggeneral");
         }
 
-        public Offers(int offersRetailerId, int offersAccountId, DateTime offerFrom, DateTime offerTo, decimal offersNormalPrice, decimal offersOnSalePrice, 
+        public Offers(int offersRetailerId, int offersAccountId, DateTime offerFrom, DateTime offerTo, decimal? offersNormalPrice, decimal offersOnSalePrice, 
                         decimal offersKrSaving, decimal offerPercentageSavingRetailer, decimal offerPercentageSavingGeneral) {
             this.GetOrSetRetailerId = offersRetailerId;
             this.GetOrSetIngredientId = offersAccountId;
@@ -94,7 +94,7 @@ namespace whatsfordinner {
         private DateTime _offersOfferTo;
 
         [DataMember(Name = "normalprice")]
-        public decimal GetOrSetNormalPrice {
+        public decimal? GetOrSetNormalPrice {
             get {
                 return _offersNormalPrice;
             }
@@ -102,7 +102,7 @@ namespace whatsfordinner {
                 _offersNormalPrice = value;
             }
         }
-        private decimal _offersNormalPrice;
+        private decimal? _offersNormalPrice;
 
         [DataMember(Name = "onsaleprice")]
         public decimal GetOrSetOnSalePrice {

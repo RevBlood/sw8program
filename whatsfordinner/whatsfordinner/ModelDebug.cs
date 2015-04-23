@@ -19,13 +19,13 @@ namespace whatsfordinner {
         }
 
         public static Ingredient GetTestIngredient() {
-            Ingredient ing = new Ingredient("pasta", "gram", 500, 5.95m, "mel, gluten, billig, nem");
+            Ingredient ing = new Ingredient("pasta", "gram", 500, 5.95m, false, 0.00m, false, new List<string>(){"mel", "gluten", "billig", "nem"});
             return ing;
         }
 
         public static Recipe GetTestRecipe() {
             DateTime dt = DateTime.Now;
-            Recipe rec = new Recipe(1, "hakkebøf", "steg en hakkebøf", dt, 4, "bøf, kød, kvalitet", 4.5m);
+            Recipe rec = new Recipe(1, "hakkebøf", "steg en hakkebøf", dt, 4,  4.5m, new List<string>(){"bøf", "kød", "kvalitet"});
             return rec;
         }
 

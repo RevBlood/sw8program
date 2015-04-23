@@ -14,10 +14,11 @@ namespace whatsfordinner {
         // Here to use JSON Deserialize
         public RecipeWithIngredients() { }
 
-        public RecipeWithIngredients(Recipe recipe, List<Ingredient> ingredients, List<IngredientIn> amounts) {
+        public RecipeWithIngredients(Recipe recipe, List<Ingredient> ingredients, List<Offers> offers, List<IngredientIn> amounts) {
             this.GetOrSetRecipe = recipe;
             this.GetOrSetIngredients = ingredients;
             this.GetOrSetIngredientIns = amounts;
+            this.GetOrSetOffers = offers;
         }
 
         [DataMember(Name = "recipe")]
@@ -52,5 +53,16 @@ namespace whatsfordinner {
             }
         }
         private List<IngredientIn> _privateIngredientIns;
+
+        public List<Offers> GetOrSetOffers {
+            get {
+                return _privateOffers;
+            }
+            set {
+                _privateOffers = value;
+            }
+        }
+        private List<Offers> _privateOffers;
     }
+
 }

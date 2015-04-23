@@ -17,8 +17,8 @@ namespace whatsfordinner {
         // Recipe Description
         // Recipe CreationDate
         // Recipe NumberOfServings
-        // Recipe Tags
         // Recipe Rating
+        // Recipe Tags
 
         // Optional To Implement
         // Leftover rating
@@ -37,18 +37,18 @@ namespace whatsfordinner {
             this.GetOrSetDescription = row.Field<string>("description");
             this.GetOrSetCreationDate = row.Field<DateTime>("creationdate");
             this.GetOrSetNumberOfServings = row.Field<int>("numberofservings");
-            this.GetOrSetTags = row.Field<string>("tags");
             this.GetOrSetRating = row.Field<decimal>("rating");
+            //this.GetOrSetTags = row.Field<List<string>>("tags");
         }
 
-        public Recipe(int recipeAccountId, string recipeName, string recipeDescription, DateTime recipeCreationDate, int recipeNumberOfServings, string recipeTags, decimal recipeRating) {
+        public Recipe(int recipeAccountId, string recipeName, string recipeDescription, DateTime recipeCreationDate, int recipeNumberOfServings, decimal recipeRating, List<string> recipeTags) {
             this.GetOrSetAccountId = recipeAccountId;
             this.GetOrSetName = recipeName;
             this.GetOrSetDescription = recipeDescription;
             this.GetOrSetCreationDate = recipeCreationDate;
             this.GetOrSetNumberOfServings = recipeNumberOfServings;
-            this.GetOrSetTags = recipeTags;
             this.GetOrSetRating = recipeRating;
+            this.GetOrSetTags = recipeTags;
         }
 
         [DataMember(Name = "id")]
@@ -117,17 +117,6 @@ namespace whatsfordinner {
         }
         private int _numberOfServings;
 
-        [DataMember(Name = "tags")]
-        public string GetOrSetTags {
-            get {
-                return _recipeTags;
-            }
-            set {
-                _recipeTags = value;
-            }
-        }
-        private string _recipeTags;
-
         [DataMember(Name = "rating")]
         public decimal GetOrSetRating {
             get {
@@ -138,6 +127,17 @@ namespace whatsfordinner {
             }
         }
         private decimal _recipeRating;
+
+        [DataMember(Name = "tags")]
+        public List<string> GetOrSetTags {
+            get {
+                return _recipeTags;
+            }
+            set {
+                _recipeTags = value;
+            }
+        }
+        private List<string> _recipeTags;
 
         public override string ToString() {
             return this.GetOrSetId

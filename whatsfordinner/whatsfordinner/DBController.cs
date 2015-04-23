@@ -228,34 +228,37 @@ namespace whatsfordinner {
         }
 
         public int AddIngredient(Ingredient ingredientToInsert) {
-            string sql = "INSERT INTO ingredients(name, measurementtype, measure, price, tags) VALUES (@name, @measurementtype, @measure, @price, @tags)";
+            string sql = "INSERT INTO ingredients(name, measurementtype, measure, price, organic, fat, fresh) VALUES (@name, @measurementtype, @measure, @price, @organic, @fat, @fresh)";
 
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
             command.Parameters.AddWithValue("@name", ingredientToInsert.GetOrSetName);
             command.Parameters.AddWithValue("@measurementtype", ingredientToInsert.GetOrSetMeasurementType);
             command.Parameters.AddWithValue("@measure", ingredientToInsert.GetOrSetMeasure);
             command.Parameters.AddWithValue("@price", ingredientToInsert.GetOrSetPrice);
+            command.Parameters.AddWithValue("@organic", ingredientToInsert.GetOrSetOrganic);
+            command.Parameters.AddWithValue("@fat", ingredientToInsert.GetOrSetFat);
+            command.Parameters.AddWithValue("@fresh", ingredientToInsert.GetOrSetFresh);
             command.Parameters.AddWithValue("@tags", ingredientToInsert.GetOrSetTags);
 
             return NonQuery(command, "ingredients");
         }
 
         public int AddRecipe(Recipe recipeToInsert) {
-            string sql = "INSERT INTO recipes(accountid, name, description, numberofservings, tags, rating) VALUES (@accountid, @name, @description, @numberofservings, @tags, @rating)";
+            string sql = "INSERT INTO recipes(accountid, name, description, numberofservings, rating) VALUES (@accountid, @name, @description, @numberofservings, @rating)";
 
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
             command.Parameters.AddWithValue("@accountid", recipeToInsert.GetOrSetAccountId);
             command.Parameters.AddWithValue("@name", recipeToInsert.GetOrSetName);
             command.Parameters.AddWithValue("@description", recipeToInsert.GetOrSetDescription);
             command.Parameters.AddWithValue("@numberofservings", recipeToInsert.GetOrSetNumberOfServings);
-            command.Parameters.AddWithValue("@tags", recipeToInsert.GetOrSetTags);
             command.Parameters.AddWithValue("@rating", recipeToInsert.GetOrSetRating);
+
 
             return NonQuery(command, "recipes");
         }
 
         public int AddRetailer(Retailer retailerToInsert) {
-            string sql = "INSERT INTO retailers(latitude, longitude, companyname, description, openinghours) VALUES (@latitude, @longitude, @companyname, @description, @openinghours)";
+            string sql = "INSERT INTO retailers(latitude, longitude, companyname, description, openinghours) VALUES (@latitude, @longitude, @companyname, @description, @openinghours) RETURNING retailerid";
 
             NpgsqlCommand command = new NpgsqlCommand(sql, conn);
             command.Parameters.AddWithValue("@latitude", retailerToInsert.GetOrSetLatitude);
@@ -264,7 +267,8 @@ namespace whatsfordinner {
             command.Parameters.AddWithValue("@description", retailerToInsert.GetOrSetDescription);
             command.Parameters.AddWithValue("@openinghours", retailerToInsert.GetOrSetOpeningHours);
 
-            return NonQuery(command, "retailers");
+            return Int32.Parse(command.ExecuteScalar().ToString());
+            //return NonQuery(command, "retailers");
         }
         #endregion
 
@@ -667,8 +671,16 @@ namespace whatsfordinner {
 
         public RecipeWithIngredients GetRecipeByIdWithIngredients(int recipeId) {
             RecipeWithIngredients rec = new RecipeWithIngredients();
+            List<Offers> offers = new List<Offers>();
+
             rec.GetOrSetRecipe = GetRecipeById(recipeId);
             rec.GetOrSetIngredients = GetIngredientsByRecipeId(recipeId);
+
+            foreach(Ingredient ingredient in rec.GetOrSetIngredients) {
+                offers.AddRange(GetOfferByIngredientId(ingredient.GetOrSetId));
+            }
+
+            rec.GetOrSetOffers = offers;
             rec.GetOrSetIngredientIns = GetIngredientInsByRecipeId(recipeId);
             return rec;
         }

@@ -1,39 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.ServiceModel.Description;
 using System.Net;
 using System.Net.Sockets;
 
+using Newtonsoft.Json;
 
 namespace whatsfordinner {
     public class Program {
         public static bool sqlDebugMessages = true;
-        
+
         static void Main(string[] args) {
 
-            eTilbudRetriever retriever = new eTilbudRetriever();
-            //retriever.GetDealersList();
-            retriever.GetStoresList();
-
+            Script.ExcelExtractionScript();
+            UpdateDatabaseWithOffers();
 
             IngredientIdentifier.Identify();
-            
-            
             
             //DBDebug.dbMassInsert();
             Console.WriteLine("Starting Service...");
             //startRestService();
             
-            
             //Script.ExcelExtractionScript();
             Console.WriteLine("Program Ended");
 			while (true) {
-
 			}
 
             Console.ReadLine();
@@ -65,7 +57,6 @@ namespace whatsfordinner {
             host.AddServiceEndpoint(typeof(ILogin), new WebHttpBinding(), new Uri(uri + "/Login"));
             host.Open();
 
-
             foreach (ServiceEndpoint se in host.Description.Endpoints) {
                 Console.WriteLine(string.Format("Binding name:{0}, Address:{1}, Contract:{2}", se.Binding.Name, se.Address.ToString(), se.Contract.Name));
             }
@@ -92,6 +83,52 @@ namespace whatsfordinner {
             JSONDebug.JSONIngredientInDebug(ModelDebug.GetTestIngredientIn());
             JSONDebug.JSONOffersDebug(ModelDebug.GetTestOffers());
             JSONDebug.JSONPicturesDebug(ModelDebug.GetTestPictures());
+        }
+
+        static void UpdateDatabaseWithOffers() {
+
+            // This part is for updating local files with new Offers from eTilbudsAvisen
+
+            /*
+            eTilbudRetriever retriever = new eTilbudRetriever();
+            FileManager.write("Dealers", retriever.GetDealersList());
+            FileManager.write("Stores", retriever.GetStoresList());
+            FileManager.write("Offers", retriever.GetOffersList());
+            */
+
+            // Read local files retrieved from eTilbudsAvisen
+            List<String> dealerData = FileManager.read("Dealers");
+            List<String> storeData = FileManager.read("Stores");
+            List<String> offerData = FileManager.read("Offers");
+
+            // Store all data in lists of matching classes
+            List<Dealer> dealers = new List<Dealer>();
+            List<Store> stores = new List<Store>();
+            List<Offer> offers = new List<Offer>();
+
+            foreach (String line in dealerData) {
+                dealers.AddRange(JsonConvert.DeserializeObject<List<Dealer>>(line));
+            };
+
+
+            foreach (String line in storeData) {
+                stores.AddRange(JsonConvert.DeserializeObject<List<Store>>(line));
+            };
+
+
+            foreach (String line in offerData) {
+                offers.AddRange(JsonConvert.DeserializeObject<List<Offer>>(line));
+            };
+
+            // Fix the date format in offers to match a supported format (Inserts a colon)
+            foreach (Offer offer in offers) {
+                offer.run_from = offer.run_from.Insert(offer.run_from.IndexOf('+') + 3, ":");
+                offer.run_till = offer.run_till.Insert(offer.run_till.IndexOf('+') + 3, ":");
+            }
+
+            // Convert eTilbud classes to classes recognized by the database - Then save them
+            eTilbudDatabaseHandler handler = new eTilbudDatabaseHandler();
+            handler.save(dealers, stores, offers);
         }
     }
 }
