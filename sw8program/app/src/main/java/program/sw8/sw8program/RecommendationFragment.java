@@ -1,5 +1,6 @@
 package program.sw8.sw8program;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -22,11 +23,10 @@ public class RecommendationFragment extends Fragment {
 
         TextView recipeNameView = (TextView) rootView.findViewById(R.id.recipe_name);
         ViewPager recipeImagePager = (ViewPager) rootView.findViewById(R.id.paged_image_layout);
-        Button buttonRecommendationChoose = (Button) rootView.findViewById(R.id.button_recommendation_choose);
-        Button buttonRecommendationNext = (Button) rootView.findViewById(R.id.button_recommendation_next);
 
-        buttonRecommendationChoose.setOnClickListener(onChooseClickListener);
-        buttonRecommendationNext.setOnClickListener(onNextClickListener);
+        //TODO: Get the data passed by the Activity and remove hardcoded stuff
+        Bundle bundle = this.getArguments();
+        int recipeId = bundle.getInt("RecipeId", -1);
 
         String RecipeName = "Sauce";
         List<Drawable> RecipeImages = new ArrayList<>();
@@ -41,21 +41,31 @@ public class RecommendationFragment extends Fragment {
         RecipeImageAdapter recipeImageAdapter = new RecipeImageAdapter(getActivity(), RecipeImages);
         recipeImagePager.setAdapter(recipeImageAdapter);
 
+
+        //Handle navigation
+        Button buttonRecommendationChoose = (Button) rootView.findViewById(R.id.button_recommendation_choose);
+        Button buttonRecommendationNext = (Button) rootView.findViewById(R.id.button_recommendation_next);
+
+        buttonRecommendationChoose.setOnClickListener(onChooseClickListener);
+        buttonRecommendationNext.setOnClickListener(onNextClickListener);
+
         return rootView;
     }
 
     Button.OnClickListener onChooseClickListener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //TODO: Get recommendation
-
+            //TODO: Pass whatever is needed to open a Recipe
+            Intent intent = new Intent(getActivity(), RecipeActivity.class);
+            //intent.putExtra("recipe", JSONrecipe);
+            //intent.putExtra("id", _listofRecipes.get(position).getId());
+            //startActivity(intent);
         }
     };
     Button.OnClickListener onNextClickListener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //TODO: Get recommendation
-
+            ((RecommendActivity)getActivity()).getNextPage();
         }
     };
 }

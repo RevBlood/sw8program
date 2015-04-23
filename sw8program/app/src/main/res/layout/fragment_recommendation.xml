@@ -12,21 +12,8 @@
         android:textSize="40dp"
         android:layout_marginBottom="20dp"/>
 
-    <RelativeLayout
-        android:id="@+id/viewpager_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/recipe_name"
-        android:layout_marginBottom="20dp">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/paged_image_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        </RelativeLayout>
-
     <LinearLayout
+        android:id="@+id/navigation"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,5 +33,22 @@
             android:layout_weight="1"
             android:text="@string/recommendation_no"/>
 
-        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/viewpager_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_name"
+        android:layout_above="@id/navigation"
+        android:layout_marginBottom="20dp">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/paged_image_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+        </RelativeLayout>
     </RelativeLayout>

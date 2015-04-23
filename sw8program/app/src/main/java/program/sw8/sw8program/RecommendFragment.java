@@ -1,5 +1,6 @@
 package program.sw8.sw8program;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,8 +17,9 @@ public class RecommendFragment extends Fragment {
 
         TextView linkToPreferences = (TextView) rootView.findViewById(R.id.link_preferences);
         Button buttonRecommend = (Button) rootView.findViewById(R.id.button_recommend);
-        linkToPreferences.setOnClickListener(onLinkClickListener);
 
+        linkToPreferences.setOnClickListener(onLinkClickListener);
+        buttonRecommend.setOnClickListener(onRecommendClickListener);
 
         return rootView;
     }
@@ -33,8 +35,8 @@ public class RecommendFragment extends Fragment {
     Button.OnClickListener onRecommendClickListener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //TODO: Get recommendation
-
+            Intent intent = new Intent(getActivity(), RecommendActivity.class);
+            startActivity(intent);
         }
     };
 }
