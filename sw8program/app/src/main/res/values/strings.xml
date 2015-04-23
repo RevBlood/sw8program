@@ -52,9 +52,18 @@
     <string name="user_image_change">Skift billede...</string>
     <string name="user_image_choose">Vælg billede</string>
 
+    <!-- Recommendation fragments -->
+    <string name="recommendation_yes">Vælg</string>
+    <string name="recommendation_no">Nej tak</string>
+    <string name="recommendation_finish">Tilbage</string>
+    <string name="recommendation_end_message">Øv! Ikke flere forslag :(</string>
+
     <!-- Other -->
     <string name="loading">Øjeblik...</string>
     <string name="title_activity_recipe">RecipeActivity</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_recommend">RecommendActivity</string>
 
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

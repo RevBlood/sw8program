@@ -11,7 +11,7 @@ using Npgsql;
 namespace whatsfordinner {
     public partial class RestService : IComment {
 
-        [WebInvoke(Method = "PUT", UriTemplate = "AddComment", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "AddComment", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public void AddComment(Comment com) {
             DBController dbc = new DBController();
             try {
@@ -26,12 +26,12 @@ namespace whatsfordinner {
             }
         }
 
-        [WebInvoke(Method = "GET", UriTemplate = "GetCommentById?comId={comId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public Comment GetCommentById(int comId) {
+        [WebInvoke(Method = "GET", UriTemplate = "GetCommentById?commentId={commentId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public Comment GetCommentById(int commentId) {
             DBController dbc = new DBController();
             WebOperationContext ctx = WebOperationContext.Current;
             try {
-                Comment tempCom = dbc.GetCommentById(comId);
+                Comment tempCom = dbc.GetCommentById(commentId);
                 if (tempCom != null) {
                     return tempCom;
                 }
@@ -89,11 +89,27 @@ namespace whatsfordinner {
             return null;
         }
 
-        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteCommentById?comId={comId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public void DeleteComById(int comId) {
+        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteCommentById?commentId={commentId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public bool DeleteComById(int commentId) {
+
             DBController dbc = new DBController();
-            dbc.DeleteCommentById(comId);
-            dbc.Close();
+            WebOperationContext ctx = WebOperationContext.Current;
+            try {
+                bool deleted = dbc.DeleteCommentById(commentId);
+                if(deleted) {
+                    return true;
+                }
+            } catch (NpgsqlException e) {
+                Console.WriteLine((Program.sqlDebugMessages) ? "DeleteCommentById: " + e.BaseMessage.ToString() : "");
+                ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.Conflict;
+                ctx.OutgoingResponse.StatusDescription = e.BaseMessage;
+                return false;
+            } finally {
+                dbc.Close();
+            }
+
+            ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.Gone;
+            return false;
         }
     }
 }

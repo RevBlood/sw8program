@@ -41,7 +41,8 @@ namespace whatsfordinner {
             this.GetOrSetPreferences = accountPreferences;
         }
 
-        public Account(string accountEmail, string accountPassword, string accountAlias, DateTime creationdate, string accountSettings, string accountPreferences) {
+        public Account(int accountId, string accountEmail, string accountPassword, string accountAlias, DateTime creationdate, string accountSettings, string accountPreferences) {
+            this.GetOrSetId = accountId;
             this.GetOrSetEmail = accountEmail;
             this.GetOrSetPassword = accountPassword;
             this.GetOrSetAlias = accountAlias;
@@ -94,7 +95,7 @@ namespace whatsfordinner {
         }
         private string _accountAlias;
 
-        [DataMember(Name = "creationDate")]
+        [DataMember(Name = "creationdate")]
         public DateTime GetOrSetCreationDate {
             get {
                 return _accountCreationDate;

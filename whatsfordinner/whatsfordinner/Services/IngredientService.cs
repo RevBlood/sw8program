@@ -11,7 +11,7 @@ using Npgsql;
 namespace whatsfordinner {
     public partial class RestService : IIngredient {
 
-        [WebInvoke(Method = "PUT", UriTemplate = "AddIngredient", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "AddIngredient", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public void AddIngredient(Ingredient ing) {
             DBController dbc = new DBController();
             try {
@@ -26,12 +26,12 @@ namespace whatsfordinner {
             }
         }
 
-        [WebInvoke(Method = "GET", UriTemplate = "GetIngredientById?ingId={ingId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public Ingredient GetIngredientById(int ingId) {
+        [WebInvoke(Method = "GET", UriTemplate = "GetIngredientById?ingredientId={ingredientId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public Ingredient GetIngredientById(int ingredientId) {
             DBController dbc = new DBController();
             WebOperationContext ctx = WebOperationContext.Current;
             try {
-                Ingredient tempIng = dbc.GetIngredientById(ingId);
+                Ingredient tempIng = dbc.GetIngredientById(ingredientId);
                 if (tempIng != null) {
                     return tempIng;
                 }
@@ -110,11 +110,13 @@ namespace whatsfordinner {
             return null;
         }
 
-        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteIngredientById?ingId={ingId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public void DeleteIngById(int ingId) {
+        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteIngredientById?ingredientId={ingredientId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public bool DeleteIngById(int ingredientId) {
             DBController dbc = new DBController();
-            dbc.DeleteIngredientById(ingId);
+            dbc.DeleteIngredientById(ingredientId);
             dbc.Close();
+
+            return true;
         }
     }
 }

@@ -44,6 +44,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="program.sw8.sw8program.LoginActivity" />
         </activity>
+        <activity
+            android:name=".RecommendActivity"
+            android:label="@string/title_activity_recommend"
+            android:parentActivityName=".PagerActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="program.sw8.sw8program.PagerActivity" />
+        </activity>
     </application>
 
 </manifest>

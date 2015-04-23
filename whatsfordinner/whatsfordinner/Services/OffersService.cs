@@ -11,7 +11,7 @@ using Npgsql;
 namespace whatsfordinner {
     public partial class RestService : IOffers {
 
-        [WebInvoke(Method = "PUT", UriTemplate = "AddOffers", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "AddOffers", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public void AddOffers(Offers off) {
             DBController dbc = new DBController();
             try {
@@ -69,10 +69,12 @@ namespace whatsfordinner {
         }
 
         [WebInvoke(Method = "DELETE", UriTemplate = "DeleteOffersByRetailerIdAndIngredientId?retailerId={retailerId}&ingredientId={ingredientId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public void DeleteOffersByRetailerIdAndIngredientId(int retailerId, int ingredientId) {
+        public bool DeleteOffersByRetailerIdAndIngredientId(int retailerId, int ingredientId) {
             DBController dbc = new DBController();
             dbc.DeletePictursByAccountIdAndRecipeId(retailerId, ingredientId);
             dbc.Close();
+
+            return true;
         }
     }
 }

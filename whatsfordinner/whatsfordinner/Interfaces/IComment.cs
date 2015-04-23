@@ -11,12 +11,12 @@ namespace whatsfordinner {
         [OperationContract]
         void AddComment(Comment com);
         [OperationContract]
-        Comment GetCommentById(int comId);
+        Comment GetCommentById(int commentId);
         [OperationContract]
         List<Comment> GetCommentsByRecipeId(int recipeId);
         [OperationContract]
         List<Comment> GetAllComments();
         [OperationContract]
-        void DeleteComById(int comId);
+        bool DeleteComById(int commentId);
     }
 }

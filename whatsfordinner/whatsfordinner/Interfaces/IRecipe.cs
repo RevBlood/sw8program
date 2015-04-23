@@ -11,16 +11,16 @@ namespace whatsfordinner {
         [OperationContract]
         void AddRecipe(Recipe rec);
         [OperationContract]
-        Recipe GetRecipeById(int recId);
+        Recipe GetRecipeById(int recipeId);
         [OperationContract]
         List<Recipe> GetRecipesByAccountId(int accountId);
         [OperationContract]
         List<Recipe> GetRecipesByIngredientId(int ingredientId);
         [OperationContract]
-        RecipeWithIngredients GetRecipesByIdWithIngredients(int recId);
+        RecipeWithIngredients GetRecipesByIdWithIngredients(int recipeId);
         [OperationContract]
         List<Recipe> GetAllRecipes();
         [OperationContract]
-        void DeleteRecById(int recId);
+        bool DeleteRecById(int recipeId);
     }
 }

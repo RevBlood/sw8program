@@ -11,7 +11,7 @@ using Npgsql;
 namespace whatsfordinner {
     public partial class RestService : IAccount {
 
-        [WebInvoke(Method = "PUT", UriTemplate = "AddAccount", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "AddAccount", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public void AddAccount(Account acc) {
             DBController dbc = new DBController();
             try {
@@ -26,12 +26,12 @@ namespace whatsfordinner {
             }
         }
 
-        [WebInvoke(Method = "GET", UriTemplate = "GetAccountById?accId={accId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public Account GetAccountById(int accId) {
+        [WebInvoke(Method = "GET", UriTemplate = "GetAccountById?accountId={accountId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public Account GetAccountById(int accountId) {
             DBController dbc = new DBController();
             WebOperationContext ctx = WebOperationContext.Current;
             try {
-                Account tempAcc = dbc.GetAccountById(accId);
+                Account tempAcc = dbc.GetAccountById(accountId);
                 if (tempAcc != null) {
                     return tempAcc;
                 }
@@ -88,11 +88,12 @@ namespace whatsfordinner {
             return null;
         }
 
-        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteAccountById?accId={accId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        public void DeleteAccById(int accId) {
+        [WebInvoke(Method = "DELETE", UriTemplate = "DeleteAccountById?accountId={accountId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public bool DeleteAccById(int accountId) {
             DBController dbc = new DBController();
-            dbc.DeleteAccountById(accId);
+            dbc.DeleteAccountById(accountId);
             dbc.Close();
+            return true;
         }
     }
 }
