@@ -15,8 +15,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import Helpers.JSONHelper;
+import Models.Recipe;
+
 public class RecommendationFragment extends Fragment {
 
+    String JsonRecipe;
+    Recipe DeserializedRecipe;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_recommendation, container, false);
@@ -26,9 +31,10 @@ public class RecommendationFragment extends Fragment {
 
         //TODO: Get the data passed by the Activity and remove hardcoded stuff
         Bundle bundle = this.getArguments();
-        int recipeId = bundle.getInt("RecipeId", -1);
+        JsonRecipe = bundle.getString("recipe");
+        DeserializedRecipe = JSONHelper.Deserialize(JsonRecipe, Recipe.class);
 
-        String RecipeName = "Sauce";
+        String RecipeName = DeserializedRecipe.getName();
         List<Drawable> RecipeImages = new ArrayList<>();
 
         Resources r = getResources();
@@ -55,11 +61,10 @@ public class RecommendationFragment extends Fragment {
     Button.OnClickListener onChooseClickListener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //TODO: Pass whatever is needed to open a Recipe
             Intent intent = new Intent(getActivity(), RecipeActivity.class);
-            //intent.putExtra("recipe", JSONrecipe);
-            //intent.putExtra("id", _listofRecipes.get(position).getId());
-            //startActivity(intent);
+            intent.putExtra("recipe", JsonRecipe);
+            intent.putExtra("id", DeserializedRecipe.getId());
+            startActivity(intent);
         }
     };
     Button.OnClickListener onNextClickListener = new Button.OnClickListener() {

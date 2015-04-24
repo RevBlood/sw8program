@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import Helpers.JSONHelper;
 import Models.Recipe;
 
 
@@ -35,11 +36,10 @@ public class RecommendActivity extends FragmentActivity {
         //Create list of fragments to be shown in the ViewPager
         List<Fragment> fragments = new Vector<>();
 
-        //TODO: Pass the data from Database
         //For each recipe in the recommendations, create a fragment to display that recipe
         for(Recipe recipe : recipes) {
             Bundle bundle = new Bundle();
-            bundle.putInt("RecipeId", recipe.getId());
+            bundle.putString("recipe", JSONHelper.Serializer(recipe));
             fragments.add(Fragment.instantiate(this, RecommendationFragment.class.getName(), bundle));
         }
         //Add a fragment in the end to display a message to the user
