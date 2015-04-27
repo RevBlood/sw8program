@@ -52,9 +52,8 @@ namespace whatsfordinner {
         private void saveOffers(List<Offer> offers) {
 
             // Variables that needs to be calculated
-            decimal kroner_savings;
-            decimal percent_saving_retailer;
-            decimal percent_saving_general;
+            decimal? kroner_savings;
+            decimal? percent_saving_retailer;
 
             // Go through all eTilbudsAvisen offers and create equivalent dbOffers from the data, recognized by the Database
             for (int i = 0; i < offers.Count -1; i++) {

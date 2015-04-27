@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommunicationModels\RecipeWithExtradata.cs" />
     <Compile Include="CommunicationModels\RecipeWithIngredients.cs" />
     <Compile Include="DBController.cs" />
     <Compile Include="DBDebug.cs" />

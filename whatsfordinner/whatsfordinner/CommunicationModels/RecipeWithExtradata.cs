@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
 namespace whatsfordinner {
+
     [DataContract]
+    public class RecipeWithExtradata {
 
-    class RecipeWithExtradata {
+        
 
-        private Dictionary<Recipe, ExtraData> _recipeWithExtraData;
-
-        public RecipeWithExtradata() { }
+        public RecipeWithExtradata() {
+        }
 
         public RecipeWithExtradata(Dictionary<Recipe, ExtraData> sortedData) {
 
@@ -28,5 +29,7 @@ namespace whatsfordinner {
                 _recipeWithExtraData = value;
             }
         }
+        private Dictionary<Recipe, ExtraData> _recipeWithExtraData;
+
     }
 }
