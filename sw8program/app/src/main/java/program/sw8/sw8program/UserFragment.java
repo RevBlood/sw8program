@@ -33,6 +33,9 @@ public class UserFragment extends Fragment {
     private Account Profile;
     private ImageView UserImage;
 
+    private int pricePreference;
+    private int savingsPreference;
+
     ExpandableListPersonal listPersonalAdapter;
     ExpandableListView explistPersonal;
     List<String> listPersonalHeader;
@@ -59,6 +62,11 @@ public class UserFragment extends Fragment {
                 session.getString("alias", null),
                 session.getString("settings", null),
                 session.getString("preferences", null));
+
+
+        SharedPreferences preferences = getActivity().getApplicationContext().getSharedPreferences("preferences", 0);
+        pricePreference = preferences.getInt("price", 50);
+        savingsPreference = preferences.getInt("savings", 50);
 
         if (Profile.hasImage()) {
             UserImage.setImageResource(Profile.getImageId());
@@ -107,13 +115,13 @@ public class UserFragment extends Fragment {
         // Adding group data
         listPreferencesHeader.add("Præferencer");
 
-        String[] price = new String[]{"50","price"};
-        String[] magic = new String[]{"50","magic"};
+        String[] price = new String[]{Integer.toString(pricePreference),"price"};
+        String[] savings = new String[]{Integer.toString(savingsPreference),"savings"};
 
         // Adding child data
         List<String[]> preferences = new ArrayList<String[]>();
         preferences.add(price);
-        preferences.add(magic);
+        preferences.add(savings);
 
         listPreferencesChild.put(listPreferencesHeader.get(0), preferences); // Header, Child data
     }

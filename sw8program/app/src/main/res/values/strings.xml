@@ -41,6 +41,10 @@
     <string name="favourite_remove">Fjern favorit</string>
 
     <!-- Settings fragment -->
+    <string name="setting_recommendation_amount">Antal forslag</string>
+    <string name="setting_hint_recommendation_amount">Indtast 1 - 10</string>
+    <string name="setting_store_radius">Max afstand til butikker</string>
+    <string name="setting_hint_store_radius">Indtast 1 - 30km</string>
     <string name="log_out">Log ud</string>
 
     <!-- Discover fragment -->

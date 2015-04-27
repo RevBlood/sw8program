@@ -22,6 +22,7 @@ public class RecommendationFragment extends Fragment {
 
     String JsonRecipe;
     Recipe DeserializedRecipe;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_recommendation, container, false);
@@ -29,7 +30,6 @@ public class RecommendationFragment extends Fragment {
         TextView recipeNameView = (TextView) rootView.findViewById(R.id.recipe_name);
         ViewPager recipeImagePager = (ViewPager) rootView.findViewById(R.id.paged_image_layout);
 
-        //TODO: Get the data passed by the Activity and remove hardcoded stuff
         Bundle bundle = this.getArguments();
         JsonRecipe = bundle.getString("recipe");
         DeserializedRecipe = JSONHelper.Deserialize(JsonRecipe, Recipe.class);
@@ -46,7 +46,6 @@ public class RecommendationFragment extends Fragment {
 
         RecipeImageAdapter recipeImageAdapter = new RecipeImageAdapter(getActivity(), RecipeImages);
         recipeImagePager.setAdapter(recipeImageAdapter);
-
 
         //Handle navigation
         Button buttonRecommendationChoose = (Button) rootView.findViewById(R.id.button_recommendation_choose);

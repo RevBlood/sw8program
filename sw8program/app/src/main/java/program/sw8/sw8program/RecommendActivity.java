@@ -1,6 +1,6 @@
 package program.sw8.sw8program;
 
-import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,7 +16,6 @@ import java.util.Vector;
 import Helpers.JSONHelper;
 import Models.Recipe;
 
-
 public class RecommendActivity extends FragmentActivity {
 
     int Position = 0;
@@ -27,11 +26,23 @@ public class RecommendActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend);
 
-        //TODO: Get the list of recommendations from Database
         List<Recipe> recipes = new ArrayList<>();
-        recipes.add(new Recipe(-1, -1, "dillersnavs", "meget lækker", new Date(), -1, "tags", new BigDecimal(5)));
-        recipes.add(new Recipe(-1, -1, "tis", "meget lækker", new Date(), -1, "tags", new BigDecimal(5)));
-        recipes.add(new Recipe(-1, -1, "spaghetti", "meget lækker", new Date(), -1, "tags", new BigDecimal(5)));
+
+        //TODO: Get the list of recommendations from Database
+
+        SharedPreferences session = getSharedPreferences(getString(R.string.app_name), 0);
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name) + session.getInt("id", -1), 0);
+        preferences.getInt("price", 50);
+        preferences.getInt("savings", 50);
+        preferences.getInt("numberOfRecommendations", 5);
+
+        if (getString(R.string.debug).equals("off")) {
+
+        } else {
+            recipes.add(new Recipe(-1, -1, "dillersnavs", "meget lækker", new Date(), -1, "tags", new BigDecimal(5)));
+            recipes.add(new Recipe(-1, -1, "tis", "meget lækker", new Date(), -1, "tags", new BigDecimal(5)));
+            recipes.add(new Recipe(-1, -1, "spaghetti", "meget lækker", new Date(), -1, "tags", new BigDecimal(5)));
+        }
 
         //Create list of fragments to be shown in the ViewPager
         List<Fragment> fragments = new Vector<>();

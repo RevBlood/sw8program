@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,24 @@ public class ExpandableListPreferences extends BaseExpandableListAdapter {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
+                        SharedPreferences session = _context.getSharedPreferences(_context.getString(R.string.app_name), 0);
+                        SharedPreferences preferences = _context.getSharedPreferences(_context.getString(R.string.app_name) + session.getInt("id", -1), 0);
+                        SharedPreferences.Editor editor = preferences.edit();
+
+                        switch(childPosition){
+                            case 0:
+                                editor.putInt("price", i);
+                                break;
+
+                            case 1:
+                                editor.putInt("savings", i);
+                                break;
+
+                            default:
+                                throw new IndexOutOfBoundsException("Unexpected index of childPosition");
+                        }
+
+                        editor.commit();
                     }
 
                     @Override

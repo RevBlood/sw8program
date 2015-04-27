@@ -1,7 +1,9 @@
 package Helpers;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import CommunicationModels.RecipeWithExtraData;
 import CommunicationModels.RecipeWithIngredients;
 import Models.*;
 import Relationships.*;
@@ -271,6 +273,29 @@ public class ServiceHelper {
 		ArrayList<Recipe> recipes = JSONHelper.DeserializeList(response, Recipe.class);
 		return recipes;
 	}
+
+    public static ArrayList<RecipeWithExtraData> GetRecipesFromRecommendations(int numberOfRecipes,
+                                                                               int pricePreference,
+                                                                               int savingsPreference,
+                                                                               int radius,
+                                                                               double latitude,
+                                                                               double longitude){
+        String response = null;
+        try {
+            response = HTTPHelper.HTTPGet("http://" + ip + ":8000/RestService/Recipe/GetRecipesByIdWithExtraData" +
+                            "?pricePreference=" + pricePreference +
+                            "&savingsPreference=" + savingsPreference +
+                            "&numberOfRecipes=" + numberOfRecipes +
+                            "&radius=" + radius +
+                            "&latitude=" + latitude +
+                            "&longitude=" + longitude);
+            System.out.println(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ArrayList<RecipeWithExtraData> recipes = JSONHelper.DeserializeList(response, RecipeWithExtraData.class);
+        return recipes;
+    }
 	
 	//Retailers
 	
