@@ -2,6 +2,7 @@ package Helpers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import CommunicationModels.RecipeWithExtraData;
 import CommunicationModels.RecipeWithIngredients;
@@ -274,7 +275,7 @@ public class ServiceHelper {
 		return recipes;
 	}
 
-    public static ArrayList<RecipeWithExtraData> GetRecipesFromRecommendations(int numberOfRecipes,
+    public static RecipeWithExtraData GetRecipesFromRecommendations(int numberOfRecipes,
                                                                                int pricePreference,
                                                                                int savingsPreference,
                                                                                int radius,
@@ -293,8 +294,10 @@ public class ServiceHelper {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ArrayList<RecipeWithExtraData> recipes = JSONHelper.DeserializeList(response, RecipeWithExtraData.class);
-        return recipes;
+        List<RecipeWithExtraData> recipes = new ArrayList<>(JSONHelper.DeserializeList(response, RecipeWithExtraData.class));
+
+        //TODO: This is kind of bad, but I assume only one list is returned anyway
+        return recipes.get(0);
     }
 	
 	//Retailers

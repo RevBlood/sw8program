@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_PROFILE" /> <!-- Used in login -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> <!-- Used to fetch a location -->
 
     <!-- Used in login -->
     <application
@@ -52,6 +53,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="program.sw8.sw8program.PagerActivity" />
         </activity>
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAkjppgc1m_gnD21HZO4ub7qn97X6Mojpk"/>
     </application>
 
 </manifest>

@@ -61,6 +61,9 @@
     <string name="recommendation_no">Nej tak</string>
     <string name="recommendation_finish">Tilbage</string>
     <string name="recommendation_end_message">Øv! Ikke flere forslag :(</string>
+    <string name="recommendation_price">Pris:</string>
+    <string name="recommendation_savings">Besparelse i butik:</string>
+    <string name="recommendation_currency">DKK</string>
 
     <!-- Other -->
     <string name="loading">Øjeblik...</string>

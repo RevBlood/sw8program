@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +31,18 @@ public class RecommendationFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_recommendation, container, false);
 
         TextView recipeNameView = (TextView) rootView.findViewById(R.id.recipe_name);
+        TextView priceView = (TextView) rootView.findViewById(R.id.text_price);
+        TextView savingsView = (TextView) rootView.findViewById(R.id.text_saving);
         ViewPager recipeImagePager = (ViewPager) rootView.findViewById(R.id.paged_image_layout);
 
         Bundle bundle = this.getArguments();
         JsonRecipe = bundle.getString("recipe");
         DeserializedRecipe = JSONHelper.Deserialize(JsonRecipe, Recipe.class);
+
+        DecimalFormat formatter = new DecimalFormat("##.00");
+        priceView.setText(formatter.format(Double.parseDouble(bundle.getString("price", "-1"))));
+        savingsView.setText(formatter.format(Double.parseDouble(bundle.getString("savingsStorePrice", "-1"))));
+
 
         String RecipeName = DeserializedRecipe.getName();
         List<Drawable> RecipeImages = new ArrayList<>();

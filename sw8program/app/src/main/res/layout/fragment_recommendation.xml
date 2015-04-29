@@ -13,6 +13,7 @@
         android:layout_marginBottom="20dp"/>
 
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:id="@+id/navigation"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
@@ -20,6 +21,7 @@
         android:orientation="horizontal">
 
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/button_recommendation_choose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,12 +29,71 @@
             android:text="@string/recommendation_yes"/>
 
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/button_recommendation_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/recommendation_no"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_above="@id/navigation"
+        android:layout_marginBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recommendation_price"/>
+
+        <TextView
+            android:id="@+id/text_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"
+
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recommendation_currency"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recommendation_savings"/>
+
+        <TextView
+            android:id="@+id/text_saving"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recommendation_currency"/>
+
+        </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout
