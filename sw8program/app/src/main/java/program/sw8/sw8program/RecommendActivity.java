@@ -59,9 +59,10 @@ public class RecommendActivity extends FragmentActivity {
                     position.longitude));
         } else {
             Map<Recipe, ExtraData> map = new HashMap<>();
-                map.put(new Recipe(-1, -1, "dillersnavs", "meget lækker", new Date(), -1, "tags", new BigDecimal(5)), new ExtraData(new BigDecimal(37), new BigDecimal(12)));
-                map.put(new Recipe(-1, -1, "tis", "meget lækker", new Date(), -1, "tags", new BigDecimal(5)), new ExtraData(new BigDecimal(42), new BigDecimal(5)));
-                map.put(new Recipe(-1, -1, "spaghetti", "meget lækker", new Date(), -1, "tags", new BigDecimal(5)), new ExtraData(new BigDecimal(13), new BigDecimal(2)));
+                map.put(new Recipe(-1, -1, "Pølsemix", "meget lækker", new Date(), -1, "tags", new BigDecimal(5)), new ExtraData(new BigDecimal(37), new BigDecimal(12)));
+                map.put(new Recipe(-1, -1, "Svampe Risotto", "meget lækker", new Date(), -1, "tags", new BigDecimal(5)), new ExtraData(new BigDecimal(42), new BigDecimal(5)));
+                map.put(new Recipe(-1, -1, "Spaghetti" +
+                        "", "meget lækker", new Date(), -1, "tags", new BigDecimal(5)), new ExtraData(new BigDecimal(13), new BigDecimal(2)));
             recipes = new RecipeWithExtraData(map);
         }
 
