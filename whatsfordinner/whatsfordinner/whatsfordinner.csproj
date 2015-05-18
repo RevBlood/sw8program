@@ -107,6 +107,7 @@
     <Compile Include="Logics\FileManager.cs" />
     <Compile Include="Logics\eTilbudRetriever.cs" />
     <Compile Include="Logics\IngredientIdentifier.cs" />
+    <Compile Include="Logics\LongComSubstring.cs" />
     <Compile Include="ModelDebug.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Comment.cs" />
