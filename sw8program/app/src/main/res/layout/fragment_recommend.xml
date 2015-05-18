@@ -26,6 +26,7 @@
         android:layout_below="@id/title">
 
         <Button
+            android:id="@+id/button_recommend"
             android:text="@string/recommend_button"
             android:layout_width="200dp"
             android:layout_height="200dp"

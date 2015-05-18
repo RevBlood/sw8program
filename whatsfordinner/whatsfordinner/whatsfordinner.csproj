@@ -70,6 +70,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Device" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
@@ -81,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommunicationModels\RecipeWithExtradata.cs" />
     <Compile Include="CommunicationModels\RecipeWithIngredients.cs" />
     <Compile Include="DBController.cs" />
     <Compile Include="DBDebug.cs" />
@@ -104,10 +106,15 @@
     <Compile Include="JSONDebug.cs" />
     <Compile Include="JSONHelper.cs" />
     <Compile Include="Logics\eTilbudDatabaseHandler.cs" />
+    <Compile Include="Logics\ExtraData.cs" />
     <Compile Include="Logics\FileManager.cs" />
     <Compile Include="Logics\eTilbudRetriever.cs" />
     <Compile Include="Logics\IngredientIdentifier.cs" />
+<<<<<<< HEAD
     <Compile Include="Logics\LongComSubstring.cs" />
+=======
+    <Compile Include="Logics\SearchMethods.cs" />
+>>>>>>> a0d40211a3931d35007248b14539e4fe6123a4ed
     <Compile Include="ModelDebug.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Comment.cs" />
