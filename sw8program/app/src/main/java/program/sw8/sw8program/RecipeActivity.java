@@ -10,9 +10,6 @@ import android.widget.TabHost;
 import java.util.List;
 import java.util.Vector;
 
-/**
- * Created by Johan 'Jizztærsker' on 23-03-2015.
- */
 public class RecipeActivity extends FragmentActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 
     private TabHost mTabHost;

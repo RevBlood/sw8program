@@ -48,8 +48,18 @@ public class RecommendationFragment extends Fragment {
         List<Drawable> RecipeImages = new ArrayList<>();
 
         Resources r = getResources();
-        RecipeImages.add(r.getDrawable(R.drawable.placeholder_recipe_1));
-        RecipeImages.add(r.getDrawable(R.drawable.placeholder_recipe_2));
+        if (RecipeName.equals("Poelsemix")) {
+            RecipeImages.add(r.getDrawable(R.drawable.placeholder_polsemix1));
+            RecipeImages.add(r.getDrawable(R.drawable.placeholder_polsemix2));
+            RecipeImages.add(r.getDrawable(R.drawable.placeholder_polsemix3));
+        } else if (RecipeName.equals("Flaeskesteg")) {
+            RecipeImages.add(r.getDrawable(R.drawable.placeholder_flaskesteg1));
+            RecipeImages.add(r.getDrawable(R.drawable.placeholder_flaskesteg2));
+        } else {
+            RecipeImages.add(r.getDrawable(R.drawable.placeholder_spaghetti1));
+            RecipeImages.add(r.getDrawable(R.drawable.placeholder_spaghetti2));
+            RecipeImages.add(r.getDrawable(R.drawable.placeholder_spaghetti3));
+        }
 
         //Populate views
         recipeNameView.setText(RecipeName);

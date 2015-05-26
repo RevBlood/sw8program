@@ -231,7 +231,7 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
                 try {
                     // Simulate network access.
                     Thread.sleep(2000);
-                    UserAccount = new Account(Alias, Password, Email, "settings", "preferences");
+                    UserAccount = new Account(Email, Password, "hardcoded alias", "settings", "preferences");
                     return true;
                 } catch (InterruptedException e) {
                     return false;
@@ -246,10 +246,10 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
         protected void onPostExecute(final Boolean success) {
             AuthTask = null;
             showProgress(false);
-
-            if (success) {
-                UserAccount = ServiceHelper.GetAccountByEmail(Email);
-
+                if (success) {
+                    if (getString(R.string.debug).equals("off")) {
+                        UserAccount = ServiceHelper.GetAccountByEmail(Email);
+                    }
                 if (UserAccount == null) {
                     throw new Error("Failed retrieving account");
                 }

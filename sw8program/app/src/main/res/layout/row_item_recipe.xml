@@ -11,7 +11,7 @@
         android:id="@+id/recipe_picture"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/placeholder_recipe_2"
+        android:src="@drawable/placeholder_polsemix1"
         android:paddingRight="15dp"/>
 
     <TextView

@@ -48,14 +48,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if(getString(R.string.debug).equals("off")) {
-            // Check if a session is available for reload
-            SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
-            if (session.contains("alias")) {
-                Intent intent = new Intent(LoginActivity.this, PagerActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        // Check if a session is available for reload
+        SharedPreferences session = getApplicationContext().getSharedPreferences(getString(R.string.app_name), 0);
+        if (session.contains("alias")) {
+            Intent intent = new Intent(LoginActivity.this, PagerActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         EmailView = (AutoCompleteTextView) findViewById(R.id.email);

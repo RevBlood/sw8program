@@ -11,9 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-/**
- * Created by Johan 'Jizztærsker' on 16-02-2015.
- */
 public class GridViewAdapter extends BaseAdapter {
     private Context PagerActivityContext;
     private Boolean RequestActive = false;

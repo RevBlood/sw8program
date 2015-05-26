@@ -34,8 +34,8 @@ public class DiscoverFragment extends Fragment {
 
         //TODO: Remove debug
         if(getString(R.string.debug).equals("on")) {
-            Recipes.add(new Recipe(1, 1, "Pølsemix", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", new Date(), 3, "house", new BigDecimal(3.91231)));
-            Recipes.add(new Recipe(3, 2, "Grillet Johan", "flot mad", new Date(), 5, "house", new BigDecimal(3.41231)));
+            Recipes.add(new Recipe(1, 1, "Poelsemix", "Semper nascetur class pretium. Fusce nibh vel ac, suscipit sagittis, lobortis viverra. Integer odio nulla a parturient, nulla luctus massa adipiscing senectus lectus. Diam felis amet metus, donec ac vivamus orci cras sed, lacus enim mattis eu, velit tristique, faucibus fusce nulla velit. Odio non nunc vel mi malesuada diam. Vivamus nam ante, primis massa nec placerat justo posuere sociis, sit maecenas eget ac condimentum. Integer a sem id, est maecenas hendrerit aliquam est in lacus, mollis quis tempor risus sollicitudin vitae. Rutrum eleifend, nunc magnis enim turpis sem condimentum porttitor, aliquam ornare felis sed. Elit integer vitae sem, neque cursus lobortis arcu pede tortor amet.", new Date(), 3, "house", new BigDecimal(3.91231)));
+            Recipes.add(new Recipe(3, 2, "Flaeskesteg", "flot mad", new Date(), 5, "house", new BigDecimal(3.41231)));
         } else {
             //TODO: this shit is wrong - we need a method for discovering based on something (e.g search by ingredient, price limitation or whatever)
             //Try to retrieve recipes from server. In case the list retrieved is null, instantiate Recipes again to avoid NullPointerException
@@ -139,7 +139,6 @@ public class DiscoverFragment extends Fragment {
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
-            Log.e("fuck", "Johan er til mænd");
         }
     };
 

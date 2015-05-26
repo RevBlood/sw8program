@@ -3,9 +3,10 @@
     <!-- Debug Mode on/off -->
     <string name="debug">on</string>
 
+    <!-- General -->
+    <string name="app_name">Billig Aftensmad</string>
+
     <!-- Android generated -->
-    <string name="app_name">sw8program</string>
-    <string name="hello_world">Fuck dig Johan</string>
     <string name="action_settings">Settings</string>
 
     <!-- Login & SignUp activity-->
@@ -31,7 +32,7 @@
     <string name="comment_submit">Post</string>
 
     <!-- Recommend fragment -->
-    <string name="recommend_button">Find min mad!</string>
+    <string name="recommend_button">Foreslå aftensmad</string>
     <string name="recommend_tip"><u>Dårlige forslag? Skift dine præferencer</u></string>
 
     <!-- Favourites fragment -->

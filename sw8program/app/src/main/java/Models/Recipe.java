@@ -118,18 +118,18 @@ public class Recipe {
 	@Override
 	public String toString() {
 		Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		StringBuilder result = new StringBuilder();
+		String result = "";
 		String space = " ";
 		
-		result.append(this.getId() + space);
-		result.append(this.getAccountId() + space);
-		result.append(this.getName() + space);
-		result.append(this.getDescription() + space);
-		result.append(formatter.format(this.getCreationDate()) + space);
-		result.append(this.getNumberOfServings() + space);
-		result.append(this.getTags() + space);
-		result.append(this.getRating() + space);
+		result += (this.getId() + space);
+		result += (this.getAccountId() + space);
+		result += (this.getName() + space);
+		result += (this.getDescription() + space);
+		result += (formatter.format(this.getCreationDate()) + space);
+		result += (this.getNumberOfServings() + space);
+		result += (this.getTags() + space);
+		result += (this.getRating() + space);
 
-		return result.toString();
+		return result;
 	}
 }

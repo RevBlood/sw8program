@@ -5,9 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
-/**
- * Created by Johan 'Jizztærsker' on 16-02-2015.
- */
 public class MainFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private final int PageCount = 5;
     private GridViewAdapter TabAdapter;

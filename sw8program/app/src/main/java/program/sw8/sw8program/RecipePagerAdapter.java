@@ -8,9 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-/**
- * Created by Johan 'Jizztærsker' on 23-03-2015.
- */
 public class RecipePagerAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> fragments;
