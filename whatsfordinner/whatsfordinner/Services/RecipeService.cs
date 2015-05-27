@@ -110,6 +110,30 @@ namespace whatsfordinner {
             return null;
         }
 
+        [WebInvoke(Method = "GET", UriTemplate = "GetRecipesByIdWithExtraData?pricePreference={pricePreference}&savingsPreference={savingsPreference}&numberOfRecipes={numberOfRecipes}&radius={radius}&latitude={latitude}&longitude={longitude}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        public RecipeWithExtradata GetRecipesWithExtraData(int pricePreference, int savingsPreference, int numberOfRecipes, int radius, double latitude, double longitude) {
+            DBController dbc = new DBController();
+            SearchMethods sm = new SearchMethods();
+
+            WebOperationContext ctx = WebOperationContext.Current;
+            try {
+                RecipeWithExtradata tempData = new RecipeWithExtradata(sm.sortBasedOnPreferences(pricePreference, savingsPreference, numberOfRecipes, radius, latitude, longitude));
+                if (tempData != null) {
+                    return tempData;
+                }
+
+            } catch (NpgsqlException e) {
+                Console.WriteLine((Program.sqlDebugMessages) ? "GetRecipesWithExtraData: " + e.BaseMessage.ToString() : "");
+                ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.Conflict;
+                ctx.OutgoingResponse.StatusDescription = e.BaseMessage;
+                return null;
+            } finally {
+                dbc.Close();
+            }
+            ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.NoContent;
+            return null;
+        }
+
         [WebInvoke(Method = "GET", UriTemplate = "GetAllRecipes", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public List<Recipe> GetAllRecipes() {
             DBController dbc = new DBController();
@@ -130,6 +154,9 @@ namespace whatsfordinner {
             ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.NoContent;
             return null;
         }
+
+
+
 
         [WebInvoke(Method = "DELETE", UriTemplate = "DeleteRecipeById?recipeId={recipeId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         public bool DeleteRecById(int recipeId) {

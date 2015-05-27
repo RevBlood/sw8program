@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace whatsfordinner {
-    class ExtraData {
+    public class ExtraData {
 
         public decimal Price;
         public decimal SavingStorePrice;

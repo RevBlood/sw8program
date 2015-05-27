@@ -25,18 +25,18 @@ namespace whatsfordinner {
             List<Retailer> retailers = GetStoresWithinRadius(dbc.GetAllRetailers(), radius, latitude, longitude);
 
             //finds all retailers within the radius which has an offer on anything on the recipe.
-            for(int i = retailers.Count() - 1; i > -1; i--) {
+            for (int i = retailers.Count() - 1; i > -1; i--) {
 
                 bool found = false;
 
-                foreach(Offers offer in recipeWithIngredients.GetOrSetOffers) {
+                foreach (Offers offer in recipeWithIngredients.GetOrSetOffers) {
 
-                    if(retailers[i].GetOrSetId == offer.GetOrSetRetailerId) {
+                    if (retailers[i].GetOrSetId == offer.GetOrSetRetailerId) {
                         found = true;
                     }
                 }
 
-                if(!found) {
+                if (!found) {
                     retailers.RemoveAt(i);
                 }
             }
@@ -52,7 +52,7 @@ namespace whatsfordinner {
 
                             if (storeNormalPrice != -1) {
                                 if (offer.GetOrSetNormalPrice.HasValue) {
-                                    storeNormalPrice += (decimal) offer.GetOrSetNormalPrice;
+                                    storeNormalPrice += (decimal)offer.GetOrSetNormalPrice;
                                 } else {
                                     storeNormalPrice = -1;
                                 }
@@ -76,7 +76,7 @@ namespace whatsfordinner {
 
                 //Important, this is the order in which the dictionary is ordered
 
-                retailerDictionary.Add(retailer, new ExtraData(price, savingStorePrice,savingGeneralPrice, savingStorePercent, savingGeneralPercent, retailer.GetOrSetId));
+                retailerDictionary.Add(retailer, new ExtraData(price, savingStorePrice, savingGeneralPrice, savingStorePercent, savingGeneralPercent, retailer.GetOrSetId));
                 price = 0;
             }
 
@@ -142,11 +142,11 @@ namespace whatsfordinner {
             for (int i = totalPartitions; i >= 0; i--) {
 
                 // Calculate range of entries that should have a certain rating and remember how much was subtracted (for next iteration)
-                int partitionSize = Convert.ToInt32(Math.Round((double) recipeCount / i));
+                int partitionSize = Convert.ToInt32(Math.Round((double)recipeCount / i));
                 recipeCount -= partitionSize;
 
                 // Fill in the relevant rating inside the calculated range of the list
-                for(int k = tempInt; k < tempInt + partitionSize; k++) {
+                for (int k = tempInt; k < tempInt + partitionSize; k++) {
                     tempInt += partitionSize;
                     list.ElementAt(k).Value.Rating += i * preference;
                 }

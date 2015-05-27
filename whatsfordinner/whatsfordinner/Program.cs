@@ -13,13 +13,63 @@ namespace whatsfordinner {
         public static bool sqlDebugMessages = true;
 
         static void Main(string[] args) {
+            
+            string substring = "";
+            int length = LongComSubstring.LongestCommonSubstring("penislægen", "penis", out substring);
+            Console.WriteLine(length);
+            Console.WriteLine(substring);
+            IngredientIdentifier.Identify();
 
+            Offer off1 = null;
+            List<Offer> offers = getOffers();
+            for (int i = 530; i < 531; i++) {
+
+                off1 = offers[i];
+                Console.WriteLine(off1.heading);
+                Console.WriteLine(off1.description);
+                Console.WriteLine(off1.pricing.pre_price);
+                Console.WriteLine(off1.pricing.price);
+
+            }
+
+
+
+            //IngredientIdentifier.nameGuessing(off1.heading, off1.description);
+
+            Console.WriteLine("string: " + off1.heading);
+            DBController dbc = new DBController();
+            List<Ingredient> allIngredients = dbc.GetAllIngredients();
+            dbc.Close();
+
+
+
+            List<string> badWords = new List<string> {"i", "med", "fra", "af" };
+            if (badWords.Contains("med")) {
+                Console.WriteLine("indeholder, gem ikke");
+            } else {
+                Console.WriteLine("indeholder ikke, gem");
+            }
+
+            
+            foreach (Offer off in offers) {
+                Console.WriteLine(off.heading);
+                List<string> words = IngredientIdentifier.importantWordsFromString(off.heading, ref allIngredients);
+                foreach (string str in words) {
+                    Console.WriteLine(str);
+                }
+                Console.ReadLine();
+            }
+            
+
+
+            /*
+            DBDebug.dbMassInsert();
             Script.ExcelExtractionScript();
             UpdateDatabaseWithOffers();
-
-            IngredientIdentifier.Identify();
+            */
             
-            //DBDebug.dbMassInsert();
+            
+
             Console.WriteLine("Starting Service...");
             //startRestService();
             
@@ -129,6 +179,23 @@ namespace whatsfordinner {
             // Convert eTilbud classes to classes recognized by the database - Then save them
             eTilbudDatabaseHandler handler = new eTilbudDatabaseHandler();
             handler.save(dealers, stores, offers);
+        }
+
+        static List<Offer> getOffers() {
+            List<String> offerData = FileManager.read("Offers");
+            List<Offer> offers = new List<Offer>();
+
+            foreach (String line in offerData) {
+                offers.AddRange(JsonConvert.DeserializeObject<List<Offer>>(line));
+            };
+
+            // Fix the date format in offers to match a supported format (Inserts a colon)
+            foreach (Offer offer in offers) {
+                offer.run_from = offer.run_from.Insert(offer.run_from.IndexOf('+') + 3, ":");
+                offer.run_till = offer.run_till.Insert(offer.run_till.IndexOf('+') + 3, ":");
+            }
+
+            return offers;
         }
     }
 }

@@ -105,7 +105,7 @@ namespace whatsfordinner {
         private decimal? _offersNormalPrice;
 
         [DataMember(Name = "onsaleprice")]
-        public decimal GetOrSetOnSalePrice {
+        public decimal? GetOrSetOnSalePrice {
             get {
                 return _offersOnSalePrice;
             }
@@ -113,10 +113,10 @@ namespace whatsfordinner {
                 _offersOnSalePrice = value;
             }
         }
-        private decimal _offersOnSalePrice;
+        private decimal? _offersOnSalePrice;
 
         [DataMember(Name = "krsaving")]
-        public decimal GetOrSetKrSaving {
+        public decimal? GetOrSetKrSaving {
             get {
                 return _offersKrSaving;
             }
@@ -124,10 +124,10 @@ namespace whatsfordinner {
                 _offersKrSaving = value;
             }
         }
-        private decimal _offersKrSaving;
+        private decimal? _offersKrSaving;
 
         [DataMember(Name = "percentagesavingretailer")]
-        public decimal GetOrSetPercentageSavingRetailer {
+        public decimal? GetOrSetPercentageSavingRetailer {
             get {
                 return _offersPercentageSavingRetailer;
             }
@@ -135,10 +135,10 @@ namespace whatsfordinner {
                 _offersPercentageSavingRetailer = value;
             }
         }
-        private decimal _offersPercentageSavingRetailer;
+        private decimal? _offersPercentageSavingRetailer;
 
         [DataMember(Name = "percentagesavinggeneral")]
-        public decimal GetOrSetPercentageSavingGeneral {
+        public decimal? GetOrSetPercentageSavingGeneral {
             get {
                 return _offersPercentageSavingGeneral;
             }
@@ -146,7 +146,7 @@ namespace whatsfordinner {
                 _offersPercentageSavingGeneral = value;
             }
         }
-        private decimal _offersPercentageSavingGeneral;
+        private decimal? _offersPercentageSavingGeneral;
 
         public override string ToString() {
             return this.GetOrSetRetailerId
